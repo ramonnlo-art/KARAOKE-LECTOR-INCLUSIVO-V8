@@ -1,0 +1,12 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# COPIAS DE SEGURIDAD LOCALES: NO SUBIR A GITHUB
+**/*_ANTES_*
+/lector-inclusivo-pro.zip

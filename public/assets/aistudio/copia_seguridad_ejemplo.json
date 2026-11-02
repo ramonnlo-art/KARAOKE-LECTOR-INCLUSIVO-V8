@@ -1,0 +1,2683 @@
+{
+  "version": 8,
+  "fecha": "2026-11-02T10:00:00.000Z",
+  "exportDate": "2026-11-02T10:00:00.000Z",
+  "lecturas": [
+    {
+      "id": "L01",
+      "level": 0,
+      "category": "Prelectura",
+      "title": "Sílabas ma me mi mo mu",
+      "text": "ma me mi mo mu\npa pe pi po pu\nsa se si so su",
+      "questions": [
+        [
+          "¿Qué letra empieza en ma?",
+          "m",
+          "p",
+          "s"
+        ],
+        [
+          "¿Cuál es una sílaba con p?",
+          "pa",
+          "ma",
+          "sa"
+        ],
+        [
+          "¿Cuál termina en u?",
+          "mu",
+          "mi",
+          "me"
+        ]
+      ],
+      "vocab": [
+        "ma",
+        "pa",
+        "sa",
+        "mu"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L02",
+      "level": 0,
+      "category": "Prelectura",
+      "title": "Sílabas la le li lo lu",
+      "text": "la le li lo lu\nta te ti to tu\nda de di do du",
+      "questions": [
+        [
+          "¿Cuál tiene la letra t?",
+          "ta",
+          "la",
+          "da"
+        ],
+        [
+          "¿Cuál es una sílaba con d?",
+          "do",
+          "lo",
+          "tu"
+        ],
+        [
+          "¿Cuál termina en i?",
+          "li",
+          "la",
+          "lu"
+        ]
+      ],
+      "vocab": [
+        "la",
+        "ta",
+        "da",
+        "li"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L03",
+      "level": 0,
+      "category": "Prelectura",
+      "title": "Sílabas na fa ra",
+      "text": "na ne ni no nu\nfa fe fi fo fu\nra re ri ro ru",
+      "questions": [
+        [
+          "¿Cuál tiene la letra f?",
+          "fa",
+          "na",
+          "ra"
+        ],
+        [
+          "¿Cuál empieza por r?",
+          "ro",
+          "no",
+          "fo"
+        ],
+        [
+          "¿Cuál termina en e?",
+          "ne",
+          "ni",
+          "nu"
+        ]
+      ],
+      "vocab": [
+        "na",
+        "fa",
+        "ra",
+        "ro"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L04",
+      "level": 0,
+      "category": "Prelectura",
+      "title": "Sílabas inversas",
+      "text": "al el il ol ul\nas es is os us",
+      "questions": [
+        [
+          "¿Cuál es una sílaba inversa?",
+          "al",
+          "ma",
+          "pa"
+        ],
+        [
+          "¿Cuál termina en s?",
+          "os",
+          "ol",
+          "ul"
+        ],
+        [
+          "¿Cuál empieza por e?",
+          "el",
+          "al",
+          "il"
+        ]
+      ],
+      "vocab": [
+        "al",
+        "el",
+        "os",
+        "as"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L05",
+      "level": 0,
+      "category": "Prelectura",
+      "title": "Trabadas bra bre bri",
+      "text": "bra bre bri bro bru",
+      "questions": [
+        [
+          "¿Qué letra va antes de la r?",
+          "b",
+          "p",
+          "m"
+        ],
+        [
+          "¿Cuál termina en i?",
+          "bri",
+          "bra",
+          "bru"
+        ],
+        [
+          "¿Cuál empieza por b?",
+          "bro",
+          "pro",
+          "tro"
+        ]
+      ],
+      "vocab": [
+        "bra",
+        "bre",
+        "bri"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L06",
+      "level": 0,
+      "category": "Prelectura",
+      "title": "Trabadas cra cre cri",
+      "text": "cra cre cri cro cru",
+      "questions": [
+        [
+          "¿Cuál tiene la letra c?",
+          "cra",
+          "bra",
+          "tra"
+        ],
+        [
+          "¿Cuál termina en o?",
+          "cro",
+          "cri",
+          "cru"
+        ],
+        [
+          "¿Cuántas sílabas hay?",
+          "cinco",
+          "dos",
+          "diez"
+        ]
+      ],
+      "vocab": [
+        "cra",
+        "cre",
+        "cro"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L07",
+      "level": 0,
+      "category": "Prelectura",
+      "title": "Trabadas fla fle fli",
+      "text": "fla fle fli flo flu",
+      "questions": [
+        [
+          "¿Qué letra empieza en flo?",
+          "f",
+          "p",
+          "l"
+        ],
+        [
+          "¿Cuál termina en u?",
+          "flu",
+          "fla",
+          "fle"
+        ],
+        [
+          "¿Cuál tiene la letra l?",
+          "fli",
+          "bra",
+          "tro"
+        ]
+      ],
+      "vocab": [
+        "fla",
+        "fli",
+        "flo"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L08",
+      "level": 0,
+      "category": "Prelectura",
+      "title": "Trabadas pra pre pri",
+      "text": "pra pre pri pro pru",
+      "questions": [
+        [
+          "¿Cuál empieza por p?",
+          "pra",
+          "tra",
+          "cra"
+        ],
+        [
+          "¿Cuál termina en i?",
+          "pri",
+          "pro",
+          "pru"
+        ],
+        [
+          "¿Qué letra va antes de la r?",
+          "p",
+          "b",
+          "f"
+        ]
+      ],
+      "vocab": [
+        "pra",
+        "pre",
+        "pri"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L09",
+      "level": 0,
+      "category": "Prelectura",
+      "title": "Trabadas tra tre tri",
+      "text": "tra tre tri tro tru",
+      "questions": [
+        [
+          "¿Cuál tiene la letra t?",
+          "tra",
+          "pra",
+          "bra"
+        ],
+        [
+          "¿Cuál termina en u?",
+          "tru",
+          "tro",
+          "tri"
+        ],
+        [
+          "¿Cuál empieza por tr?",
+          "tre",
+          "pre",
+          "bre"
+        ]
+      ],
+      "vocab": [
+        "tra",
+        "tre",
+        "tru"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L10",
+      "level": 0,
+      "category": "Prelectura",
+      "title": "Palabras de una sílaba",
+      "text": "pan sol mar\nluz sal mes",
+      "questions": [
+        [
+          "¿Cuál brilla de día?",
+          "sol",
+          "pan",
+          "sal"
+        ],
+        [
+          "¿Cuál se come?",
+          "pan",
+          "mar",
+          "mes"
+        ],
+        [
+          "¿Cuál da luz?",
+          "luz",
+          "sal",
+          "mar"
+        ]
+      ],
+      "vocab": [
+        "pan",
+        "sol",
+        "mar",
+        "luz"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L11",
+      "level": 0,
+      "category": "Prelectura",
+      "title": "Palabras de dos sílabas",
+      "text": "ca-sa me-sa\npe-rro ga-to\nli-bro flo-r",
+      "questions": [
+        [
+          "¿Cuál es un animal?",
+          "pe-rro",
+          "ca-sa",
+          "me-sa"
+        ],
+        [
+          "¿Cuál se lee?",
+          "li-bro",
+          "ga-to",
+          "me-sa"
+        ],
+        [
+          "¿Cuántas sílabas tiene ca-sa?",
+          "dos",
+          "tres",
+          "una"
+        ]
+      ],
+      "vocab": [
+        "casa",
+        "mesa",
+        "perro",
+        "gato"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L12",
+      "level": 0,
+      "category": "Prelectura",
+      "title": "Mis primeras frases",
+      "text": "El sol.\nLa luna.\nEl perro corre.\nLa flor.",
+      "questions": [
+        [
+          "¿Qué corre?",
+          "el perro",
+          "el sol",
+          "la flor"
+        ],
+        [
+          "¿Qué sale de noche?",
+          "la luna",
+          "el sol",
+          "el pan"
+        ],
+        [
+          "¿De qué color puede ser la flor?",
+          "roja",
+          "azul o roja",
+          "negra"
+        ]
+      ],
+      "vocab": [
+        "sol",
+        "luna",
+        "perro",
+        "flor"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L13",
+      "level": 1,
+      "category": "Cuento",
+      "title": "El gato y el ratón",
+      "text": "El gato mira al ratón.\nEl ratón corre a su agujero.\nEl gato se queda mirando.\nEl ratón está a salvo.",
+      "questions": [
+        [
+          "¿Dónde se esconde el ratón?",
+          "en su agujero",
+          "en el jardín",
+          "en la mesa"
+        ],
+        [
+          "¿Qué hace el gato?",
+          "mira",
+          "duerme",
+          "come"
+        ],
+        [
+          "¿Cómo acaba el ratón?",
+          "a salvo",
+          "triste",
+          "mojado"
+        ]
+      ],
+      "vocab": [
+        "gato",
+        "ratón",
+        "agujero",
+        "mirar"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L14",
+      "level": 1,
+      "category": "Rima",
+      "title": "Pim pam pum",
+      "text": "Pim, pam, pum,\ncolores de pintura.\nPim, pam, pum,\nqué linda hermosura.",
+      "questions": [
+        [
+          "¿De qué son los colores?",
+          "de pintura",
+          "de comida",
+          "de ropa"
+        ],
+        [
+          "¿Qué palabra rima con pum?",
+          "hermosura",
+          "pum",
+          "mesa"
+        ],
+        [
+          "¿Cómo suena el golpe?",
+          "pim pam pum",
+          "tic tac",
+          "miau"
+        ]
+      ],
+      "vocab": [
+        "pintar",
+        "colores",
+        "pum"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L15",
+      "level": 1,
+      "category": "Adivinanza",
+      "title": "La pera",
+      "text": "Blanca por dentro,\nverde por fuera.\nSi quieres que te lo diga,\nespera.",
+      "questions": [
+        [
+          "¿Qué fruta es?",
+          "la pera",
+          "la manzana",
+          "el limón"
+        ],
+        [
+          "¿De qué color es por fuera?",
+          "verde",
+          "roja",
+          "azul"
+        ],
+        [
+          "¿De qué color es por dentro?",
+          "blanca",
+          "verde",
+          "negra"
+        ]
+      ],
+      "vocab": [
+        "pera",
+        "verde",
+        "blanca",
+        "fruta"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L16",
+      "level": 1,
+      "category": "Trabalenguas",
+      "title": "Tres tristes tigres",
+      "text": "Tres tristes tigres\ntragaban trigo en un trigal.\nEn tres tristes trastos.",
+      "questions": [
+        [
+          "¿Cuántos tigres hay?",
+          "tres",
+          "dos",
+          "cuatro"
+        ],
+        [
+          "¿Qué comían?",
+          "trigo",
+          "pan",
+          "carne"
+        ],
+        [
+          "¿Dónde estaban?",
+          "en un trigal",
+          "en el mar",
+          "en casa"
+        ]
+      ],
+      "vocab": [
+        "tigre",
+        "trigo",
+        "trigal"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L17",
+      "level": 1,
+      "category": "Instructivo",
+      "title": "Lavarse las manos",
+      "text": "1. Moja tus manos.\n2. Pon jabón.\n3. Frota veinte segundos.\n4. Enjuaga y seca.",
+      "questions": [
+        [
+          "¿Qué pones después de mojar?",
+          "jabón",
+          "agua",
+          "crema"
+        ],
+        [
+          "¿Cuánto tiempo frotas?",
+          "veinte segundos",
+          "cinco minutos",
+          "una hora"
+        ],
+        [
+          "¿Qué haces al final?",
+          "secar",
+          "mojar",
+          "jabón"
+        ]
+      ],
+      "vocab": [
+        "agua",
+        "jabón",
+        "lavar",
+        "toalla"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L18",
+      "level": 1,
+      "category": "Diálogo",
+      "title": "En el parque",
+      "text": "Ana: ¿Jugamos?\nLuis: Sí, a la pelota.\nAna: ¡Tira la pelota!\nLuis: ¡Gol!",
+      "questions": [
+        [
+          "¿A qué juegan?",
+          "a la pelota",
+          "a las cartas",
+          "al escondite"
+        ],
+        [
+          "¿Quién marca gol?",
+          "Luis",
+          "Ana",
+          "el perro"
+        ],
+        [
+          "¿Dónde juegan?",
+          "en el parque",
+          "en la cama",
+          "en el baño"
+        ]
+      ],
+      "vocab": [
+        "jugar",
+        "pelota",
+        "parque",
+        "amigo"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L19",
+      "level": 1,
+      "category": "Canción",
+      "title": "Estrellita",
+      "text": "Estrellita, ¿dónde estás?\nMe pregunto qué serás.\nEn el cielo y en el mar,\nun diamante de verdad.",
+      "questions": [
+        [
+          "¿Dónde está la estrellita?",
+          "en el cielo",
+          "en la casa",
+          "en el colegio"
+        ],
+        [
+          "¿Con qué se compara?",
+          "un diamante",
+          "una pelota",
+          "una manzana"
+        ],
+        [
+          "¿De qué habla la canción?",
+          "de una estrella",
+          "de un perro",
+          "de un coche"
+        ]
+      ],
+      "vocab": [
+        "estrella",
+        "cielo",
+        "mar"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L20",
+      "level": 1,
+      "category": "Cuento",
+      "title": "La semilla",
+      "text": "Una semilla cayó en la tierra.\nLlovió muchos días.\nSalió un tallo verde.\nDespués salió una flor roja.",
+      "questions": [
+        [
+          "¿Qué cayó en la tierra?",
+          "una semilla",
+          "una piedra",
+          "una hoja"
+        ],
+        [
+          "¿Qué salió primero?",
+          "un tallo verde",
+          "una flor",
+          "un árbol"
+        ],
+        [
+          "¿De qué color era la flor?",
+          "roja",
+          "azul",
+          "blanca"
+        ]
+      ],
+      "vocab": [
+        "semilla",
+        "tierra",
+        "lluvia",
+        "flor"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L21",
+      "level": 1,
+      "category": "Adivinanza",
+      "title": "El reloj",
+      "text": "Tiene agujas y no sabe coser.\nTiene números y no sabe leer.",
+      "questions": [
+        [
+          "¿Qué es?",
+          "el reloj",
+          "la regla",
+          "el libro"
+        ],
+        [
+          "¿Qué tiene el reloj?",
+          "agujas y números",
+          "alas",
+          "ruedas"
+        ],
+        [
+          "¿Para qué sirve?",
+          "para saber la hora",
+          "para comer",
+          "para dormir"
+        ]
+      ],
+      "vocab": [
+        "reloj",
+        "números",
+        "hora"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L22",
+      "level": 1,
+      "category": "Rima",
+      "title": "Debajo de un botón",
+      "text": "Debajo de un botón, ton, ton,\nque encontró Martín, tin, tin,\nhabía un ratón, ton, ton,\nay, qué chiquitín.",
+      "questions": [
+        [
+          "¿Qué encontró Martín?",
+          "un ratón",
+          "un gato",
+          "un perro"
+        ],
+        [
+          "¿Dónde estaba?",
+          "debajo de un botón",
+          "en el mar",
+          "en la cama"
+        ],
+        [
+          "¿Cómo era el ratón?",
+          "chiquitín",
+          "grande",
+          "largo"
+        ]
+      ],
+      "vocab": [
+        "botón",
+        "ratón",
+        "pequeño"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L23",
+      "level": 1,
+      "category": "Informativo",
+      "title": "El arcoíris",
+      "text": "El arcoíris tiene siete colores.\nSale cuando llueve y hace sol.\nLos colores son rojo, naranja, amarillo, verde, azul, añil y violeta.",
+      "questions": [
+        [
+          "¿Cuántos colores tiene?",
+          "siete",
+          "cinco",
+          "diez"
+        ],
+        [
+          "¿Cuándo sale?",
+          "cuando llueve y hace sol",
+          "de noche",
+          "cuando nieva"
+        ],
+        [
+          "¿Cuál es un color del arcoíris?",
+          "verde",
+          "negro",
+          "gris"
+        ]
+      ],
+      "vocab": [
+        "arcoíris",
+        "lluvia",
+        "sol",
+        "colores"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L24",
+      "level": 1,
+      "category": "Cuento",
+      "title": "El patito que quería volar",
+      "text": "El patito quería volar.\nCorrió y movió sus alas.\nSaltó otra vez más fuerte.\nPor fin hizo un vuelo corto.\nEl patito se puso contento.",
+      "questions": [
+        [
+          "¿Qué quería el patito?",
+          "volar",
+          "nadar",
+          "dormir"
+        ],
+        [
+          "¿Qué movió para volar?",
+          "las alas",
+          "las patas",
+          "la cola"
+        ],
+        [
+          "¿Cómo se sintió al final?",
+          "contento",
+          "triste",
+          "enfadado"
+        ]
+      ],
+      "vocab": [
+        "pato",
+        "volar",
+        "alas",
+        "contento"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L25",
+      "level": 2,
+      "category": "Fábula",
+      "title": "La liebre y la tortuga",
+      "text": "La liebre corría muy rápido y se burlaba de la tortuga.\nLas dos hicieron una carrera.\nLa liebre se tumbó a dormir a mitad del camino.\nLa tortuga siguió andando sin parar.\nCuando la liebre despertó, la tortuga ya estaba en la meta.\nLa constancia gana a la prisa.",
+      "questions": [
+        [
+          "¿Quién ganó la carrera?",
+          "la tortuga",
+          "la liebre",
+          "el zorro"
+        ],
+        [
+          "¿Qué hizo la liebre a mitad del camino?",
+          "dormir",
+          "comer",
+          "nadar"
+        ],
+        [
+          "¿Qué enseñanza deja?",
+          "la constancia gana a la prisa",
+          "correr es malo",
+          "dormir es bueno"
+        ]
+      ],
+      "vocab": [
+        "liebre",
+        "tortuga",
+        "carrera",
+        "meta"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L26",
+      "level": 2,
+      "category": "Fábula",
+      "title": "El león y el ratón",
+      "text": "Un ratón despertó a un león dormido.\nEl león lo atrapó, pero el ratón prometió ayudarle algún día.\nEl león lo dejó marchar.\nDías después el león quedó atrapado en una red.\nEl ratón royó las cuerdas y lo liberó.\nNadie es demasiado pequeño para ayudar.",
+      "questions": [
+        [
+          "¿Qué prometió el ratón?",
+          "ayudarle algún día",
+          "comer con él",
+          "dormir juntos"
+        ],
+        [
+          "¿Cómo ayudó al león?",
+          "royó la red",
+          "lo despertó",
+          "le dio agua"
+        ],
+        [
+          "¿Qué le pasó al león?",
+          "quedó atrapado en una red",
+          "se perdió",
+          "se durmió"
+        ]
+      ],
+      "vocab": [
+        "león",
+        "ratón",
+        "red",
+        "ayudar"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L27",
+      "level": 2,
+      "category": "Fábula",
+      "title": "La cigarra y la hormiga",
+      "text": "La cigarra cantó todo el verano.\nLa hormiga guardó comida en su hormiguero.\nLlegó el invierno y la cigarra tuvo hambre.\nLa hormiga compartió su comida con ella.\nLa cigarra aprendió a preparar el mañana.",
+      "questions": [
+        [
+          "¿Qué hizo la cigarra en verano?",
+          "cantar",
+          "trabajar",
+          "dormir"
+        ],
+        [
+          "¿Qué guardó la hormiga?",
+          "comida",
+          "agua",
+          "hojas"
+        ],
+        [
+          "¿Qué hizo la hormiga en invierno?",
+          "compartió su comida",
+          "se fue de viaje",
+          "cerró la puerta"
+        ]
+      ],
+      "vocab": [
+        "cigarra",
+        "hormiga",
+        "comida",
+        "invierno"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L28",
+      "level": 2,
+      "category": "Cuento",
+      "title": "El planeta del principito",
+      "text": "El principito vivía en un planeta muy pequeño.\nCada mañana limpiaba sus volcanes.\nTambién cuidaba una rosa con mucho cariño.\nUn día decidió viajar para conocer otros mundos.\nAl marcharse entendió que su rosa era única.",
+      "questions": [
+        [
+          "¿Qué cuidaba el principito?",
+          "una rosa",
+          "un perro",
+          "un árbol"
+        ],
+        [
+          "¿Qué limpiaba cada mañana?",
+          "sus volcanes",
+          "su casa",
+          "sus zapatos"
+        ],
+        [
+          "¿Por qué se fue de viaje?",
+          "para conocer otros mundos",
+          "para buscar comida",
+          "para dormir"
+        ]
+      ],
+      "vocab": [
+        "planeta",
+        "rosa",
+        "volcán",
+        "viajar"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L29",
+      "level": 2,
+      "category": "Poema",
+      "title": "Un elefante",
+      "text": "Un elefante se balanceaba\nsobre la tela de una araña.\nComo veía que resistía,\nfue a llamar a otro elefante.",
+      "questions": [
+        [
+          "¿Sobre qué se balanceaba?",
+          "sobre la tela de una araña",
+          "sobre una silla",
+          "sobre el agua"
+        ],
+        [
+          "¿A quién llamó?",
+          "a otro elefante",
+          "a un ratón",
+          "a su mamá"
+        ],
+        [
+          "¿Cuántos elefantes hay al final?",
+          "dos",
+          "uno",
+          "tres"
+        ]
+      ],
+      "vocab": [
+        "elefante",
+        "araña",
+        "tela"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L30",
+      "level": 2,
+      "category": "Trabalenguas",
+      "title": "Pablito y el clavito",
+      "text": "Pablito clavó un clavito.\n¿Qué clavito clavó Pablito?\nPablito clavó un clavito\nen la tabla de un calvito.",
+      "questions": [
+        [
+          "¿Qué clavó Pablito?",
+          "un clavito",
+          "un tornillo",
+          "una piedra"
+        ],
+        [
+          "¿Dónde lo clavó?",
+          "en la tabla",
+          "en la pared",
+          "en el suelo"
+        ],
+        [
+          "¿Qué sonido se repite?",
+          "cl",
+          "tr",
+          "br"
+        ]
+      ],
+      "vocab": [
+        "clavito",
+        "tabla",
+        "Pablito"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L31",
+      "level": 2,
+      "category": "Diálogo",
+      "title": "En la panadería",
+      "text": "Cliente: Buenos días, quiero pan.\nPanadero: ¿Cuántas barras quiere?\nCliente: Dos, por favor.\nPanadero: Aquí tiene. Son dos euros.\nCliente: Gracias, hasta luego.",
+      "questions": [
+        [
+          "¿Qué compra el cliente?",
+          "pan",
+          "leche",
+          "fruta"
+        ],
+        [
+          "¿Cuántas barras pide?",
+          "dos",
+          "tres",
+          "cinco"
+        ],
+        [
+          "¿Cuánto cuesta?",
+          "dos euros",
+          "un euro",
+          "tres euros"
+        ]
+      ],
+      "vocab": [
+        "pan",
+        "panadería",
+        "dinero"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L32",
+      "level": 2,
+      "category": "Instructivo",
+      "title": "Plantar una semilla",
+      "text": "1. Llena una maceta con tierra.\n2. Haz un agujero pequeño con el dedo.\n3. Pon la semilla y tápala.\n4. Riega con un poco de agua.\n5. Pon la maceta cerca de la ventana.",
+      "questions": [
+        [
+          "¿Qué se pone en la maceta?",
+          "tierra",
+          "piedras",
+          "papel"
+        ],
+        [
+          "¿Qué necesita la semilla para crecer?",
+          "agua y luz",
+          "solo oscuridad",
+          "jabón"
+        ],
+        [
+          "¿Dónde se coloca la maceta?",
+          "cerca de la ventana",
+          "dentro del armario",
+          "en el baño"
+        ]
+      ],
+      "vocab": [
+        "maceta",
+        "tierra",
+        "semilla",
+        "regar"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L33",
+      "level": 2,
+      "category": "Informativo",
+      "title": "Animales vertebrados",
+      "text": "Los animales vertebrados tienen huesos por dentro.\nSe reparten en cinco grupos: mamíferos, aves, reptiles, anfibios y peces.\nLas personas somos mamíferos.\nLos mamíferos beben leche de su madre cuando son pequeños.",
+      "questions": [
+        [
+          "¿Qué tienen los vertebrados?",
+          "huesos",
+          "plumas",
+          "escamas"
+        ],
+        [
+          "¿Cuántos grupos hay?",
+          "cinco",
+          "dos",
+          "diez"
+        ],
+        [
+          "¿A qué grupo pertenecen las personas?",
+          "mamíferos",
+          "aves",
+          "peces"
+        ]
+      ],
+      "vocab": [
+        "vertebrado",
+        "huesos",
+        "mamífero"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L34",
+      "level": 2,
+      "category": "Cuento",
+      "title": "La gallina de los huevos de oro",
+      "text": "Una gallina ponía cada día un huevo de oro.\nEl granjero vendía los huevos y tenía dinero.\nPero quiso tener todos los huevos de una vez.\nAbrió a la gallina y no encontró nada.\nSe quedó sin gallina y sin huevos.",
+      "questions": [
+        [
+          "¿Qué ponía la gallina?",
+          "un huevo de oro",
+          "un huevo blanco",
+          "monedas"
+        ],
+        [
+          "¿Por qué el granjero abrió a la gallina?",
+          "quería todos los huevos a la vez",
+          "quería lavarla",
+          "quería curarla"
+        ],
+        [
+          "¿Cómo terminó la historia?",
+          "se quedó sin gallina y sin huevos",
+          "se hizo rico",
+          "compró otra gallina"
+        ]
+      ],
+      "vocab": [
+        "gallina",
+        "oro",
+        "granjero",
+        "dinero"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L35",
+      "level": 2,
+      "category": "Adivinanza",
+      "title": "El plátano",
+      "text": "Oro parece,\nplata no es.\nEl que no lo adivine,\nbien tonto es.",
+      "questions": [
+        [
+          "¿Qué fruta es?",
+          "el plátano",
+          "la naranja",
+          "el limón"
+        ],
+        [
+          "¿De qué color es?",
+          "amarillo",
+          "azul",
+          "verde oscuro"
+        ],
+        [
+          "¿Se come?",
+          "sí",
+          "no",
+          "solo se mira"
+        ]
+      ],
+      "vocab": [
+        "plátano",
+        "oro",
+        "fruta"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L36",
+      "level": 2,
+      "category": "Rima",
+      "title": "Aserrín aserrán",
+      "text": "Aserrín, aserrán,\nlos maderos de San Juan.\nPiden pan, no les dan,\npiden queso, les dan hueso.",
+      "questions": [
+        [
+          "¿Qué piden primero?",
+          "pan",
+          "queso",
+          "agua"
+        ],
+        [
+          "¿Qué les dan al final?",
+          "hueso",
+          "pan",
+          "queso"
+        ],
+        [
+          "¿De quién son los maderos?",
+          "de San Juan",
+          "de San Pedro",
+          "del molino"
+        ]
+      ],
+      "vocab": [
+        "madera",
+        "pan",
+        "queso"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L37",
+      "level": 3,
+      "category": "Informativo",
+      "title": "El ciclo del agua",
+      "text": "El sol calienta el agua del mar y de los ríos. El agua se convierte en vapor y sube al cielo. A esto se le llama evaporación.\nArriba el vapor se enfría y forma las nubes. Cuando las gotas se juntan y pesan mucho, caen en forma de lluvia o de nieve.\nEl agua vuelve a los ríos y al mar. Así empieza otra vez el ciclo.",
+      "questions": [
+        [
+          "¿Qué provoca la evaporación?",
+          "el calor del sol",
+          "el viento",
+          "la luna"
+        ],
+        [
+          "¿Qué se forma cuando el vapor se enfría?",
+          "nubes",
+          "piedras",
+          "arcoíris"
+        ],
+        [
+          "¿A dónde vuelve el agua al final?",
+          "a los ríos y al mar",
+          "al desierto",
+          "a las casas"
+        ]
+      ],
+      "vocab": [
+        "agua",
+        "sol",
+        "nube",
+        "lluvia",
+        "río"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L38",
+      "level": 3,
+      "category": "Informativo",
+      "title": "El sistema solar",
+      "text": "El sistema solar tiene ocho planetas que giran alrededor del Sol.\nLa Tierra es el tercer planeta y es el único donde sabemos que hay vida.\nMercurio y Venus están más cerca del Sol, por eso son muy calientes.\nJúpiter es el planeta más grande de todos.",
+      "questions": [
+        [
+          "¿Cuántos planetas hay?",
+          "ocho",
+          "cinco",
+          "doce"
+        ],
+        [
+          "¿Qué lugar ocupa la Tierra?",
+          "el tercero",
+          "el primero",
+          "el octavo"
+        ],
+        [
+          "¿Cuál es el planeta más grande?",
+          "Júpiter",
+          "Mercurio",
+          "Marte"
+        ]
+      ],
+      "vocab": [
+        "planeta",
+        "Sol",
+        "Tierra",
+        "Júpiter"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L39",
+      "level": 3,
+      "category": "Instructivo",
+      "title": "Receta de sándwich",
+      "text": "Necesitas dos rebanadas de pan, jamón y queso.\n1. Coloca las dos rebanadas sobre un plato.\n2. Pon el jamón y el queso sobre una rebanada.\n3. Tapa con la otra rebanada.\n4. Corta por la mitad con ayuda de una persona adulta.\n5. Come despacio y disfruta.",
+      "questions": [
+        [
+          "¿Cuántas rebanadas de pan se usan?",
+          "dos",
+          "una",
+          "cuatro"
+        ],
+        [
+          "¿Qué se pone dentro?",
+          "jamón y queso",
+          "lechuga y tomate",
+          "solo pan"
+        ],
+        [
+          "¿Quién ayuda a cortar?",
+          "una persona adulta",
+          "nadie",
+          "el perro"
+        ]
+      ],
+      "vocab": [
+        "pan",
+        "jamón",
+        "queso",
+        "plato"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L40",
+      "level": 3,
+      "category": "Noticia",
+      "title": "Limpieza en el parque",
+      "text": "Ayer por la mañana los vecinos del barrio se reunieron para limpiar el parque.\nRecogieron plásticos del suelo y plantaron tres árboles nuevos.\nEl ayuntamiento trajo bolsas y guantes para todos.\nPor la tarde merendaron juntos y el parque quedó limpio.",
+      "questions": [
+        [
+          "¿Qué hicieron los vecinos?",
+          "limpiar el parque",
+          "pintar las casas",
+          "jugar al fútbol"
+        ],
+        [
+          "¿Cuántos árboles plantaron?",
+          "tres",
+          "diez",
+          "ninguno"
+        ],
+        [
+          "¿Quién trajo bolsas y guantes?",
+          "el ayuntamiento",
+          "el colegio",
+          "la tienda"
+        ]
+      ],
+      "vocab": [
+        "vecinos",
+        "parque",
+        "árbol",
+        "limpiar"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L41",
+      "level": 3,
+      "category": "Científico",
+      "title": "La fotosíntesis",
+      "text": "Las plantas fabrican su propio alimento y no necesitan comer como los animales.\nPara hacerlo usan la luz del sol, el agua de la tierra y un gas del aire llamado dióxido de carbono.\nEste proceso se llama fotosíntesis y ocurre sobre todo en las hojas.\nDurante la fotosíntesis la planta suelta oxígeno, que es el gas que respiramos.",
+      "questions": [
+        [
+          "¿Qué usan las plantas para fabricar alimento?",
+          "luz, agua y un gas del aire",
+          "solo tierra",
+          "carne y pan"
+        ],
+        [
+          "¿Dónde ocurre la fotosíntesis?",
+          "en las hojas",
+          "en las raíces",
+          "en las flores"
+        ],
+        [
+          "¿Qué gas suelta la planta?",
+          "oxígeno",
+          "humo",
+          "helio"
+        ]
+      ],
+      "vocab": [
+        "planta",
+        "luz",
+        "hoja",
+        "oxígeno"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L42",
+      "level": 3,
+      "category": "Informativo",
+      "title": "Estados de la materia",
+      "text": "La materia puede estar en tres estados: sólido, líquido y gaseoso.\nUna piedra es sólida porque mantiene su forma.\nEl agua es líquida porque se adapta al recipiente.\nEl aire es gaseoso y no lo vemos.\nEl hielo es agua en estado sólido y se derrite con el calor.",
+      "questions": [
+        [
+          "¿Qué estado tiene una piedra?",
+          "sólido",
+          "líquido",
+          "gaseoso"
+        ],
+        [
+          "¿Qué estado tiene el aire?",
+          "gaseoso",
+          "sólido",
+          "líquido"
+        ],
+        [
+          "¿Qué le pasa al hielo con el calor?",
+          "se derrite",
+          "se congela",
+          "desaparece"
+        ]
+      ],
+      "vocab": [
+        "materia",
+        "sólido",
+        "líquido",
+        "hielo"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L43",
+      "level": 3,
+      "category": "Instructivo",
+      "title": "Cuidar a un perro",
+      "text": "Un perro necesita comida fresca cada día y agua limpia siempre.\nTambién necesita paseos para moverse y oler.\nHay que llevarlo al veterinario para las vacunas.\nUn perro cuidado y con cariño es un perro feliz.",
+      "questions": [
+        [
+          "¿Qué necesita el perro cada día?",
+          "comida y agua limpia",
+          "solo juguetes",
+          "televisión"
+        ],
+        [
+          "¿Para qué sirve el paseo?",
+          "para moverse y oler",
+          "para dormir",
+          "para comer"
+        ],
+        [
+          "¿Quién le pone las vacunas?",
+          "el veterinario",
+          "el panadero",
+          "el maestro"
+        ]
+      ],
+      "vocab": [
+        "perro",
+        "agua",
+        "paseo",
+        "veterinario"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L44",
+      "level": 3,
+      "category": "Diálogo",
+      "title": "Preparando el viaje",
+      "text": "Madre: ¿Has hecho la maleta?\nHijo: Sí, he metido la ropa y el cepillo de dientes.\nMadre: No olvides el abrigo, hará frío por la noche.\nHijo: Vale, lo pongo arriba del todo.\nMadre: Buen viaje, te quiero mucho.",
+      "questions": [
+        [
+          "¿Qué lleva el hijo en la maleta?",
+          "ropa y cepillo",
+          "juguetes",
+          "libros"
+        ],
+        [
+          "¿Qué le recuerda la madre?",
+          "el abrigo",
+          "la pelota",
+          "el paraguas"
+        ],
+        [
+          "¿Por qué necesita abrigo?",
+          "hará frío por la noche",
+          "va a llover",
+          "va a nevar en el coche"
+        ]
+      ],
+      "vocab": [
+        "maleta",
+        "ropa",
+        "abrigo",
+        "viaje"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L45",
+      "level": 3,
+      "category": "Informativo",
+      "title": "Los dinosaurios",
+      "text": "Los dinosaurios vivieron en la Tierra hace millones de años.\nAlgunos eran enormes, como el Diplodocus, y otros pequeños, como el Compsognathus.\nUnos comían plantas y otros comían carne.\nSe extinguieron hace muchísimo tiempo y hoy conocemos sus huesos por los fósiles.",
+      "questions": [
+        [
+          "¿Cuándo vivieron los dinosaurios?",
+          "hace millones de años",
+          "hace cien años",
+          "viven hoy"
+        ],
+        [
+          "¿Cómo se llaman los restos de sus huesos?",
+          "fósiles",
+          "minerales",
+          "semillas"
+        ],
+        [
+          "¿Qué comían algunos dinosaurios?",
+          "plantas y otros carne",
+          "solo pan",
+          "solo fruta"
+        ]
+      ],
+      "vocab": [
+        "dinosaurio",
+        "fósil",
+        "planta"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L46",
+      "level": 3,
+      "category": "Noticia",
+      "title": "Un árbol nuevo en el colegio",
+      "text": "El colegio CEIP La Ardila ha recibido un árbol frutal de regalo.\nLos alumnos de tercero lo plantaron en el patio con ayuda del conserje.\nRegarán el árbol por turnos cada semana.\nEsperan recoger sus primeros frutos el año que viene.",
+      "questions": [
+        [
+          "¿Qué recibió el colegio?",
+          "un árbol frutal",
+          "una bicicleta",
+          "un ordenador"
+        ],
+        [
+          "¿Dónde lo plantaron?",
+          "en el patio",
+          "en el aula",
+          "en el tejado"
+        ],
+        [
+          "¿Quién regará el árbol?",
+          "los alumnos por turnos",
+          "el conserje solo",
+          "nadie"
+        ]
+      ],
+      "vocab": [
+        "colegio",
+        "árbol",
+        "patio",
+        "regar"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L47",
+      "level": 3,
+      "category": "Científico",
+      "title": "Por qué llueve",
+      "text": "Dentro de las nubes hay millones de gotas de agua muy pequeñas.\nCuando la nube se enfría, las gotas se juntan unas con otras.\nPoco a poco se hacen más grandes y más pesadas.\nLa gravedad las atrae hacia el suelo y entonces cae la lluvia.",
+      "questions": [
+        [
+          "¿Qué hay dentro de las nubes?",
+          "gotas de agua",
+          "algodón",
+          "humo"
+        ],
+        [
+          "¿Qué hace que las gotas caigan?",
+          "la gravedad",
+          "el viento",
+          "el sol"
+        ],
+        [
+          "¿Qué pasa cuando la nube se enfría?",
+          "las gotas se juntan",
+          "las gotas se van",
+          "la nube crece de color"
+        ]
+      ],
+      "vocab": [
+        "nube",
+        "gota",
+        "gravedad",
+        "lluvia"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L48",
+      "level": 3,
+      "category": "Instructivo",
+      "title": "Normas de la biblioteca",
+      "text": "1. Entra despacio y saluda en voz baja.\n2. Guarda silencio para que los demás puedan leer.\n3. Cuida los libros y no dobles sus páginas.\n4. Devuelve los libros a tiempo.\n5. Si no encuentras algo, pide ayuda a la bibliotecaria.",
+      "questions": [
+        [
+          "¿Cómo hay que hablar en la biblioteca?",
+          "en voz baja",
+          "gritando",
+          "cantando"
+        ],
+        [
+          "¿Qué se hace con los libros?",
+          "cuidarlos",
+          "doblarlos",
+          "pintarlos"
+        ],
+        [
+          "¿A quién pides ayuda?",
+          "a la bibliotecaria",
+          "al conserje",
+          "al médico"
+        ]
+      ],
+      "vocab": [
+        "biblioteca",
+        "silencio",
+        "libro",
+        "ayuda"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L49",
+      "level": 4,
+      "category": "Biografía",
+      "title": "Marie Curie",
+      "text": "Marie Curie fue una científica pionera nacida en Polonia en 1867.\nDe joven se mudó a Francia para poder estudiar en la universidad.\nInvestigó materiales que emitían una energía invisible y descubrió el radio y el polonio.\nFue la primera mujer en recibir un Premio Nobel y la única persona en ganarlo en dos ciencias distintas: Física y Química.\nSu trabajo ayudó después a desarrollar máquinas de rayos X para los hospitales.",
+      "questions": [
+        [
+          "¿Dónde nació Marie Curie?",
+          "en Polonia",
+          "en Francia",
+          "en España"
+        ],
+        [
+          "¿En qué ciencias ganó el Nobel?",
+          "Física y Química",
+          "Medicina y Literatura",
+          "Matemáticas y Arte"
+        ],
+        [
+          "¿Qué elementos descubrió?",
+          "radio y polonio",
+          "oro y plata",
+          "oxígeno e hidrógeno"
+        ],
+        [
+          "¿Para qué sirvió su trabajo en los hospitales?",
+          "para los rayos X",
+          "para operar",
+          "para cocinar"
+        ]
+      ],
+      "vocab": [
+        "científica",
+        "Polonia",
+        "Nobel",
+        "radio"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L50",
+      "level": 4,
+      "category": "Teatro",
+      "title": "Escena en el aula",
+      "text": "PROFE: Abrid el libro de matemáticas por la página veinte.\nALUMNO 1: Profe, he olvidado el libro en casa.\nALUMNO 2: Puede mirar el mío y trabajamos juntos.\nPROFE: Buena idea. Compartir también es aprender.\nALUMNO 1: Gracias, la próxima vez lo traeré.",
+      "questions": [
+        [
+          "¿Qué olvidó el Alumno 1?",
+          "el libro",
+          "el lápiz",
+          "la mochila"
+        ],
+        [
+          "¿Qué propone el Alumno 2?",
+          "compartir su libro",
+          "irse a casa",
+          "cambiar de sitio"
+        ],
+        [
+          "¿Qué página deben abrir?",
+          "la veinte",
+          "la diez",
+          "la treinta"
+        ],
+        [
+          "¿Qué dice la profe sobre compartir?",
+          "que también es aprender",
+          "que está prohibido",
+          "que es aburrido"
+        ]
+      ],
+      "vocab": [
+        "aula",
+        "libro",
+        "compartir",
+        "aprender"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L51",
+      "level": 4,
+      "category": "Divulgativo",
+      "title": "Las abejas y las flores",
+      "text": "Las abejas son insectos pequeños pero muy importantes.\nCuando una abeja entra en una flor para beber su néctar, se le pega polen en el cuerpo.\nAl volar a otra flor lleva ese polen consigo y la planta puede formar semillas y frutos.\nEste viaje del polen se llama polinización.\nSin abejas tendríamos muchas menos frutas y verduras en la mesa.",
+      "questions": [
+        [
+          "¿Qué bebe la abeja de la flor?",
+          "néctar",
+          "agua del mar",
+          "leche"
+        ],
+        [
+          "¿Cómo se llama el viaje del polen?",
+          "polinización",
+          "evaporación",
+          "germinación"
+        ],
+        [
+          "¿Qué pasaría sin abejas?",
+          "habría menos frutas y verduras",
+          "habría más fruta",
+          "no pasaría nada"
+        ],
+        [
+          "¿Qué se le pega a la abeja en el cuerpo?",
+          "polen",
+          "barro",
+          "nieve"
+        ]
+      ],
+      "vocab": [
+        "abeja",
+        "flor",
+        "polen",
+        "fruta"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L52",
+      "level": 4,
+      "category": "Inferencial",
+      "title": "El paraguas olvidado",
+      "text": "María salió de casa por la mañana con un sol brillante.\nAl volver del colegio el cielo estaba gris y el suelo mojado.\nBuscó en la mochila y suspiró al verla vacía por dentro.\nMiró la lluvia un momento y después corrió hasta el portal.",
+      "questions": [
+        [
+          "¿Qué olvidó María?",
+          "el paraguas",
+          "la mochila",
+          "el abrigo"
+        ],
+        [
+          "¿Qué tiempo hacía al volver?",
+          "llovía",
+          "hacía sol",
+          "nevaba"
+        ],
+        [
+          "¿Por qué suspiró?",
+          "porque no tenía paraguas",
+          "porque tenía hambre",
+          "porque estaba cansada"
+        ],
+        [
+          "¿Cómo llegó al portal?",
+          "corriendo bajo la lluvia",
+          "andando despacio",
+          "en coche"
+        ]
+      ],
+      "vocab": [
+        "paraguas",
+        "lluvia",
+        "mochila",
+        "correr"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L53",
+      "level": 4,
+      "category": "Biografía",
+      "title": "Frida Kahlo",
+      "text": "Frida Kahlo fue una pintora mexicana nacida en 1907.\nDe joven sufrió un accidente muy grave que la obligó a pasar mucho tiempo en la cama.\nEmpezó a pintar desde allí y usó un espejo para retratarse a sí misma.\nSus autorretratos están llenos de colores fuertes y de símbolos de su país.\nHoy es una de las artistas más conocidas del mundo.",
+      "questions": [
+        [
+          "¿De qué país era Frida Kahlo?",
+          "México",
+          "España",
+          "Italia"
+        ],
+        [
+          "¿Qué tipo de cuadros la hicieron famosa?",
+          "autorretratos",
+          "paisajes de mar",
+          "cuadros de coches"
+        ],
+        [
+          "¿Por qué pintó desde la cama?",
+          "por un accidente grave",
+          "porque le gustaba dormir",
+          "porque llovía"
+        ],
+        [
+          "¿Qué usaba para retratarse?",
+          "un espejo",
+          "una foto",
+          "una ventana"
+        ]
+      ],
+      "vocab": [
+        "pintora",
+        "México",
+        "autorretrato",
+        "espejo"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L54",
+      "level": 4,
+      "category": "Teatro",
+      "title": "La cena sorpresa",
+      "text": "PADRE: ¡Huele muy bien en esta casa!\nMADRE: Es tu plato favorito.\nHIJA: ¡Sorpresa! Lo hemos cocinado entre las dos.\nPADRE: Es el mejor regalo de cumpleaños que he tenido.\nHIJA: Y todavía queda tarta.",
+      "questions": [
+        [
+          "¿Quién cocinó el plato?",
+          "la madre y la hija",
+          "solo el padre",
+          "un cocinero"
+        ],
+        [
+          "¿Qué se celebra?",
+          "un cumpleaños",
+          "un examen",
+          "una fiesta del colegio"
+        ],
+        [
+          "¿Qué queda por comer?",
+          "tarta",
+          "sopa",
+          "pan"
+        ],
+        [
+          "¿Cómo se siente el padre?",
+          "feliz y sorprendido",
+          "enfadado",
+          "aburrido"
+        ]
+      ],
+      "vocab": [
+        "cena",
+        "sorpresa",
+        "cumpleaños",
+        "tarta"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L55",
+      "level": 4,
+      "category": "Divulgativo",
+      "title": "Los volcanes",
+      "text": "Un volcán es una abertura de la corteza de la Tierra.\nPor ella salen materiales muy calientes del interior del planeta.\nCuando esa roca fundida está dentro se llama magma, y cuando sale al exterior se llama lava.\nLos volcanes también lanzan ceniza y gases.\nAunque pueden ser peligrosos, la tierra de sus alrededores es muy fértil para las plantas.",
+      "questions": [
+        [
+          "¿Cómo se llama la roca fundida cuando sale?",
+          "lava",
+          "magma",
+          "ceniza"
+        ],
+        [
+          "¿Cómo se llama cuando está dentro?",
+          "magma",
+          "lava",
+          "humo"
+        ],
+        [
+          "¿Por qué es buena la tierra cercana?",
+          "es muy fértil",
+          "es muy fría",
+          "es de color negro"
+        ],
+        [
+          "¿Qué más lanzan los volcanes?",
+          "ceniza y gases",
+          "agua con sal",
+          "nieve"
+        ]
+      ],
+      "vocab": [
+        "volcán",
+        "magma",
+        "lava",
+        "ceniza"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L56",
+      "level": 4,
+      "category": "Inferencial",
+      "title": "La ventana rota",
+      "text": "Los niños jugaban a la pelota dentro del salón.\nDe repente se escuchó un golpe muy fuerte y un ruido de cristales.\nLa madre entró corriendo desde la cocina.\nLos dos miraron al suelo sin decir nada, junto a la pelota quieta.",
+      "questions": [
+        [
+          "¿Qué se rompió?",
+          "la ventana",
+          "un plato",
+          "una silla"
+        ],
+        [
+          "¿Por qué no debían jugar allí?",
+          "porque dentro se puede romper algo",
+          "porque era de noche",
+          "porque llovía"
+        ],
+        [
+          "¿Cómo se sentían los niños?",
+          "avergonzados",
+          "contentos",
+          "aburridos"
+        ],
+        [
+          "¿Qué provocó el golpe?",
+          "la pelota",
+          "el viento",
+          "el gato"
+        ]
+      ],
+      "vocab": [
+        "pelota",
+        "ventana",
+        "salón",
+        "romper"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L57",
+      "level": 4,
+      "category": "Biografía",
+      "title": "Leonardo da Vinci",
+      "text": "Leonardo da Vinci fue un genio del Renacimiento italiano.\nPintó la Mona Lisa, uno de los cuadros más famosos del mundo.\nPero también dibujó máquinas voladoras siglos antes de que existieran los aviones.\nEstudió el cuerpo humano y llenó cuadernos con notas y dibujos.\nPara él el arte y la ciencia eran dos formas de mirar el mismo mundo.",
+      "questions": [
+        [
+          "¿Qué cuadro famoso pintó?",
+          "la Mona Lisa",
+          "La noche estrellada",
+          "El grito"
+        ],
+        [
+          "¿Qué dibujó antes de que existiera?",
+          "máquinas voladoras",
+          "televisores",
+          "coches eléctricos"
+        ],
+        [
+          "¿Qué estudiaba en sus cuadernos?",
+          "el cuerpo humano",
+          "los planetas",
+          "los peces"
+        ],
+        [
+          "¿Cómo unía arte y ciencia?",
+          "como dos formas de mirar el mundo",
+          "no le importaba la ciencia",
+          "solo pintaba"
+        ]
+      ],
+      "vocab": [
+        "Leonardo",
+        "Renacimiento",
+        "cuaderno",
+        "ciencia"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L58",
+      "level": 4,
+      "category": "Teatro",
+      "title": "Antes del examen",
+      "text": "ALUMNO: Profe, tengo un nudo en el estómago.\nPROFE: Es normal, se llama nervios. Respira hondo conmigo.\nALUMNO: He estudiado, pero se me olvida todo.\nPROFE: Has trabajado bien. Lee despacio y empieza por lo que sabes.\nALUMNO: De acuerdo, lo voy a intentar.",
+      "questions": [
+        [
+          "¿Cómo se siente el alumno?",
+          "nervioso",
+          "enfadado",
+          "aburrido"
+        ],
+        [
+          "¿Qué le recomienda la profe?",
+          "respirar y leer despacio",
+          "correr",
+          "dejar el examen"
+        ],
+        [
+          "¿Había estudiado el alumno?",
+          "sí",
+          "no",
+          "solo un poco el recreo"
+        ],
+        [
+          "¿Por dónde le dice que empiece?",
+          "por lo que sabe",
+          "por lo más difícil",
+          "por el final"
+        ]
+      ],
+      "vocab": [
+        "examen",
+        "nervios",
+        "respirar",
+        "estudiar"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L59",
+      "level": 4,
+      "category": "Divulgativo",
+      "title": "El océano",
+      "text": "El océano cubre más del setenta por ciento de la superficie del planeta.\nEn él viven seres diminutos como el plancton y animales enormes como la ballena azul.\nLas plantas marinas producen cerca de la mitad del oxígeno que respiramos.\nEl océano también reparte el calor y ayuda a regular el clima.\nPor eso los plásticos que tiramos al agua nos afectan a todos.",
+      "questions": [
+        [
+          "¿Qué porcentaje del planeta cubre el océano?",
+          "más del setenta",
+          "la mitad",
+          "el diez"
+        ],
+        [
+          "¿Cuál es el animal más grande que vive en él?",
+          "la ballena azul",
+          "el delfín",
+          "el pulpo"
+        ],
+        [
+          "¿Qué produce el océano que nosotros respiramos?",
+          "oxígeno",
+          "humo",
+          "arena"
+        ],
+        [
+          "¿Qué nos afecta a todos según el texto?",
+          "los plásticos en el agua",
+          "los barcos",
+          "la sal"
+        ]
+      ],
+      "vocab": [
+        "océano",
+        "plancton",
+        "ballena",
+        "oxígeno"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "L60",
+      "level": 4,
+      "category": "Inferencial",
+      "title": "El regalo misterioso",
+      "text": "La caja era grande pero pesaba muy poco.\nAl agitarla sonaba como papel arrugado.\nJuan sonrió porque sabía lo que había dentro antes de abrirla.\nHabía pedido algo para el viento y para el cielo.\nSalió corriendo al parque con su regalo nuevo.",
+      "questions": [
+        [
+          "¿Qué había en la caja?",
+          "una cometa",
+          "un libro",
+          "una pelota"
+        ],
+        [
+          "¿Por qué pesaba poco?",
+          "porque era de papel y tela",
+          "porque estaba vacía",
+          "porque era de piedra"
+        ],
+        [
+          "¿Para qué sirve el regalo?",
+          "para volar con el viento",
+          "para leer",
+          "para comer"
+        ],
+        [
+          "¿A dónde fue Juan?",
+          "al parque",
+          "al colegio",
+          "a la cocina"
+        ]
+      ],
+      "vocab": [
+        "cometa",
+        "caja",
+        "viento",
+        "parque"
+      ],
+      "tags": [
+        "precargada"
+      ],
+      "collection": "general",
+      "favorite": false,
+      "mode": "",
+      "pauses": "",
+      "pre": true,
+      "own": false
+    },
+    {
+      "id": "DEMO_LECTURA_01",
+      "level": 2,
+      "category": "Informativo",
+      "title": "La huerta de Lola",
+      "text": "Lola prepara la tierra de una maceta.\nDespués coloca tres semillas pequeñas.\nCada mañana riega la tierra con poca agua.\nUna semana después aparecen dos tallos verdes.\nLola observa las plantas y las cuida.",
+      "questions": [
+        [
+          "¿Qué prepara Lola?",
+          "la tierra de una maceta",
+          "una caja",
+          "una mesa"
+        ],
+        [
+          "¿Qué coloca en la tierra?",
+          "tres semillas",
+          "tres piedras",
+          "tres libros"
+        ],
+        [
+          "¿Qué aparece una semana después?",
+          "dos tallos verdes",
+          "dos flores rojas",
+          "dos árboles"
+        ]
+      ],
+      "vocab": [
+        "semilla",
+        "maceta",
+        "tallo"
+      ],
+      "tags": [
+        "demostración",
+        "huerto"
+      ],
+      "collection": "ejemplo",
+      "favorite": false,
+      "mode": "frase",
+      "pauses": "",
+      "pre": false,
+      "own": true
+    }
+  ],
+  "progreso": [
+    {
+      "id": "DEMO-PROGRESS-01",
+      "date": "02/11/2026 10:00",
+      "title": "La huerta de Lola",
+      "textId": "DEMO_LECTURA_01",
+      "mode": "frase",
+      "secs": 90,
+      "ppm": 85,
+      "words": 25,
+      "hits": 3,
+      "total": 3,
+      "kind": "lectura",
+      "diffs": [],
+      "obs": "Registro ficticio de demostración.",
+      "pupilName": "Alumno de demostración"
+    }
+  ],
+  "diccionario": [
+    {
+      "w": "semilla",
+      "m": "Parte de una planta que puede originar otra planta.",
+      "date": "02/11/2026",
+      "pupilName": "Alumno de demostración"
+    }
+  ],
+  "ajustes": {
+    "theme": "t-calmado",
+    "fs": 30,
+    "anim": false,
+    "simple": false,
+    "dys": false,
+    "pic": true,
+    "ruler": true,
+    "sy": true,
+    "focusMask": false,
+    "voiceIdx": 0,
+    "pitch": 1,
+    "beep": false,
+    "sound": true,
+    "ps": 450,
+    "pw": 600,
+    "pf": 1000,
+    "pp": 1800,
+    "pe": 5000,
+    "currentPupil": "General"
+  },
+  "alumnos": [
+    {
+      "id": "DEMO-PUPIL-01",
+      "name": "Alumno de demostración",
+      "group": "Grupo de ejemplo",
+      "notes": "Perfil ficticio para probar la importación.",
+      "avatar": "📘"
+    }
+  ],
+  "pictogramas": {},
+  "pictogramasPropios": {}
+}

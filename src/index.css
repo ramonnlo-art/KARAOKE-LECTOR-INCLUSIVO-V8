@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #f0f4f9;
+  --fg: #1e293b;
+  --card: #ffffff;
+  --card-subtle: #f8fafc;
+  --pri: #2563eb;
+  --pri-dark: #1d4ed8;
+  --pri-light: #dbeafe;
+  --ok: #16a34a;
+  --ok-light: #dcfce7;
+  --warn: #eab308;
+  --warn-light: #fef9c3;
+  --bad: #dc2626;
+  --bad-light: #fee2e2;
+  --line: #cbd5e1;
+  --font-base: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-lexend: 'Lexend', var(--font-base);
+  --fs: 30px;
+}
+
+body.t-calmado {
+  --bg: #f1f5f9;
+  --fg: #1e293b;
+  --card: #ffffff;
+  --card-subtle: #f8fafc;
+  --pri: #2563eb;
+  --pri-light: #e0e7ff;
+  --line: #cbd5e1;
+}
+
+body.t-claro {
+  --bg: #ffffff;
+  --fg: #0f172a;
+  --card: #f8fafc;
+  --card-subtle: #f1f5f9;
+  --pri: #0284c7;
+  --pri-light: #e0f2fe;
+  --line: #e2e8f0;
+}
+
+body.t-oscuro {
+  --bg: #0f172a;
+  --fg: #f1f5f9;
+  --card: #1e293b;
+  --card-subtle: #334155;
+  --pri: #60a5fa;
+  --pri-light: #1e3a8a;
+  --line: #334155;
+}
+
+body.t-contraste {
+  --bg: #000000;
+  --fg: #ffffff;
+  --card: #000000;
+  --card-subtle: #171717;
+  --pri: #fde047;
+  --pri-light: #713f12;
+  --line: #fde047;
+}
+
+body.t-contraste * {
+  border-color: #fde047 !important;
+}
+
+body.f-dys {
+  font-family: var(--font-lexend) !important;
+  letter-spacing: 0.05em;
+  word-spacing: 0.16em;
+  line-height: 2 !important;
+}
+
+body.no-anim * {
+  animation: none !important;
+  transition: none !important;
+}
+
+body {
+  font-family: var(--font-base);
+  background-color: var(--bg);
+  color: var(--fg);
+  min-height: 100vh;
+}
+
+/* Syllable coloring styles */
+body.sycolor .sy:nth-child(odd) {
+  background-color: #fef08a;
+  color: #713f12;
+  border-radius: 4px;
+  padding: 0 2px;
+}
+body.sycolor .sy:nth-child(even) {
+  background-color: #bae6fd;
+  color: #0369a1;
+  border-radius: 4px;
+  padding: 0 2px;
+}
+
+/* Reading highlight */
+.rtext .hl {
+  background-color: #fde047 !important;
+  color: #0f172a !important;
+  box-shadow: 0 0 0 4px #fde047;
+  border-radius: 6px;
+  font-weight: 800;
+  transform: scale(1.06);
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.rtext .hlw {
+  background-color: #22c55e !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 4px #22c55e;
+  border-radius: 6px;
+  font-weight: 800;
+  transform: scale(1.06);
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.rtext .sentline {
+  background-color: rgba(234, 179, 8, 0.18);
+  border-radius: 8px;
+  padding: 2px 4px;
+}
+
+.rtext .rein {
+  transform: scale(1.22);
+  display: inline-block;
+}
+
+/* Focus mask / Dimming */
+body.focus-mask-on .rtext .dimmed {
+  opacity: 0.22;
+  filter: blur(0.3px);
+  transition: opacity 0.2s ease;
+}
+
+/* Reading ruler */
+.ruler-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background-color: #eab308;
+  opacity: 0.85;
+  border-radius: 4px;
+  pointer-events: none;
+  transition: top 0.16s ease, height 0.16s ease;
+  z-index: 10;
+}
+
+/* Tactile touch targets for PDI & mobile */
+button, input, select, textarea {
+  touch-action: manipulation;
+}
+
+/* Breathing animation for calming corner */
+@keyframes breatheAnimation {
+  0%, 100% {
+    transform: scale(0.85);
+    background-color: rgba(96, 165, 250, 0.2);
+  }
+  35%, 65% {
+    transform: scale(1.3);
+    background-color: rgba(96, 165, 250, 0.45);
+  }
+}
+
+.animate-breathe {
+  animation: breatheAnimation 12s infinite ease-in-out;
+}

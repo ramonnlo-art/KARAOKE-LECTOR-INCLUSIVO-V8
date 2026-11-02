@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karaoke Lector v7</title>
+<style>
+:root{--bg:#eef3f8;--fg:#22303f;--card:#fff;--pri:#3d7ebf;--pri2:#2c5f92;--ok:#4f9d69;--warn:#e0a028;--bad:#c9524f;--soft:#dbe7f2;--line:#c9d8e6;--r:14px;--fs:30px;--sp:14px;--font:Verdana,sans-serif}
+body.t-claro{--bg:#fff;--fg:#16202b;--card:#f6f9fc;--soft:#e8eff6}
+body.t-oscuro{--bg:#161d26;--fg:#e7eef6;--card:#212b37;--pri:#6fb2ea;--soft:#2c3947;--line:#3b4b5c}
+body.t-contraste{--bg:#000;--fg:#fff;--card:#000;--pri:#ffe600;--ok:#00ff88;--bad:#ff6b6b;--warn:#ffd000;--soft:#1a1a1a;--line:#ffe600}
+body.f-dys{--font:"Comic Sans MS",Verdana,sans-serif;letter-spacing:.04em;word-spacing:.12em}
+body.no-anim *{animation:none!important;transition:none!important}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--fg);line-height:1.6;padding-bottom:90px}
+body.t-contraste .card,body.t-contraste .btn{border:2px solid var(--line)}
+:focus-visible{outline:4px solid var(--warn);outline-offset:3px}
+button,select,input,textarea{font-family:inherit;font-size:1rem;color:inherit}
+button{cursor:pointer}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+header{position:sticky;top:0;z-index:80;background:var(--card);border-bottom:3px solid var(--soft);padding:8px}
+.brand{text-align:center;font-weight:bold;font-size:.95rem;padding:2px 0 6px}
+.brand small{display:block;font-weight:normal;opacity:.75;font-size:.75rem}
+nav{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.nb{background:transparent;border:2px solid var(--pri);color:var(--pri);border-radius:22px;padding:7px 12px;font-weight:bold;font-size:.9rem;display:inline-flex;gap:6px;align-items:center}
+.nb:hover,.nb[aria-current="true"]{background:var(--pri);color:#fff}
+body.t-contraste .nb:hover,body.t-contraste .nb[aria-current="true"]{color:#000}
+body.simple .nb{display:none}
+body.simple .nb.s-simple{display:inline-flex;font-size:1.05rem;padding:10px 16px}
+main{max-width:1180px;margin:16px auto;padding:0 12px}
+.view{display:none}.view.on{display:block}
+.card{background:var(--card);border-radius:var(--r);padding:var(--sp);margin-bottom:var(--sp);box-shadow:0 2px 6px rgba(0,0,0,.07)}
+h1{font-size:1.5rem;margin-bottom:6px}h2{font-size:1.25rem;margin-bottom:8px}h3{font-size:1.05rem;margin:10px 0 6px}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--sp)}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.between{justify-content:space-between}.center{justify-content:center}.tc{text-align:center}
+.mt{margin-top:10px}.mb{margin-bottom:10px}.hide{display:none!important}
+.small{font-size:.85rem;opacity:.85}
+.btn{background:var(--pri);color:#fff;border:0;border-radius:10px;padding:10px 16px;font-weight:bold;display:inline-flex;gap:6px;align-items:center}
+.btn:hover{background:var(--pri2)}
+body.t-contraste .btn{color:#000}
+.btn.ok{background:var(--ok)}.btn.warn{background:var(--warn);color:#22303f}.btn.bad{background:var(--bad)}
+.btn.ghost{background:transparent;color:var(--pri);border:2px solid var(--pri)}
+.btn.ai{background:linear-gradient(135deg,#7b52d3,#3d7ebf);color:#fff}
+.btn.sm{padding:6px 10px;font-size:.85rem}
+label{font-weight:bold;font-size:.92rem}
+input,select,textarea{width:100%;padding:9px;border:2px solid var(--line);border-radius:9px;background:var(--card)}
+textarea{resize:vertical;min-height:90px;line-height:1.5}
+.f{margin-bottom:10px}.f label{display:block;margin-bottom:4px}
+.chk{display:inline-flex;gap:7px;align-items:center;font-weight:normal;background:var(--soft);padding:7px 11px;border-radius:9px}
+.chk input{width:20px;height:20px}
+.ag{display:flex;gap:12px;align-items:center;background:var(--soft);border-left:6px solid var(--pri);border-radius:10px;padding:10px;margin-bottom:8px}
+.ag.done{opacity:.55;border-left-color:var(--ok)}.ag .ic{font-size:1.9rem}
+.pl{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;font-weight:bold}
+.pl .box{border:3px solid var(--pri);border-radius:12px;padding:10px 16px;background:var(--card);text-align:center;min-width:110px}
+.pl .ar{font-size:1.7rem;color:var(--warn)}
+.emo{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.emo button{font-size:2.2rem;background:none;border:4px solid transparent;border-radius:50%;padding:4px;line-height:1}
+.emo button:hover{transform:scale(1.12)}.emo button[aria-pressed="true"]{border-color:var(--pri);background:var(--soft)}
+.fab{position:fixed;right:16px;bottom:16px;z-index:85}
+.fab button{width:64px;height:64px;border-radius:50%;border:0;font-size:2rem;background:linear-gradient(135deg,#a8edea,#fed6e3);box-shadow:0 6px 18px rgba(0,0,0,.25);animation:pulse 3.4s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.modal{position:fixed;inset:0;background:rgba(8,14,22,.88);z-index:200;display:none;align-items:center;justify-content:center;padding:14px}
+.modal.on{display:flex}
+.modal .box{background:var(--card);color:var(--fg);border-radius:16px;padding:18px;max-width:940px;width:100%;max-height:92vh;overflow:auto;position:relative}
+.modal .x{position:absolute;top:8px;right:10px;background:none;border:0;font-size:1.6rem}
+#calm .box{background:transparent;color:#fff;text-align:center;box-shadow:none}
+.breath{width:170px;height:170px;margin:14px auto;border-radius:50%;border:6px solid #fff;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:bold;animation:br 12s infinite ease-in-out}
+@keyframes br{0%,100%{transform:scale(.8)}33%{transform:scale(1.25)}66%{transform:scale(1.25)}}
+.rwrap{position:relative;background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:18px;min-height:230px;overflow:hidden}
+.rtext{font-size:var(--fs);line-height:2.1;position:relative;z-index:2;white-space:pre-wrap;word-break:break-word}
+.rtext .w{border-radius:6px;padding:0 2px}.rtext .sy{border-radius:5px;padding:0 1px}
+body.sycolor .rtext .sy:nth-child(odd){background:#ffe9a8;color:#8a4b00}
+body.sycolor .rtext .sy:nth-child(even){background:#cfe6ff;color:#123a5e}
+.rtext .hl{background:var(--warn)!important;color:#22303f!important;box-shadow:0 0 0 3px var(--warn);font-weight:bold}
+.rtext .hlw{background:var(--ok)!important;color:#fff!important;box-shadow:0 0 0 3px var(--ok)}
+.rtext .rein{transform:scale(1.14);display:inline-block}.rtext .sentline{background:rgba(224,160,40,.14);border-radius:8px}
+.ruler{position:absolute;left:0;right:0;height:8px;background:var(--warn);opacity:.85;border-radius:6px;z-index:1;transition:top .18s ease;display:none}
+body.ruler-on .ruler{display:block}
+.ipic{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 4px;line-height:1}
+.ipic img,.ipic svg{width:1.5em;height:1.5em;object-fit:contain}.ipic b{font-size:.42em;font-weight:normal}
+.gap{border:0;border-bottom:4px solid var(--pri);background:var(--soft);font-size:.9em;width:6.5em;text-align:center;font-weight:bold}
+.err{text-decoration:line-through wavy var(--bad);background:rgba(201,82,79,.16);border-radius:6px;padding:0 4px;cursor:pointer}
+.err.fixed{text-decoration:none;background:rgba(79,157,105,.22);color:var(--ok);font-weight:bold}
+.ladder{display:flex;flex-direction:column-reverse;gap:6px;font-size:calc(var(--fs) * .8)}
+.ladder div{border-left:6px solid var(--pri);background:var(--soft);padding:6px 10px;border-radius:0 10px 10px 0;opacity:.55}
+.ladder div.now{opacity:1;font-weight:bold;background:var(--warn);color:#22303f}
+.turn{font-size:1.1rem;font-weight:bold;text-align:center;padding:8px;border-radius:10px;background:var(--soft);margin-top:10px}
+.ctrls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px;padding-top:12px;border-top:2px dashed var(--line)}
+.ctrls-wrapper .ctrls:first-child{border-top:0;margin-top:0;padding-top:0;border-bottom:2px dashed var(--line);padding-bottom:12px;margin-bottom:12px}
+.cg{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--soft);padding:8px;border-radius:10px}
+.stats{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:10px;font-weight:bold}
+.desc{background:var(--soft);border-left:5px solid var(--pri);padding:8px 10px;border-radius:8px;font-size:.88rem;margin-top:8px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.filters input,.filters select{width:auto;min-width:150px}
+.tc-card{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.tc-card:hover{border-color:var(--pri);transform:translateY(-3px)}
+.tc-card.fav{border-color:var(--warn);background:linear-gradient(0deg,rgba(224,160,40,.08),transparent)}
+.badge{display:inline-block;background:var(--soft);border-radius:20px;padding:2px 9px;font-size:.75rem;font-weight:bold}
+.clip{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:.9rem;opacity:.9}
+.star{background:none;border:0;font-size:1.4rem;line-height:1}
+.empty{grid-column:1/-1;text-align:center;padding:26px;border:3px dashed var(--warn);border-radius:12px;background:rgba(224,160,40,.08)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px;max-height:340px;overflow:auto;padding:6px;background:var(--card);border:2px solid var(--line);border-radius:10px}
+.pgrid.mini{grid-template-columns:repeat(auto-fill,minmax(76px,1fr));max-height:210px}
+.pi{display:flex;flex-direction:column;align-items:center;gap:3px;border:2px solid var(--line);border-radius:10px;padding:5px;background:var(--card);font-size:.7rem;text-align:center;word-break:break-word}
+.pi:hover{border-color:var(--pri);background:var(--soft)}.pi img,.pi svg{width:46px;height:46px;object-fit:contain}
+.pgrid.mini .pi img,.pgrid.mini .pi svg{width:36px;height:36px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tab{background:var(--soft);border:2px solid transparent;border-radius:20px;padding:7px 12px;font-weight:bold;font-size:.85rem}
+.tab[aria-selected="true"]{background:var(--pri);color:#fff}
+.act{background:var(--soft);border-left:6px solid var(--ok);border-radius:10px;padding:12px;margin-bottom:12px}
+.opt{display:flex;gap:8px;align-items:center;background:var(--card);border:2px solid var(--line);border-radius:9px;padding:8px 10px;cursor:pointer}
+.opt:hover{border-color:var(--pri)}.opt.good{border-color:var(--ok);background:rgba(79,157,105,.16)}.opt.wrong{border-color:var(--bad);background:rgba(201,82,79,.14)}
+.chip{background:var(--card);border:2px solid var(--pri);border-radius:10px;padding:8px 12px;font-weight:bold}.chip.used{opacity:.35;pointer-events:none}
+.slot{min-height:56px;border:3px dashed var(--pri);border-radius:10px;padding:8px;display:flex;gap:8px;flex-wrap:wrap;background:var(--card);font-size:1.15rem;font-weight:bold;align-items:center}
+.big{font-size:2.4rem;font-weight:bold;text-align:center;padding:14px}
+.fb{min-height:1.6em;font-weight:bold;text-align:center;margin-top:8px}.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}
+.stat{background:var(--soft);border-radius:12px;padding:12px;text-align:center}.stat b{display:block;font-size:1.9rem;color:var(--pri)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:7px;border-bottom:1px solid var(--line);text-align:left}th{background:var(--soft)}
+.scroll{max-height:300px;overflow:auto}
+.chart{height:210px;background:var(--soft);border-radius:12px;padding:6px}
+.pbox{background:#101820;color:#e7eef6;border:3px solid #7b52d3;border-radius:10px;padding:14px;font-family:monospace;font-size:.82rem;white-space:pre-wrap;max-height:56vh;overflow:auto}
+.phead{background:linear-gradient(135deg,#7b52d3,#3d7ebf);color:#fff;padding:12px;border-radius:10px;margin-bottom:10px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:96px;background:var(--ok);color:#fff;padding:12px 20px;border-radius:30px;font-weight:bold;z-index:300;display:none}
+.toast.on{display:block}
+.act-card{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px;text-align:center;cursor:pointer}
+.act-card:hover{border-color:var(--pri);transform:translateY(-3px)}
+.act-card .ico{font-size:2.6rem;margin-bottom:6px}.act-card h3{margin:4px 0;font-size:1rem}.act-card p{font-size:.82rem;opacity:.85}
+.mem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:14px 0}
+.mem-card{background:var(--card);border:3px solid var(--line);border-radius:12px;padding:14px;text-align:center;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:1.2rem;font-weight:bold}
+.mem-card.flip{background:var(--pri);color:#fff;border-color:var(--pri)}.mem-card .pic{font-size:2.4rem}
+@media(max-width:820px){.nb span{display:none}.nb{padding:9px 11px;font-size:1.05rem}:root{--fs:26px}}
+@media(max-width:420px){.g2,.g3,.g4{grid-template-columns:1fr}.brand small{display:none}:root{--fs:23px}}
+</style>
+</head>
+<body class="t-calmado sycolor ruler-on">
+<header>
+  <div class="brand">Karaoke Lector Inclusivo · TEA <small>Idea original: Maestro Ramón · CEIP La Ardila</small></div>
+  <nav>
+    <button class="nb s-simple" onclick="App.nav('inicio')">🏠<span>Inicio</span></button>
+    <button class="nb s-simple" onclick="App.nav('leer')">📖<span>Leer</span></button>
+    <button class="nb s-simple" onclick="App.nav('biblioteca')">📚<span>Biblioteca</span></button>
+    <button class="nb s-simple" onclick="App.nav('comprendo')">🎯<span>Comprendo</span></button>
+    <button class="nb" onclick="App.nav('palabras')">📝<span>Palabras</span></button>
+    <button class="nb" onclick="App.nav('pictos')">🖼️<span>Pictos</span></button>
+    <button class="nb" onclick="App.nav('crear')">✏️<span>Crear</span></button>
+    <button class="nb" onclick="App.nav('revisar')">🔧<span>Revisar</span></button>
+    <button class="nb" onclick="App.nav('actividades')">🎮<span>Actividades</span></button>
+    <button class="nb s-simple" onclick="App.nav('progreso')">⭐<span>Progreso</span></button>
+    <button class="nb" onclick="App.nav('ajustes')">⚙️<span>Ajustes</span></button>
+    <button class="nb" onclick="App.nav('profe')">👩‍🏫<span>Profe</span></button>
+  </nav>
+</header>
+<main>
+<section id="v-inicio" class="view on">
+  <div class="card tc"><h1>👋 ¡Hola! Vamos a leer juntos</h1><p>Sigue la agenda. Cada paso tiene su pictograma.</p></div>
+  <div class="g2">
+    <div class="card"><h2>🗓️ Agenda de hoy</h2><div id="agenda"></div><h3>🔁 Primero – Luego</h3><div class="pl" id="primero-luego"></div></div>
+    <div class="card">
+      <h2>😊 ¿Cómo estás hoy?</h2>
+      <div class="emo" id="emo">
+        <button onclick="App.emotion('muy bien',this)" aria-pressed="false">😄</button>
+        <button onclick="App.emotion('bien',this)" aria-pressed="false">🙂</button>
+        <button onclick="App.emotion('regular',this)" aria-pressed="false">😐</button>
+        <button onclick="App.emotion('triste',this)" aria-pressed="false">😢</button>
+        <button onclick="App.emotion('enfadado',this)" aria-pressed="false">😠</button>
+        <button onclick="App.emotion('cansado',this)" aria-pressed="false">🥱</button>
+      </div>
+      <div id="emo-msg" class="tc mt"></div>
+      <div class="card mt" style="background:var(--soft)">
+        <h3>🚀 Empezar</h3>
+        <div class="row center"><button class="btn" onclick="App.start()">▶️ Empezar a leer</button><button class="btn ghost" onclick="App.nav('biblioteca')">📚 Elegir lectura</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="v-leer" class="view">
+  <div class="card">
+    <div class="row between"><h2 id="r-title">📖 Lectura de hoy</h2><div class="row"><span class="badge" id="r-info">Sin lectura</span><button class="btn ghost sm" onclick="App.nav('biblioteca')">📚 Elegir</button></div></div>
+    <div class="ctrls-wrapper" id="ctrls-top"></div>
+    <div class="rwrap" id="rwrap"><div class="ruler" id="ruler"></div><div class="rtext" id="rtext">Selecciona una lectura en la biblioteca.</div></div>
+    <div id="r-extra"></div>
+    <div id="r-turn" class="turn hide"></div>
+    <div class="ctrls-wrapper" id="ctrls-bottom"></div>
+    <div class="stats">
+      <span>⏱️ <b id="s-time">0s</b></span><span>📝 <b id="s-words">0</b></span><span>🚀 <b id="s-ppm">0</b></span>
+      <button class="btn ghost sm" onclick="Reader.fluency()">📏 Medir</button>
+      <button class="btn ok sm" onclick="Reader.finish()">✅ Terminado</button>
+    </div>
+  </div>
+</section>
+<section id="v-biblioteca" class="view">
+  <div class="card">
+    <div class="row between"><h2>📚 Biblioteca</h2><span id="lib-count"></span></div>
+    <div class="filters">
+      <input type="search" id="f-q" placeholder="🔍 Buscar..." oninput="Library.render()">
+      <select id="f-lv" onchange="Library.render()"><option value="all">Todos</option><option value="0">Nivel 0</option><option value="1">Nivel 1</option><option value="2">Nivel 2</option><option value="3">Nivel 3</option><option value="4">Nivel 4</option></select>
+      <select id="f-cat" onchange="Library.render()"></select>
+      <button class="btn ghost sm" id="f-fav" onclick="Library.onlyFav()">⭐ Favoritos</button>
+      <button class="btn ghost sm" onclick="Library.clearFilters()">🧹 Quitar</button>
+      <button class="btn ok sm" onclick="App.nav('crear');Editor.blank()">➕ Nueva</button>
+      <button class="btn warn sm" onclick="Library.repair()">🔄 Restaurar 60</button>
+    </div>
+    <div class="g3" id="lib-grid"></div>
+  </div>
+</section>
+<section id="v-comprendo" class="view">
+  <div class="card">
+    <h2>🎯 Comprendo lo que leo</h2>
+    <p class="small" id="cmp-info">Selecciona una lectura.</p>
+    <div class="tabs" id="cmp-tabs"></div>
+    <div id="cmp-body"></div>
+    <div class="row mt"><button class="btn ok" onclick="Compre.check()">✅ Comprobar</button><button class="btn ghost" onclick="Compre.build()">🔄 Reiniciar</button><button class="btn warn" onclick="Compre.hint()">💡 Pista</button></div>
+    <div class="fb" id="cmp-fb"></div>
+  </div>
+</section>
+<section id="v-palabras" class="view">
+  <div class="g2">
+    <div class="card"><h2>📝 Palabras del texto</h2><div id="w-list" class="g4"></div></div>
+    <div class="card">
+      <h2>📖 Mi diccionario</h2>
+      <div class="row mb"><input type="text" id="d-w" placeholder="Palabra" style="flex:1"><input type="text" id="d-m" placeholder="Significado" style="flex:2"><button class="btn" onclick="Dict.add()">➕</button></div>
+      <div id="d-list"></div>
+    </div>
+  </div>
+</section>
+<section id="v-pictos" class="view">
+  <div class="card">
+    <h2>🖼️ Pictogramas</h2>
+    <div class="row mb" style="gap:6px;flex-wrap:wrap">
+      <input type="search" id="p-q" placeholder="🔍 Buscar..." oninput="Pictos.render()" style="flex:1;min-width:150px">
+      <button class="btn" onclick="Pictos.search()">🌐 ARASAAC</button>
+      <button class="btn ghost" onclick="window.open('https://www.pictotraductor.com/','_blank')">🔗 PictoTraductor</button>
+      <button class="btn ghost" onclick="window.open('https://www.pictofacile.com/es','_blank')">🔗 PictoFacile</button>
+      <button class="btn ghost" onclick="window.open('https://www.pictosonidos.com/','_blank')">🔗 PictoSonidos</button>
+      <label class="btn warn" style="cursor:pointer">📤 Subir<input type="file" accept="image/*" class="sr" onchange="Pictos.upload(this)"></label>
+    </div>
+    <div id="p-msg" class="mt small"></div>
+    <div class="pgrid mt" id="p-grid"></div>
+    <h3>🔗 Secuencia visual</h3>
+    <div class="seq" id="p-seq" style="display:flex;gap:8px;flex-wrap:wrap;min-height:80px;border:3px dashed var(--line);border-radius:10px;padding:8px"></div>
+    <div class="row mt"><button class="btn ghost sm" onclick="Pictos.seqSpeak()">🔊 Leer</button><button class="btn ghost sm" onclick="Pictos.seqClear()">🧹 Vaciar</button></div>
+  </div>
+</section>
+<section id="v-crear" class="view">
+  <div class="card">
+    <h2>✏️ Crear o editar lectura</h2>
+    <div class="card" style="background:linear-gradient(135deg,rgba(123,82,211,.14),rgba(61,126,191,.14));border:3px solid #7b52d3">
+      <div class="row between"><div style="flex:1"><h3 style="color:#7b52d3">✨ Prompt Maestro para IA</h3><p class="small">Cópialo y pégalo en ChatGPT/Claude/Gemini.</p></div><button class="btn ai" onclick="Prompt.open()">✨ Ver prompt</button></div>
+    </div>
+    <div id="ed-lock" class="empty hide"><h3>🔒 Zona del docente</h3><div class="row center mt"><input type="password" id="ed-pass" placeholder="Contraseña" style="max-width:220px"><button class="btn" onclick="Teacher.login($('#ed-pass').value,true)">Entrar</button></div><p class="small mt">Por defecto: <b>profe2024</b></p></div>
+    <form id="ed-form" onsubmit="Editor.save(event)">
+      <input type="hidden" id="e-id">
+      <div class="g2"><div class="f"><label>Título</label><input type="text" id="e-title" required></div><div class="f"><label>Etiquetas</label><input type="text" id="e-tags" placeholder="alumno, proyecto"></div></div>
+      <div class="g4">
+        <div class="f"><label>Nivel</label><select id="e-lv"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+        <div class="f"><label>Categoría</label><select id="e-cat"></select></div>
+        <div class="f"><label>Modo</label><select id="e-mode"></select></div>
+        <div class="f"><label>Colección</label><input type="text" id="e-col" placeholder="general"></div>
+      </div>
+      <div class="f"><label>Texto</label><textarea id="e-text" rows="7" required oninput="Editor.preview()" placeholder="[picto:perro] · [hueco:sol] · {error:casa|kasa}"></textarea>
+        <div class="row mt"><label class="btn ghost sm">📂 .txt<input type="file" accept=".txt" class="sr" onchange="Editor.importTxt(this)"></label><button type="button" class="btn ghost sm" onclick="Editor.autoPictos()">🖼️ Auto-pictos</button></div>
+      </div>
+      <div style="border:3px dashed var(--pri);border-radius:12px;padding:12px;background:rgba(61,126,191,.06)">
+        <h3>🖼️ Pictogramas</h3>
+        <div class="row mb" style="gap:6px;flex-wrap:wrap">
+          <input type="search" id="ep-q" placeholder="🔍 palabra" style="flex:1;min-width:150px" oninput="Editor.pictos()">
+          <button type="button" class="btn" onclick="Editor.arasaac()">🌐 ARASAAC</button>
+          <button type="button" class="btn ghost" onclick="window.open('https://www.pictotraductor.com/','_blank')">🔗 PictoTraductor</button>
+          <button type="button" class="btn ghost" onclick="window.open('https://www.pictofacile.com/es','_blank')">🔗 PictoFacile</button>
+          <label class="btn warn" style="cursor:pointer">📤 Subir<input type="file" accept="image/*" class="sr" onchange="Pictos.upload(this,true)"></label>
+        </div>
+        <div id="ep-msg" class="small mb"></div>
+        <div class="pgrid mini" id="ep-grid"></div>
+      </div>
+      <h3>❓ Preguntas</h3><div id="e-qs"></div><button type="button" class="btn ghost sm" onclick="Editor.addQ()">➕ Añadir</button>
+      <h3>📚 Vocabulario</h3><div class="row mb"><input type="text" id="e-v" placeholder="palabra" style="max-width:220px"><button type="button" class="btn ghost sm" onclick="Editor.addV()">➕</button></div><div class="row" id="e-vs"></div>
+      <h3>🧘 Pausas guiadas</h3><div class="f"><label>Números de frase (ej: 2,4,6)</label><input type="text" id="e-pauses" placeholder="2,4,6"></div>
+      <h3>👁️ Vista previa</h3><div class="rwrap"><div class="rtext" id="e-prev" style="font-size:24px"></div></div>
+      <div class="row mt"><button type="submit" class="btn ok">💾 Guardar</button><button type="button" class="btn ghost" onclick="Editor.dup()">📑 Duplicar</button><button type="button" class="btn bad" onclick="Editor.del()">🗑️ Eliminar</button><button type="button" class="btn ghost" onclick="Editor.cancel()">❌ Cancelar</button></div>
+    </form>
+  </div>
+</section>
+<section id="v-revisar" class="view">
+  <div class="card">
+    <h2>🔧 Revisar y corregir</h2>
+    <div class="rwrap"><div class="rtext" id="rv-text" style="font-size:24px"></div></div>
+    <div class="g2 mt">
+      <div class="card" style="background:var(--soft)"><h3>Corregir palabra</h3><p class="small">Seleccionada: <b id="rv-sel">—</b></p><div class="f"><label>Sustituir por</label><input type="text" id="rv-new"></div><div class="row"><button class="btn" onclick="Review.one()">Solo esta</button><button class="btn ghost" onclick="Review.all()">Todas</button></div></div>
+      <div class="card" style="background:var(--soft)"><h3>Corregir fragmento</h3><div class="f"><label>Original</label><input type="text" id="rv-a"></div><div class="f"><label>Nuevo</label><input type="text" id="rv-b"></div><button class="btn" onclick="Review.frag()">Aplicar</button></div>
+    </div>
+    <div class="card" style="background:var(--soft)"><h3>Corrección global</h3><textarea id="rv-full" rows="6"></textarea><div class="row mt"><button class="btn ok" onclick="Review.global()">Aplicar</button><button class="btn ghost" onclick="Review.undo()">↩️ Deshacer</button></div></div>
+  </div>
+</section>
+<section id="v-actividades" class="view">
+  <div class="card">
+    <h2>🎮 Actividades de lectoescritura</h2>
+    <p class="small">12 actividades no competitivas.</p>
+    <div class="g4 mt">
+      <div class="act-card" onclick="App.nav('gym')"><div class="ico">🏋️</div><h3>Gimnasio</h3><p>Fluidez</p></div>
+      <div class="act-card" onclick="App.nav('lab')"><div class="ico">🔬</div><h3>Laboratorio</h3><p>Sílabas</p></div>
+      <div class="act-card" onclick="App.nav('build')"><div class="ico">🧩</div><h3>Formar palabras</h3><p>Decodificación</p></div>
+      <div class="act-card" onclick="App.nav('order')"><div class="ico">📝</div><h3>Ordenar frases</h3><p>Sintaxis</p></div>
+      <div class="act-card" onclick="App.nav('detective')"><div class="ico">🕵️</div><h3>Detectives</h3><p>Ortografía</p></div>
+      <div class="act-card" onclick="App.nav('ladder')"><div class="ico">🪜</div><h3>Escalera</h3><p>Memoria</p></div>
+      <div class="act-card" onclick="App.nav('retos')"><div class="ico">🎯</div><h3>Retos</h3><p>Comprensión</p></div>
+      <div class="act-card" onclick="App.nav('memory')"><div class="ico">🔤</div><h3>Memoria</h3><p>TEA</p></div>
+      <div class="act-card" onclick="App.nav('dictado')"><div class="ico">🎨</div><h3>Dictado</h3><p>Fonema-imagen</p></div>
+      <div class="act-card" onclick="App.nav('cadena')"><div class="ico">🔗</div><h3>Cadena</h3><p>Fonología</p></div>
+      <div class="act-card" onclick="App.nav('intrusa')"><div class="ico">🎯</div><h3>Intrusa</h3><p>Categorías</p></div>
+      <div class="act-card" onclick="App.nav('rimas')"><div class="ico">🎵</div><h3>Rimas</h3><p>Fonología</p></div>
+    </div>
+  </div>
+</section>
+<section id="v-gym" class="view"><div class="card"><h2>🏋️ Gimnasio</h2><div class="row mb"><select id="gym-lv" style="width:auto" onchange="Gym.start()"><option value="1">Fácil</option><option value="2">Medio</option><option value="3">Difícil</option></select><label class="chk"><input type="checkbox" id="gym-timer" checked> Cronómetro</label></div><div class="rwrap"><div class="big" id="gym-w">Pulsa ▶️</div></div><div class="row center mt"><button class="btn" onclick="Gym.start()">▶️</button><button class="btn ok" onclick="Gym.next()">➡️</button><button class="btn ghost" onclick="Gym.stop()">⏹️</button></div><div class="fb" id="gym-fb"></div></div></section>
+<section id="v-lab" class="view"><div class="card"><h2>🔬 Laboratorio</h2><div class="row center mb" id="lab-c"></div><div class="row center mb" id="lab-v"></div><div class="big" id="lab-res">?</div><div class="tc" id="lab-pic"></div><div class="row center mt"><button class="btn" onclick="Lab.speak()">🔊</button><button class="btn ghost" onclick="Lab.speakWord()">📝</button></div></div></section>
+<section id="v-build" class="view"><div class="card"><h2>🧩 Formar palabras</h2><div class="tc" id="b-pic" style="font-size:4rem"></div><div class="slot" id="b-slot"></div><div class="row center mt" id="b-opts"></div><div class="row center mt"><button class="btn ok" onclick="Build.check()">✅</button><button class="btn ghost" onclick="Build.clear()">🔄</button><button class="btn" onclick="Build.next()">➡️</button></div><div class="fb" id="b-fb"></div></div></section>
+<section id="v-order" class="view"><div class="card"><h2>📝 Ordenar frases</h2><div class="slot" id="o-slot"></div><div class="row center mt" id="o-opts"></div><div class="row center mt"><button class="btn ok" onclick="Order.check()">✅</button><button class="btn ghost" onclick="Order.clear()">🔄</button><button class="btn" onclick="Order.next()">➡️</button></div><div class="fb" id="o-fb"></div></div></section>
+<section id="v-detective" class="view"><div class="card"><h2>🕵️ Detectives</h2><div class="rwrap"><div class="rtext" id="dt-text" style="font-size:26px"></div></div><div class="row center mt"><button class="btn ok" onclick="Detective.check()">✅</button><button class="btn" onclick="Detective.next()">➡️</button></div><div class="fb" id="dt-fb"></div></div></section>
+<section id="v-ladder" class="view"><div class="card"><h2>🪜 Escalera</h2><div class="rwrap"><div class="ladder" id="ld-box"></div></div><div class="row center mt"><button class="btn" onclick="Ladder.speak()">🔊</button><button class="btn ok" onclick="Ladder.next()">➡️</button><button class="btn ghost" onclick="Ladder.load()">🔄</button></div></div></section>
+<section id="v-retos" class="view"><div class="card"><h2>🎯 Retos</h2><div id="rt-body"></div><div class="row center mt"><button class="btn" onclick="Retos.load()">🎲 Nuevo</button></div><div class="fb" id="rt-fb"></div></div></section>
+<section id="v-memory" class="view"><div class="card"><h2>🔤 Memoria</h2><div class="row mb"><label class="chk"><input type="radio" name="mem-lv" value="3" checked> 3</label><label class="chk"><input type="radio" name="mem-lv" value="4"> 4</label><label class="chk"><input type="radio" name="mem-lv" value="5"> 5</label><label class="chk"><input type="radio" name="mem-t" value="4" checked> 4s</label><label class="chk"><input type="radio" name="mem-t" value="6"> 6s</label></div><div class="mem-grid" id="mem-grid"></div><div class="row center mt"><button class="btn" onclick="Memory.start()">▶️</button><button class="btn ghost" onclick="Memory.next()">➡️</button></div><div class="fb" id="mem-fb"></div><div id="mem-select" class="hide mt"><h3>¿Cuáles eran?</h3><div class="g4" id="mem-opts"></div><div class="row center mt"><button class="btn ok" onclick="Memory.check()">✅</button></div></div></div></section>
+<section id="v-dictado" class="view"><div class="card"><h2>🎨 Dictado</h2><div class="tc" style="margin:14px 0"><button class="btn" onclick="Dictado.play()" style="font-size:1.2rem;padding:14px 28px">🔊 Escuchar</button></div><div class="g4" id="dic-opts"></div><div class="row center mt"><button class="btn" onclick="Dictado.next()">➡️</button></div><div class="fb" id="dic-fb"></div></div></section>
+<section id="v-cadena" class="view"><div class="card"><h2>🔗 Cadena</h2><div class="tc" style="margin:14px 0"><div style="font-size:2rem;font-weight:bold" id="cad-prev">—</div><p class="small mt">Última sílaba: <b id="cad-syl">—</b></p></div><div class="g3" id="cad-opts"></div><div class="row center mt"><button class="btn" onclick="Cadena.next()">➡️</button></div><div class="fb" id="cad-fb"></div></div></section>
+<section id="v-intrusa" class="view"><div class="card"><h2>🎯 Intrusa</h2><div class="tc" style="margin:14px 0"><div class="badge" id="int-cat">Categoría</div></div><div class="g4" id="int-opts"></div><div class="row center mt"><button class="btn" onclick="Intrusa.next()">➡️</button></div><div class="fb" id="int-fb"></div></div></section>
+<section id="v-rimas" class="view"><div class="card"><h2>🎵 Rimas</h2><div class="tc" style="margin:14px 0"><button class="btn" onclick="Rimas.play()" style="font-size:1.2rem;padding:14px 28px">🔊 Escuchar</button><div style="font-size:1.5rem;font-weight:bold;margin-top:10px" id="rim-word">—</div></div><div class="g4" id="rim-opts"></div><div class="row center mt"><button class="btn" onclick="Rimas.next()">➡️</button></div><div class="fb" id="rim-fb"></div></div></section>
+<section id="v-progreso" class="view">
+  <div class="card">
+    <h2>⭐ Mi progreso</h2>
+    <div class="g4 mb"><div class="stat"><b id="pg-r">0</b>Lecturas</div><div class="stat"><b id="pg-h">0</b>Aciertos</div><div class="stat"><b id="pg-d">0</b>Diccionario</div><div class="stat"><b id="pg-s">0</b>Estrellas</div><div class="stat"><b id="pg-p">—</b>PPM</div></div>
+    <h3>📈 Evolución</h3><div class="chart" id="pg-chart"></div>
+    <h3>🗒️ Historial</h3>
+    <div class="scroll"><table><thead><tr><th>Fecha</th><th>Texto</th><th>Modo</th><th>Seg</th><th>PPM</th><th>Aciertos</th><th>Obs</th></tr></thead><tbody id="pg-tb"></tbody></table></div>
+    <div class="row mt"><button class="btn ghost" onclick="Progress.csv()">📥 CSV</button><button class="btn ghost" onclick="Progress.json()">📥 JSON</button><button class="btn bad" onclick="Progress.reset()">🔄 Reiniciar</button></div>
+    <div id="pg-teacher" class="hide">
+      <h3>👩‍🏫 Registro docente</h3>
+      <div class="row mb" id="pg-diffs"></div>
+      <div class="f"><label>Observaciones</label><textarea id="pg-obs" rows="3"></textarea></div>
+      <button class="btn ok" onclick="Progress.saveObs()">💾 Guardar</button>
+    </div>
+  </div>
+</section>
+<section id="v-ajustes" class="view">
+  <div class="card">
+    <h2>⚙️ Ajustes</h2>
+    <h3>🎨 Aspecto</h3>
+    <div class="g4">
+      <div class="f"><label>Tema</label><select id="s-theme" onchange="Settings.apply()"><option value="t-calmado">Calmado</option><option value="t-claro">Claro</option><option value="t-oscuro">Oscuro</option><option value="t-contraste">Contraste</option></select></div>
+      <div class="f"><label>Tamaño: <b id="s-fsv">30px</b></label><input type="range" id="s-fs" min="18" max="56" step="2" value="30" oninput="Settings.apply()"></div>
+      <div class="f"><label class="chk"><input type="checkbox" id="s-anim" onchange="Settings.apply()"> Reducir animaciones</label></div>
+      <div class="f"><label class="chk"><input type="checkbox" id="s-simple" onchange="Settings.apply()"> Modo simplificado</label></div>
+      <div class="f"><label class="chk"><input type="checkbox" id="s-dys" onchange="Settings.apply()"> Dislexia</label></div>
+      <div class="f"><label class="chk"><input type="checkbox" id="s-pic" checked onchange="Settings.apply()"> Pictos</label></div>
+      <div class="f"><label class="chk"><input type="checkbox" id="s-ruler" checked onchange="Settings.apply()"> Regla</label></div>
+      <div class="f"><label class="chk"><input type="checkbox" id="s-sy" checked onchange="Settings.apply()"> Colores</label></div>
+    </div>
+    <h3>🔊 Sonido</h3>
+    <div class="g4">
+      <div class="f"><label>Voz</label><select id="s-voice"></select></div>
+      <div class="f"><label>Tono: <b id="s-pitchv">1.0</b></label><input type="range" id="s-pitch" min="0.5" max="2" step="0.1" value="1" oninput="Settings.apply()"></div>
+      <div class="f"><label class="chk"><input type="checkbox" id="s-beep"> Pitido pausa</label></div>
+      <div class="f"><label class="chk"><input type="checkbox" id="s-sound" checked onchange="Settings.apply()"> Sonidos</label></div>
+    </div>
+    <div class="row mb"><button class="btn ghost sm" onclick="Settings.voices()">🔄 Voces</button><button class="btn ghost sm" onclick="Sound.test()">🔊 Probar</button></div>
+    <h3>⏱️ Pausas (ms)</h3>
+    <div class="g4"><div class="f"><label>Sílabas</label><input type="number" id="s-ps" value="450" min="0" step="50"></div><div class="f"><label>Palabras</label><input type="number" id="s-pw" value="600" min="0" step="50"></div><div class="f"><label>Frases</label><input type="number" id="s-pf" value="1000" min="0" step="100"></div><div class="f"><label>Párrafos</label><input type="number" id="s-pp" value="1800" min="0" step="100"></div><div class="f"><label>Eco/Guiada</label><input type="number" id="s-pe" value="5000" min="0" step="500"></div></div>
+    <div class="row"><button class="btn ok" onclick="Settings.save()">💾 Guardar</button><button class="btn ghost" onclick="Settings.restore()">🔄 Restaurar</button></div>
+    <h3>🔐 Privacidad</h3>
+    <div class="row mt"><button class="btn" onclick="App.exportAll()">📤 Exportar</button><label class="btn ghost">📥 Importar<input type="file" accept=".json" class="sr" onchange="App.importAll(this)"></label><button class="btn warn" onclick="Library.repair()">🔄 Restaurar 60</button><button class="btn bad" onclick="App.hardReset()">🗑️ Borrar todo</button></div>
+    <div class="f mt" style="max-width:340px"><label>Contraseña docente</label><input type="text" id="s-pass" placeholder="profe2024"><button class="btn ghost sm mt" onclick="Teacher.setPass()">🔑 Cambiar</button></div>
+  </div>
+</section>
+<section id="v-profe" class="view">
+  <div class="card">
+    <h2>👩‍🏫 Panel docente</h2>
+    <div id="tp-lock">
+      <p>Introduce la contraseña.</p>
+      <div class="row mt"><input type="password" id="tp-pass" placeholder="Contraseña" style="max-width:240px" onkeydown="if(event.key==='Enter')Teacher.login(this.value)"><button class="btn" onclick="Teacher.login($('#tp-pass').value)">Entrar</button></div>
+      <p class="small mt">Por defecto: <b>profe2024</b></p>
+    </div>
+    <div id="tp-body" class="hide">
+      <div class="g3">
+        <button class="btn" onclick="App.nav('crear');Editor.blank()">✏️ Crear</button>
+        <button class="btn" onclick="App.nav('pictos')">🖼️ Pictos</button>
+        <button class="btn" onclick="Teacher.export()">📥 Informe JSON</button>
+        <button class="btn ghost" onclick="Progress.csv()">📥 CSV</button>
+        <button class="btn ghost" onclick="App.nav('progreso')">⭐ Historial</button>
+        <button class="btn bad" onclick="Teacher.logout()">🔒 Salir</button>
+      </div>
+      <h3>📋 Últimas sesiones</h3>
+      <div class="scroll"><table><thead><tr><th>Fecha</th><th>Texto</th><th>Modo</th><th>PPM</th><th>Aciertos</th><th>Dificultades</th><th>Obs</th></tr></thead><tbody id="tp-tb"></tbody></table></div>
+      <h3>🧾 Migración</h3><p class="small" id="tp-mig"></p>
+    </div>
+  </div>
+</section>
+</main>
+<div class="fab"><button onclick="App.calm(true)" aria-label="Rincón de calma">🫧</button></div>
+<div class="modal" id="calm"><div class="box"><h2>🫧 Rincón de calma</h2><div class="breath">Respira</div><p id="calm-txt">Hincha la tripa como un globo.</p><div class="row center mt"><button class="btn warn" onclick="App.calm(false)">Salir</button></div></div></div>
+<div class="modal" id="prompt"><div class="box"><button class="x" onclick="Prompt.close()">✖</button><div class="phead"><h2>✨ Prompt Maestro</h2><p>Cópialo y pégalo en tu IA.</p></div><div class="row mb"><button class="btn ai" onclick="Prompt.copy()">📋 Copiar</button><button class="btn ghost" onclick="Prompt.close()">Cerrar</button></div><div class="pbox" id="prompt-box"></div></div></div>
+<div class="modal" id="count"><div class="box tc" style="max-width:420px"><h2>🔔 Vamos a empezar</h2><div class="big" id="count-n">3</div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+"use strict";
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const uid=()=>'u'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+const today=()=>new Date().toLocaleString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+function toast(msg,ms=2200){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),ms);}
+function download(name,content,mime){const b=new Blob([content],{type:mime||'application/json;charset=utf-8'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500);}
+const CATS=['Prelectura','Cuento','Rima','Adivinanza','Trabalenguas','Informativo','Instructivo','Diálogo','Canción','Fábula','Poema','Noticia','Científico','Biografía','Teatro','Divulgativo','Inferencial'];
+const MODES=[['silabico','🔤 Silábico'],['palabra','📝 Palabra'],['frase','📖 Frase'],['parrafo','📄 Párrafo'],['eco','🎤 Eco'],['guiada','🧘 Guiada'],['autonomo','👀 Autónomo'],['piramidal','🔺 Piramidal'],['acumulativa','🔄 Acumulativa'],['dramatizada','🎭 Dramatizada'],['huecos','🕳️ Huecos'],['detectives','🕵️ Detectives'],['escalera','🪜 Escalera']];
+const DIFFS=['invierte b/d','omite sílabas','sustituye palabras','pierde renglón','necesita apoyo','buena entonación'];
+const SCHEMA=7;
+const K={ver:'KLI_VERSION',texts:'kli7_texts',prog:'kli7_progress',dict:'kli7_dict',set:'kli7_settings',emo:'kli7_emotion',bak:'kli7_legacy_backup',pass:'kli7_pass'};
+const Store={
+  get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(e){toast('⚠️ Sin espacio.');return false;}},
+  del(k){try{localStorage.removeItem(k);}catch(e){}}
+};
+const Migrate={
+  report:'Sin migración.',
+  run(){
+    const old=parseFloat(localStorage.getItem(K.ver)||'0');
+    if(old>=SCHEMA){this.report='Esquema v'+SCHEMA+' al día.';return;}
+    const backup={};let found=false;
+    ['kli_texts','kli_progress','kli_dict','kli_settings','kli_custom_pictos','kli_arasaac_cache','KLI_VERSION'].forEach(k=>{const raw=localStorage.getItem(k);if(raw!=null){backup[k]=raw;found=true;}});
+    if(found)Store.set(K.bak,{date:today(),from:old,data:backup});
+    let imported=0;
+    const legacy=Store.get('kli_texts',[]);
+    if(Array.isArray(legacy)&&legacy.length){
+      const mine=Store.get(K.texts,[]);const ids=new Set(mine.map(t=>t.id));
+      legacy.forEach(t=>{
+        if(!t||typeof t.text!=='string'||!t.text.trim())return;
+        const id=t.id&&!ids.has(t.id)?t.id:uid();
+        mine.push({id,title:t.title||'Recuperada',level:Number(t.level)||1,category:CATS.includes(t.category)?t.category:'Cuento',text:t.text,questions:Array.isArray(t.questions)?t.questions:[],vocab:Array.isArray(t.vocab)?t.vocab:[],tags:Array.isArray(t.tags)?t.tags:['recuperada'],collection:t.collection||'general',favorite:!!t.favorite,mode:t.mode||'',pauses:t.pauses||'',own:true});
+        ids.add(id);imported++;
+      });
+      Store.set(K.texts,mine);
+    }
+    const lp=Store.get('kli_progress',[]);if(Array.isArray(lp)&&lp.length&&!Store.get(K.prog,[]).length)Store.set(K.prog,lp);
+    const ld=Store.get('kli_dict',[]);if(Array.isArray(ld)&&ld.length&&!Store.get(K.dict,[]).length)Store.set(K.dict,ld);
+    const ls=Store.get('kli_settings',null);if(ls&&!Store.get(K.set,null))Store.set(K.set,ls);
+    localStorage.setItem(K.ver,String(SCHEMA));
+    this.report='Migrado a v'+SCHEMA+'. Lecturas recuperadas: '+imported+'.';
+  }
+};
+const Sound={
+  ctx:null,on:true,
+  init(){try{this.ctx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){this.ctx=null;}
+    const unlock=()=>{this.ready();document.removeEventListener('click',unlock);document.removeEventListener('keydown',unlock);document.removeEventListener('touchstart',unlock);};
+    document.addEventListener('click',unlock);
+    document.addEventListener('keydown',unlock);
+    document.addEventListener('touchstart',unlock);
+  },
+  ready(){if(!this.ctx)this.init();if(this.ctx&&this.ctx.state==='suspended')this.ctx.resume();},
+  tone(f,d,type,vol){if(!this.on)return;this.ready();if(!this.ctx)return;const t=this.ctx.currentTime;const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.type=type||'sine';o.frequency.value=f;g.gain.setValueAtTime(vol||.18,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(this.ctx.destination);o.start(t);o.stop(t+d);},
+  ok(){this.tone(523,.14);setTimeout(()=>this.tone(659,.22),140);},
+  bad(){this.tone(300,.18,'triangle',.14);setTimeout(()=>this.tone(210,.26,'triangle',.14),150);},
+  click(){this.tone(760,.05,'sine',.09);},
+  win(){this.tone(523,.13);setTimeout(()=>this.tone(659,.13),130);setTimeout(()=>this.tone(784,.3),260);},
+  beep(){this.tone(880,.09,'square',.07);},
+  test(){this.on=true;this.ok();setTimeout(()=>this.bad(),600);setTimeout(()=>this.win(),1200);}
+};
+const Syl={
+  V:'aeiouáéíóúü',S:'aeoáéó',groups:['bl','br','cl','cr','dr','fl','fr','gl','gr','pl','pr','tr','tl','ch','ll','rr'],
+  nuclei(w){const r=[];let i=0;while(i<w.length){if(this.V.includes(w[i])){let j=i;while(j+1<w.length&&this.V.includes(w[j+1])){const a=w[j],b=w[j+1];if(this.S.includes(a)&&this.S.includes(b))break;if('áéó'.includes(a)||'áéó'.includes(b))break;if(a===b&&(a==='i'||a==='u'))break;j++;}r.push([i,j+1]);i=j+1;}else i++;}return r;},
+  split(word){
+    const clean=word.replace(/[^\wáéíóúüñÁÉÍÓÚÜÑ]/g,'');
+    if(clean.length<4)return [word];
+    const w=clean.toLowerCase(),n=this.nuclei(w);
+    if(n.length<2)return [word];
+    const cuts=[];
+    for(let k=0;k<n.length-1;k++){
+      const end=n[k][1],start=n[k+1][0],mid=w.slice(end,start);
+      let pos=mid.length===0?end:(mid.length===1?end:(mid.length===2?(this.groups.includes(mid)?end:end+1):(this.groups.includes(mid.slice(1))?end+1:end+2)));
+      cuts.push(clamp(pos,end,start));
+    }
+    const out=[];let prev=0;
+    cuts.forEach(c=>{if(c>prev){out.push(clean.slice(prev,c));prev=c;}});
+    if(prev<clean.length)out.push(clean.slice(prev));
+    return out.length?out:[word];
+  }
+};
+const EMO=`casa=🏠 colegio=🏫 aula=🧑‍🏫 maestro=🧑‍🏫 maestra=👩‍🏫 niño=👦 niña=👧 amigo=🧑‍🤝‍🧑 familia=👨‍👩‍👧 mamá=👩 papá=👨 abuelo=👴 abuela=👵 hermano=👦 hermana=👧 bebé=👶 leer=📖 escribir=✍️ comer=🍽️ beber=🥤 dormir=😴 jugar=⚽ correr=🏃 saltar=🤸 andar=🚶 nadar=🏊 cantar=🎤 bailar=💃 dibujar=🎨 pintar=🖌️ cortar=✂️ pegar=🧴 abrir=🔓 cerrar=🔒 mirar=👀 escuchar=👂 hablar=🗣️ pensar=🤔 sentir=❤️ querer=💗 ayudar=🤝 compartir=🫱 limpiar=🧹 ordenar=🗂️ esperar=⏳ empezar=▶️ terminar=🏁 entrar=🚪 salir=🚶 subir=⬆️ bajar=⬇️ reír=😄 llorar=😢 sonreír=🙂 abrazar=🤗 besar=😘 lavar=🧼 cocinar=🍳 comprar=🛒 dar=🎁 recibir=📥 llevar=🎒 traer=📦 romper=💔 arreglar=🔧 construir=🧱 plantar=🌱 regar=💧 trabajar=🛠️ estudiar=📚 contar=🔢 preguntar=❓ responder=🙋 perro=🐶 gato=🐱 pájaro=🐦 pez=🐟 ratón=🐭 conejo=🐰 caballo=🐴 vaca=🐮 cerdo=🐷 oveja=🐑 león=🦁 tigre=🐯 elefante=🐘 mono=🐵 oso=🐻 jirafa=🦒 cebra=🦓 tortuga=🐢 serpiente=🐍 rana=🐸 mariposa=🦋 abeja=🐝 hormiga=🐜 araña=🕷️ caracol=🐌 pollo=🐔 pato=🦆 pingüino=🐧 delfín=🐬 ballena=🐳 tiburón=🦈 pulpo=🐙 cangrejo=🦀 liebre=🐇 cigarra=🦗 gallina=🐓 sol=☀️ luna=🌙 estrella=⭐ nube=☁️ lluvia=🌧️ nieve=❄️ viento=💨 arcoíris=🌈 árbol=🌳 flor=🌸 hoja=🍃 semilla=🌱 fruta=🍎 manzana=🍎 pera=🍐 plátano=🍌 naranja=🍊 limón=🍋 uva=🍇 fresa=🍓 sandía=🍉 tomate=🍅 zanahoria=🥕 patata=🥔 pan=🍞 leche=🥛 agua=💧 queso=🧀 huevo=🥚 arroz=🍚 pasta=🍝 sopa=🍲 carne=🍖 pescado=🐟 galleta=🍪 tarta=🎂 helado=🍦 chocolate=🍫 zumo=🧃 mesa=🪑 silla=🪑 cama=🛏️ puerta=🚪 ventana=🪟 libro=📚 cuaderno=📓 lápiz=✏️ boli=🖊️ goma=🧽 regla=📏 tijeras=✂️ pegamento=🧴 mochila=🎒 pizarra=📋 ordenador=💻 tablet=📱 reloj=⏰ calendario=📅 pelota=⚽ juguete=🧸 cometa=🪁 coche=🚗 autobús=🚌 tren=🚆 avión=✈️ barco=⛵ bici=🚲 parque=🛝 calle=🛣️ ciudad=🏙️ campo=🏞️ playa=🏖️ montaña=⛰️ mar=🌊 río=🏞️ dinero=💶 tienda=🏪 médico=🧑‍⚕️ hospital=🏥 policía=👮 bombero=🧑‍🚒 veterinario=🧑‍⚕️ panadería=🥖 grande=🐘 pequeño=🐭 alto=📏 bajo=📉 largo=➖ corto=▪️ rápido=⚡ lento=🐌 nuevo=🆕 viejo=🧓 limpio=✨ sucio=🟤 bonito=🌷 feliz=😄 triste=😢 enfadado=😠 asustado=😱 tranquilo=😌 cansado=🥱 contento=🙂 nervioso=😬 bueno=👍 malo=👎 fácil=✅ difícil=⚠️ frío=🥶 caliente=🔥 lleno=🈵 vacío=🈳 duro=🪨 blando=🧸 alegría=😄 tristeza=😢 enfado=😠 miedo=😨 sorpresa=😮 calma=😌 vergüenza=😳 amor=❤️ y=➕ o=🔀 pero=↔️ porque=❓ luego=➡️ después=⏭️ antes=⏮️ primero=1️⃣ final=🏁 también=✔️ no=❌ sí=✅ silencio=🤫 atención=👀 ayuda=🆘 descanso=🫧 baño=🚻 patio=🛝 fila=🚶 sentado=🪑 levantar=✋ guardar=📥 agujero=🕳️ red=🕸️ oro=🥇 trigal=🌾 clavito=🔨 botones=🔘 paraguas=☂️ maleta=🧳 abrigo=🧥 ropa=👕 cepillo=🪥 jabón=🧼 toalla=🧻`;
+const LOCAL={};
+EMO.split(/\s+/).forEach(p=>{const i=p.indexOf('=');if(i>0){const w=p.slice(0,i),e=p.slice(i+1);if(w&&e&&!LOCAL[w])LOCAL[w]=e;}});
+function localSVG(word){const e=LOCAL[norm(word)]||LOCAL[word]||'🖼️';return '<svg viewBox="0 0 100 100" role="img"><rect width="100" height="100" rx="12" fill="#eef3f8" stroke="#c9d8e6" stroke-width="3"/><text x="50" y="60" font-size="46" text-anchor="middle">'+e+'</text><text x="50" y="90" font-size="13" text-anchor="middle" fill="#22303f">'+esc(word.slice(0,12))+'</text></svg>';}
+const PictoDB={
+  db:null,cache:{},
+  open(){return new Promise(res=>{if(this.db)return res(this.db);let rq;try{rq=indexedDB.open('kli_pictos',1);}catch(e){return res(null);}rq.onupgradeneeded=e=>{const d=e.target.result;if(!d.objectStoreNames.contains('img'))d.createObjectStore('img',{keyPath:'word'});};rq.onsuccess=e=>{this.db=e.target.result;res(this.db);};rq.onerror=()=>res(null);})},
+  async load(){const d=await this.open();if(!d){this.cache=Store.get('kli7_pictos_fallback',{});return;}await new Promise(res=>{const tx=d.transaction('img','readonly').objectStore('img').getAll();tx.onsuccess=()=>{(tx.result||[]).forEach(r=>this.cache[r.word]=r.html);res();};tx.onerror=()=>res();});},
+  async put(word,html){this.cache[word]=html;const d=await this.open();if(!d){const f=Store.get('kli7_pictos_fallback',{});f[word]=html;Store.set('kli7_pictos_fallback',f);return;}try{d.transaction('img','readwrite').objectStore('img').put({word,html});}catch(e){}},
+  async del(word){delete this.cache[word];const d=await this.open();if(!d){const f=Store.get('kli7_pictos_fallback',{});delete f[word];Store.set('kli7_pictos_fallback',f);return;}try{d.transaction('img','readwrite').objectStore('img').delete(word);}catch(e){}},
+  html(word){return this.cache[norm(word)]||null;},
+  any(word){return this.html(word)||localSVG(word);}
+};
+const RAW=[`1::0::Prelectura::Sílabas ma me mi mo mu::ma me mi mo mu\npa pe pi po pu\nsa se si so su::¿Qué letra empieza en ma?|m|p|s\n¿Cuál es una sílaba con p?|pa|ma|sa\n¿Cuál termina en u?|mu|mi|me::ma,pa,sa,mu`,
+`2::0::Prelectura::Sílabas la le li lo lu::la le li lo lu\nta te ti to tu\nda de di do du::¿Cuál tiene la letra t?|ta|la|da\n¿Cuál es una sílaba con d?|do|lo|tu\n¿Cuál termina en i?|li|la|lu::la,ta,da,li`,
+`3::0::Prelectura::Sílabas na fa ra::na ne ni no nu\nfa fe fi fo fu\nra re ri ro ru::¿Cuál tiene la letra f?|fa|na|ra\n¿Cuál empieza por r?|ro|no|fo\n¿Cuál termina en e?|ne|ni|nu::na,fa,ra,ro`,
+`4::0::Prelectura::Sílabas inversas::al el il ol ul\nas es is os us::¿Cuál es una sílaba inversa?|al|ma|pa\n¿Cuál termina en s?|os|ol|ul\n¿Cuál empieza por e?|el|al|il::al,el,os,as`,
+`5::0::Prelectura::Trabadas bra bre bri::bra bre bri bro bru::¿Qué letra va antes de la r?|b|p|m\n¿Cuál termina en i?|bri|bra|bru\n¿Cuál empieza por b?|bro|pro|tro::bra,bre,bri`,
+`6::0::Prelectura::Trabadas cra cre cri::cra cre cri cro cru::¿Cuál tiene la letra c?|cra|bra|tra\n¿Cuál termina en o?|cro|cri|cru\n¿Cuántas sílabas hay?|cinco|dos|diez::cra,cre,cro`,
+`7::0::Prelectura::Trabadas fla fle fli::fla fle fli flo flu::¿Qué letra empieza en flo?|f|p|l\n¿Cuál termina en u?|flu|fla|fle\n¿Cuál tiene la letra l?|fli|bra|tro::fla,fli,flo`,
+`8::0::Prelectura::Trabadas pra pre pri::pra pre pri pro pru::¿Cuál empieza por p?|pra|tra|cra\n¿Cuál termina en i?|pri|pro|pru\n¿Qué letra va antes de la r?|p|b|f::pra,pre,pri`,
+`9::0::Prelectura::Trabadas tra tre tri::tra tre tri tro tru::¿Cuál tiene la letra t?|tra|pra|bra\n¿Cuál termina en u?|tru|tro|tri\n¿Cuál empieza por tr?|tre|pre|bre::tra,tre,tru`,
+`10::0::Prelectura::Palabras de una sílaba::pan sol mar\nluz sal mes::¿Cuál brilla de día?|sol|pan|sal\n¿Cuál se come?|pan|mar|mes\n¿Cuál da luz?|luz|sal|mar::pan,sol,mar,luz`,
+`11::0::Prelectura::Palabras de dos sílabas::ca-sa me-sa\npe-rro ga-to\nli-bro flo-r::¿Cuál es un animal?|pe-rro|ca-sa|me-sa\n¿Cuál se lee?|li-bro|ga-to|me-sa\n¿Cuántas sílabas tiene ca-sa?|dos|tres|una::casa,mesa,perro,gato`,
+`12::0::Prelectura::Mis primeras frases::El sol.\nLa luna.\nEl perro corre.\nLa flor.::¿Qué corre?|el perro|el sol|la flor\n¿Qué sale de noche?|la luna|el sol|el pan\n¿De qué color puede ser la flor?|roja|azul o roja|negra::sol,luna,perro,flor`,
+`13::1::Cuento::El gato y el ratón::El gato mira al ratón.\nEl ratón corre a su agujero.\nEl gato se queda mirando.\nEl ratón está a salvo.::¿Dónde se esconde el ratón?|en su agujero|en el jardín|en la mesa\n¿Qué hace el gato?|mira|duerme|come\n¿Cómo acaba el ratón?|a salvo|triste|mojado::gato,ratón,agujero,mirar`,
+`14::1::Rima::Pim pam pum::Pim, pam, pum,\ncolores de pintura.\nPim, pam, pum,\nqué linda hermosura.::¿De qué son los colores?|de pintura|de comida|de ropa\n¿Qué palabra rima con pum?|hermosura|pum|mesa\n¿Cómo suena el golpe?|pim pam pum|tic tac|miau::pintar,colores,pum`,
+`15::1::Adivinanza::La pera::Blanca por dentro,\nverde por fuera.\nSi quieres que te lo diga,\nespera.::¿Qué fruta es?|la pera|la manzana|el limón\n¿De qué color es por fuera?|verde|roja|azul\n¿De qué color es por dentro?|blanca|verde|negra::pera,verde,blanca,fruta`,
+`16::1::Trabalenguas::Tres tristes tigres::Tres tristes tigres\ntragaban trigo en un trigal.\nEn tres tristes trastos.::¿Cuántos tigres hay?|tres|dos|cuatro\n¿Qué comían?|trigo|pan|carne\n¿Dónde estaban?|en un trigal|en el mar|en casa::tigre,trigo,trigal`,
+`17::1::Instructivo::Lavarse las manos::1. Moja tus manos.\n2. Pon jabón.\n3. Frota veinte segundos.\n4. Enjuaga y seca.::¿Qué pones después de mojar?|jabón|agua|crema\n¿Cuánto tiempo frotas?|veinte segundos|cinco minutos|una hora\n¿Qué haces al final?|secar|mojar|jabón::agua,jabón,lavar,toalla`,
+`18::1::Diálogo::En el parque::Ana: ¿Jugamos?\nLuis: Sí, a la pelota.\nAna: ¡Tira la pelota!\nLuis: ¡Gol!::¿A qué juegan?|a la pelota|a las cartas|al escondite\n¿Quién marca gol?|Luis|Ana|el perro\n¿Dónde juegan?|en el parque|en la cama|en el baño::jugar,pelota,parque,amigo`,
+`19::1::Canción::Estrellita::Estrellita, ¿dónde estás?\nMe pregunto qué serás.\nEn el cielo y en el mar,\nun diamante de verdad.::¿Dónde está la estrellita?|en el cielo|en la casa|en el colegio\n¿Con qué se compara?|un diamante|una pelota|una manzana\n¿De qué habla la canción?|de una estrella|de un perro|de un coche::estrella,cielo,mar`,
+`20::1::Cuento::La semilla::Una semilla cayó en la tierra.\nLlovió muchos días.\nSalió un tallo verde.\nDespués salió una flor roja.::¿Qué cayó en la tierra?|una semilla|una piedra|una hoja\n¿Qué salió primero?|un tallo verde|una flor|un árbol\n¿De qué color era la flor?|roja|azul|blanca::semilla,tierra,lluvia,flor`,
+`21::1::Adivinanza::El reloj::Tiene agujas y no sabe coser.\nTiene números y no sabe leer.::¿Qué es?|el reloj|la regla|el libro\n¿Qué tiene el reloj?|agujas y números|alas|ruedas\n¿Para qué sirve?|para saber la hora|para comer|para dormir::reloj,números,hora`,
+`22::1::Rima::Debajo de un botón::Debajo de un botón, ton, ton,\nque encontró Martín, tin, tin,\nhabía un ratón, ton, ton,\nay, qué chiquitín.::¿Qué encontró Martín?|un ratón|un gato|un perro\n¿Dónde estaba?|debajo de un botón|en el mar|en la cama\n¿Cómo era el ratón?|chiquitín|grande|largo::botón,ratón,pequeño`,
+`23::1::Informativo::El arcoíris::El arcoíris tiene siete colores.\nSale cuando llueve y hace sol.\nLos colores son rojo, naranja, amarillo, verde, azul, añil y violeta.::¿Cuántos colores tiene?|siete|cinco|diez\n¿Cuándo sale?|cuando llueve y hace sol|de noche|cuando nieva\n¿Cuál es un color del arcoíris?|verde|negro|gris::arcoíris,lluvia,sol,colores`,
+`24::1::Cuento::El patito que quería volar::El patito quería volar.\nCorrió y movió sus alas.\nSaltó otra vez más fuerte.\nPor fin hizo un vuelo corto.\nEl patito se puso contento.::¿Qué quería el patito?|volar|nadar|dormir\n¿Qué movió para volar?|las alas|las patas|la cola\n¿Cómo se sintió al final?|contento|triste|enfadado::pato,volar,alas,contento`,
+`25::2::Fábula::La liebre y la tortuga::La liebre corría muy rápido y se burlaba de la tortuga.\nLas dos hicieron una carrera.\nLa liebre se tumbó a dormir a mitad del camino.\nLa tortuga siguió andando sin parar.\nCuando la liebre despertó, la tortuga ya estaba en la meta.\nLa constancia gana a la prisa.::¿Quién ganó la carrera?|la tortuga|la liebre|el zorro\n¿Qué hizo la liebre a mitad del camino?|dormir|comer|nadar\n¿Qué enseñanza deja?|la constancia gana a la prisa|correr es malo|dormir es bueno::liebre,tortuga,carrera,meta`,
+`26::2::Fábula::El león y el ratón::Un ratón despertó a un león dormido.\nEl león lo atrapó, pero el ratón prometió ayudarle algún día.\nEl león lo dejó marchar.\nDías después el león quedó atrapado en una red.\nEl ratón royó las cuerdas y lo liberó.\nNadie es demasiado pequeño para ayudar.::¿Qué prometió el ratón?|ayudarle algún día|comer con él|dormir juntos\n¿Cómo ayudó al león?|royó la red|lo despertó|le dio agua\n¿Qué le pasó al león?|quedó atrapado en una red|se perdió|se durmió::león,ratón,red,ayudar`,
+`27::2::Fábula::La cigarra y la hormiga::La cigarra cantó todo el verano.\nLa hormiga guardó comida en su hormiguero.\nLlegó el invierno y la cigarra tuvo hambre.\nLa hormiga compartió su comida con ella.\nLa cigarra aprendió a preparar el mañana.::¿Qué hizo la cigarra en verano?|cantar|trabajar|dormir\n¿Qué guardó la hormiga?|comida|agua|hojas\n¿Qué hizo la hormiga en invierno?|compartió su comida|se fue de viaje|cerró la puerta::cigarra,hormiga,comida,invierno`,
+`28::2::Cuento::El planeta del principito::El principito vivía en un planeta muy pequeño.\nCada mañana limpiaba sus volcanes.\nTambién cuidaba una rosa con mucho cariño.\nUn día decidió viajar para conocer otros mundos.\nAl marcharse entendió que su rosa era única.::¿Qué cuidaba el principito?|una rosa|un perro|un árbol\n¿Qué limpiaba cada mañana?|sus volcanes|su casa|sus zapatos\n¿Por qué se fue de viaje?|para conocer otros mundos|para buscar comida|para dormir::planeta,rosa,volcán,viajar`,
+`29::2::Poema::Un elefante::Un elefante se balanceaba\nsobre la tela de una araña.\nComo veía que resistía,\nfue a llamar a otro elefante.::¿Sobre qué se balanceaba?|sobre la tela de una araña|sobre una silla|sobre el agua\n¿A quién llamó?|a otro elefante|a un ratón|a su mamá\n¿Cuántos elefantes hay al final?|dos|uno|tres::elefante,araña,tela`,
+`30::2::Trabalenguas::Pablito y el clavito::Pablito clavó un clavito.\n¿Qué clavito clavó Pablito?\nPablito clavó un clavito\nen la tabla de un calvito.::¿Qué clavó Pablito?|un clavito|un tornillo|una piedra\n¿Dónde lo clavó?|en la tabla|en la pared|en el suelo\n¿Qué sonido se repite?|cl|tr|br::clavito,tabla,Pablito`,
+`31::2::Diálogo::En la panadería::Cliente: Buenos días, quiero pan.\nPanadero: ¿Cuántas barras quiere?\nCliente: Dos, por favor.\nPanadero: Aquí tiene. Son dos euros.\nCliente: Gracias, hasta luego.::¿Qué compra el cliente?|pan|leche|fruta\n¿Cuántas barras pide?|dos|tres|cinco\n¿Cuánto cuesta?|dos euros|un euro|tres euros::pan,panadería,dinero`,
+`32::2::Instructivo::Plantar una semilla::1. Llena una maceta con tierra.\n2. Haz un agujero pequeño con el dedo.\n3. Pon la semilla y tápala.\n4. Riega con un poco de agua.\n5. Pon la maceta cerca de la ventana.::¿Qué se pone en la maceta?|tierra|piedras|papel\n¿Qué necesita la semilla para crecer?|agua y luz|solo oscuridad|jabón\n¿Dónde se coloca la maceta?|cerca de la ventana|dentro del armario|en el baño::maceta,tierra,semilla,regar`,
+`33::2::Informativo::Animales vertebrados::Los animales vertebrados tienen huesos por dentro.\nSe reparten en cinco grupos: mamíferos, aves, reptiles, anfibios y peces.\nLas personas somos mamíferos.\nLos mamíferos beben leche de su madre cuando son pequeños.::¿Qué tienen los vertebrados?|huesos|plumas|escamas\n¿Cuántos grupos hay?|cinco|dos|diez\n¿A qué grupo pertenecen las personas?|mamíferos|aves|peces::vertebrado,huesos,mamífero`,
+`34::2::Cuento::La gallina de los huevos de oro::Una gallina ponía cada día un huevo de oro.\nEl granjero vendía los huevos y tenía dinero.\nPero quiso tener todos los huevos de una vez.\nAbrió a la gallina y no encontró nada.\nSe quedó sin gallina y sin huevos.::¿Qué ponía la gallina?|un huevo de oro|un huevo blanco|monedas\n¿Por qué el granjero abrió a la gallina?|quería todos los huevos a la vez|quería lavarla|quería curarla\n¿Cómo terminó la historia?|se quedó sin gallina y sin huevos|se hizo rico|compró otra gallina::gallina,oro,granjero,dinero`,
+`35::2::Adivinanza::El plátano::Oro parece,\nplata no es.\nEl que no lo adivine,\nbien tonto es.::¿Qué fruta es?|el plátano|la naranja|el limón\n¿De qué color es?|amarillo|azul|verde oscuro\n¿Se come?|sí|no|solo se mira::plátano,oro,fruta`,
+`36::2::Rima::Aserrín aserrán::Aserrín, aserrán,\nlos maderos de San Juan.\nPiden pan, no les dan,\npiden queso, les dan hueso.::¿Qué piden primero?|pan|queso|agua\n¿Qué les dan al final?|hueso|pan|queso\n¿De quién son los maderos?|de San Juan|de San Pedro|del molino::madera,pan,queso`,
+`37::3::Informativo::El ciclo del agua::El sol calienta el agua del mar y de los ríos. El agua se convierte en vapor y sube al cielo. A esto se le llama evaporación.\nArriba el vapor se enfría y forma las nubes. Cuando las gotas se juntan y pesan mucho, caen en forma de lluvia o de nieve.\nEl agua vuelve a los ríos y al mar. Así empieza otra vez el ciclo.::¿Qué provoca la evaporación?|el calor del sol|el viento|la luna\n¿Qué se forma cuando el vapor se enfría?|nubes|piedras|arcoíris\n¿A dónde vuelve el agua al final?|a los ríos y al mar|al desierto|a las casas::agua,sol,nube,lluvia,río`,
+`38::3::Informativo::El sistema solar::El sistema solar tiene ocho planetas que giran alrededor del Sol.\nLa Tierra es el tercer planeta y es el único donde sabemos que hay vida.\nMercurio y Venus están más cerca del Sol, por eso son muy calientes.\nJúpiter es el planeta más grande de todos.::¿Cuántos planetas hay?|ocho|cinco|doce\n¿Qué lugar ocupa la Tierra?|el tercero|el primero|el octavo\n¿Cuál es el planeta más grande?|Júpiter|Mercurio|Marte::planeta,Sol,Tierra,Júpiter`,
+`39::3::Instructivo::Receta de sándwich::Necesitas dos rebanadas de pan, jamón y queso.\n1. Coloca las dos rebanadas sobre un plato.\n2. Pon el jamón y el queso sobre una rebanada.\n3. Tapa con la otra rebanada.\n4. Corta por la mitad con ayuda de una persona adulta.\n5. Come despacio y disfruta.::¿Cuántas rebanadas de pan se usan?|dos|una|cuatro\n¿Qué se pone dentro?|jamón y queso|lechuga y tomate|solo pan\n¿Quién ayuda a cortar?|una persona adulta|nadie|el perro::pan,jamón,queso,plato`,
+`40::3::Noticia::Limpieza en el parque::Ayer por la mañana los vecinos del barrio se reunieron para limpiar el parque.\nRecogieron plásticos del suelo y plantaron tres árboles nuevos.\nEl ayuntamiento trajo bolsas y guantes para todos.\nPor la tarde merendaron juntos y el parque quedó limpio.::¿Qué hicieron los vecinos?|limpiar el parque|pintar las casas|jugar al fútbol\n¿Cuántos árboles plantaron?|tres|diez|ninguno\n¿Quién trajo bolsas y guantes?|el ayuntamiento|el colegio|la tienda::vecinos,parque,árbol,limpiar`,
+`41::3::Científico::La fotosíntesis::Las plantas fabrican su propio alimento y no necesitan comer como los animales.\nPara hacerlo usan la luz del sol, el agua de la tierra y un gas del aire llamado dióxido de carbono.\nEste proceso se llama fotosíntesis y ocurre sobre todo en las hojas.\nDurante la fotosíntesis la planta suelta oxígeno, que es el gas que respiramos.::¿Qué usan las plantas para fabricar alimento?|luz, agua y un gas del aire|solo tierra|carne y pan\n¿Dónde ocurre la fotosíntesis?|en las hojas|en las raíces|en las flores\n¿Qué gas suelta la planta?|oxígeno|humo|helio::planta,luz,hoja,oxígeno`,
+`42::3::Informativo::Estados de la materia::La materia puede estar en tres estados: sólido, líquido y gaseoso.\nUna piedra es sólida porque mantiene su forma.\nEl agua es líquida porque se adapta al recipiente.\nEl aire es gaseoso y no lo vemos.\nEl hielo es agua en estado sólido y se derrite con el calor.::¿Qué estado tiene una piedra?|sólido|líquido|gaseoso\n¿Qué estado tiene el aire?|gaseoso|sólido|líquido\n¿Qué le pasa al hielo con el calor?|se derrite|se congela|desaparece::materia,sólido,líquido,hielo`,
+`43::3::Instructivo::Cuidar a un perro::Un perro necesita comida fresca cada día y agua limpia siempre.\nTambién necesita paseos para moverse y oler.\nHay que llevarlo al veterinario para las vacunas.\nUn perro cuidado y con cariño es un perro feliz.::¿Qué necesita el perro cada día?|comida y agua limpia|solo juguetes|televisión\n¿Para qué sirve el paseo?|para moverse y oler|para dormir|para comer\n¿Quién le pone las vacunas?|el veterinario|el panadero|el maestro::perro,agua,paseo,veterinario`,
+`44::3::Diálogo::Preparando el viaje::Madre: ¿Has hecho la maleta?\nHijo: Sí, he metido la ropa y el cepillo de dientes.\nMadre: No olvides el abrigo, hará frío por la noche.\nHijo: Vale, lo pongo arriba del todo.\nMadre: Buen viaje, te quiero mucho.::¿Qué lleva el hijo en la maleta?|ropa y cepillo|juguetes|libros\n¿Qué le recuerda la madre?|el abrigo|la pelota|el paraguas\n¿Por qué necesita abrigo?|hará frío por la noche|va a llover|va a nevar en el coche::maleta,ropa,abrigo,viaje`,
+`45::3::Informativo::Los dinosaurios::Los dinosaurios vivieron en la Tierra hace millones de años.\nAlgunos eran enormes, como el Diplodocus, y otros pequeños, como el Compsognathus.\nUnos comían plantas y otros comían carne.\nSe extinguieron hace muchísimo tiempo y hoy conocemos sus huesos por los fósiles.::¿Cuándo vivieron los dinosaurios?|hace millones de años|hace cien años|viven hoy\n¿Cómo se llaman los restos de sus huesos?|fósiles|minerales|semillas\n¿Qué comían algunos dinosaurios?|plantas y otros carne|solo pan|solo fruta::dinosaurio,fósil,planta`,
+`46::3::Noticia::Un árbol nuevo en el colegio::El colegio CEIP La Ardila ha recibido un árbol frutal de regalo.\nLos alumnos de tercero lo plantaron en el patio con ayuda del conserje.\nRegarán el árbol por turnos cada semana.\nEsperan recoger sus primeros frutos el año que viene.::¿Qué recibió el colegio?|un árbol frutal|una bicicleta|un ordenador\n¿Dónde lo plantaron?|en el patio|en el aula|en el tejado\n¿Quién regará el árbol?|los alumnos por turnos|el conserje solo|nadie::colegio,árbol,patio,regar`,
+`47::3::Científico::Por qué llueve::Dentro de las nubes hay millones de gotas de agua muy pequeñas.\nCuando la nube se enfría, las gotas se juntan unas con otras.\nPoco a poco se hacen más grandes y más pesadas.\nLa gravedad las atrae hacia el suelo y entonces cae la lluvia.::¿Qué hay dentro de las nubes?|gotas de agua|algodón|humo\n¿Qué hace que las gotas caigan?|la gravedad|el viento|el sol\n¿Qué pasa cuando la nube se enfría?|las gotas se juntan|las gotas se van|la nube crece de color::nube,gota,gravedad,lluvia`,
+`48::3::Instructivo::Normas de la biblioteca::1. Entra despacio y saluda en voz baja.\n2. Guarda silencio para que los demás puedan leer.\n3. Cuida los libros y no dobles sus páginas.\n4. Devuelve los libros a tiempo.\n5. Si no encuentras algo, pide ayuda a la bibliotecaria.::¿Cómo hay que hablar en la biblioteca?|en voz baja|gritando|cantando\n¿Qué se hace con los libros?|cuidarlos|doblarlos|pintarlos\n¿A quién pides ayuda?|a la bibliotecaria|al conserje|al médico::biblioteca,silencio,libro,ayuda`,
+`49::4::Biografía::Marie Curie::Marie Curie fue una científica pionera nacida en Polonia en 1867.\nDe joven se mudó a Francia para poder estudiar en la universidad.\nInvestigó materiales que emitían una energía invisible y descubrió el radio y el polonio.\nFue la primera mujer en recibir un Premio Nobel y la única persona en ganarlo en dos ciencias distintas: Física y Química.\nSu trabajo ayudó después a desarrollar máquinas de rayos X para los hospitales.::¿Dónde nació Marie Curie?|en Polonia|en Francia|en España\n¿En qué ciencias ganó el Nobel?|Física y Química|Medicina y Literatura|Matemáticas y Arte\n¿Qué elementos descubrió?|radio y polonio|oro y plata|oxígeno e hidrógeno\n¿Para qué sirvió su trabajo en los hospitales?|para los rayos X|para operar|para cocinar::científica,Polonia,Nobel,radio`,
+`50::4::Teatro::Escena en el aula::PROFE: Abrid el libro de matemáticas por la página veinte.\nALUMNO 1: Profe, he olvidado el libro en casa.\nALUMNO 2: Puede mirar el mío y trabajamos juntos.\nPROFE: Buena idea. Compartir también es aprender.\nALUMNO 1: Gracias, la próxima vez lo traeré.::¿Qué olvidó el Alumno 1?|el libro|el lápiz|la mochila\n¿Qué propone el Alumno 2?|compartir su libro|irse a casa|cambiar de sitio\n¿Qué página deben abrir?|la veinte|la diez|la treinta\n¿Qué dice la profe sobre compartir?|que también es aprender|que está prohibido|que es aburrido::aula,libro,compartir,aprender`,
+`51::4::Divulgativo::Las abejas y las flores::Las abejas son insectos pequeños pero muy importantes.\nCuando una abeja entra en una flor para beber su néctar, se le pega polen en el cuerpo.\nAl volar a otra flor lleva ese polen consigo y la planta puede formar semillas y frutos.\nEste viaje del polen se llama polinización.\nSin abejas tendríamos muchas menos frutas y verduras en la mesa.::¿Qué bebe la abeja de la flor?|néctar|agua del mar|leche\n¿Cómo se llama el viaje del polen?|polinización|evaporación|germinación\n¿Qué pasaría sin abejas?|habría menos frutas y verduras|habría más fruta|no pasaría nada\n¿Qué se le pega a la abeja en el cuerpo?|polen|barro|nieve::abeja,flor,polen,fruta`,
+`52::4::Inferencial::El paraguas olvidado::María salió de casa por la mañana con un sol brillante.\nAl volver del colegio el cielo estaba gris y el suelo mojado.\nBuscó en la mochila y suspiró al verla vacía por dentro.\nMiró la lluvia un momento y después corrió hasta el portal.::¿Qué olvidó María?|el paraguas|la mochila|el abrigo\n¿Qué tiempo hacía al volver?|llovía|hacía sol|nevaba\n¿Por qué suspiró?|porque no tenía paraguas|porque tenía hambre|porque estaba cansada\n¿Cómo llegó al portal?|corriendo bajo la lluvia|andando despacio|en coche::paraguas,lluvia,mochila,correr`,
+`53::4::Biografía::Frida Kahlo::Frida Kahlo fue una pintora mexicana nacida en 1907.\nDe joven sufrió un accidente muy grave que la obligó a pasar mucho tiempo en la cama.\nEmpezó a pintar desde allí y usó un espejo para retratarse a sí misma.\nSus autorretratos están llenos de colores fuertes y de símbolos de su país.\nHoy es una de las artistas más conocidas del mundo.::¿De qué país era Frida Kahlo?|México|España|Italia\n¿Qué tipo de cuadros la hicieron famosa?|autorretratos|paisajes de mar|cuadros de coches\n¿Por qué pintó desde la cama?|por un accidente grave|porque le gustaba dormir|porque llovía\n¿Qué usaba para retratarse?|un espejo|una foto|una ventana::pintora,México,autorretrato,espejo`,
+`54::4::Teatro::La cena sorpresa::PADRE: ¡Huele muy bien en esta casa!\nMADRE: Es tu plato favorito.\nHIJA: ¡Sorpresa! Lo hemos cocinado entre las dos.\nPADRE: Es el mejor regalo de cumpleaños que he tenido.\nHIJA: Y todavía queda tarta.::¿Quién cocinó el plato?|la madre y la hija|solo el padre|un cocinero\n¿Qué se celebra?|un cumpleaños|un examen|una fiesta del colegio\n¿Qué queda por comer?|tarta|sopa|pan\n¿Cómo se siente el padre?|feliz y sorprendido|enfadado|aburrido::cena,sorpresa,cumpleaños,tarta`,
+`55::4::Divulgativo::Los volcanes::Un volcán es una abertura de la corteza de la Tierra.\nPor ella salen materiales muy calientes del interior del planeta.\nCuando esa roca fundida está dentro se llama magma, y cuando sale al exterior se llama lava.\nLos volcanes también lanzan ceniza y gases.\nAunque pueden ser peligrosos, la tierra de sus alrededores es muy fértil para las plantas.::¿Cómo se llama la roca fundida cuando sale?|lava|magma|ceniza\n¿Cómo se llama cuando está dentro?|magma|lava|humo\n¿Por qué es buena la tierra cercana?|es muy fértil|es muy fría|es de color negro\n¿Qué más lanzan los volcanes?|ceniza y gases|agua con sal|nieve::volcán,magma,lava,ceniza`,
+`56::4::Inferencial::La ventana rota::Los niños jugaban a la pelota dentro del salón.\nDe repente se escuchó un golpe muy fuerte y un ruido de cristales.\nLa madre entró corriendo desde la cocina.\nLos dos miraron al suelo sin decir nada, junto a la pelota quieta.::¿Qué se rompió?|la ventana|un plato|una silla\n¿Por qué no debían jugar allí?|porque dentro se puede romper algo|porque era de noche|porque llovía\n¿Cómo se sentían los niños?|avergonzados|contentos|aburridos\n¿Qué provocó el golpe?|la pelota|el viento|el gato::pelota,ventana,salón,romper`,
+`57::4::Biografía::Leonardo da Vinci::Leonardo da Vinci fue un genio del Renacimiento italiano.\nPintó la Mona Lisa, uno de los cuadros más famosos del mundo.\nPero también dibujó máquinas voladoras siglos antes de que existieran los aviones.\nEstudió el cuerpo humano y llenó cuadernos con notas y dibujos.\nPara él el arte y la ciencia eran dos formas de mirar el mismo mundo.::¿Qué cuadro famoso pintó?|la Mona Lisa|La noche estrellada|El grito\n¿Qué dibujó antes de que existiera?|máquinas voladoras|televisores|coches eléctricos\n¿Qué estudiaba en sus cuadernos?|el cuerpo humano|los planetas|los peces\n¿Cómo unía arte y ciencia?|como dos formas de mirar el mundo|no le importaba la ciencia|solo pintaba::Leonardo,Renacimiento,cuaderno,ciencia`,
+`58::4::Teatro::Antes del examen::ALUMNO: Profe, tengo un nudo en el estómago.\nPROFE: Es normal, se llama nervios. Respira hondo conmigo.\nALUMNO: He estudiado, pero se me olvida todo.\nPROFE: Has trabajado bien. Lee despacio y empieza por lo que sabes.\nALUMNO: De acuerdo, lo voy a intentar.::¿Cómo se siente el alumno?|nervioso|enfadado|aburrido\n¿Qué le recomienda la profe?|respirar y leer despacio|correr|dejar el examen\n¿Había estudiado el alumno?|sí|no|solo un poco el recreo\n¿Por dónde le dice que empiece?|por lo que sabe|por lo más difícil|por el final::examen,nervios,respirar,estudiar`,
+`59::4::Divulgativo::El océano::El océano cubre más del setenta por ciento de la superficie del planeta.\nEn él viven seres diminutos como el plancton y animales enormes como la ballena azul.\nLas plantas marinas producen cerca de la mitad del oxígeno que respiramos.\nEl océano también reparte el calor y ayuda a regular el clima.\nPor eso los plásticos que tiramos al agua nos afectan a todos.::¿Qué porcentaje del planeta cubre el océano?|más del setenta|la mitad|el diez\n¿Cuál es el animal más grande que vive en él?|la ballena azul|el delfín|el pulpo\n¿Qué produce el océano que nosotros respiramos?|oxígeno|humo|arena\n¿Qué nos afecta a todos según el texto?|los plásticos en el agua|los barcos|la sal::océano,plancton,ballena,oxígeno`,
+`60::4::Inferencial::El regalo misterioso::La caja era grande pero pesaba muy poco.\nAl agitarla sonaba como papel arrugado.\nJuan sonrió porque sabía lo que había dentro antes de abrirla.\nHabía pedido algo para el viento y para el cielo.\nSalió corriendo al parque con su regalo nuevo.::¿Qué había en la caja?|una cometa|un libro|una pelota\n¿Por qué pesaba poco?|porque era de papel y tela|porque estaba vacía|porque era de piedra\n¿Para qué sirve el regalo?|para volar con el viento|para leer|para comer\n¿A dónde fue Juan?|al parque|al colegio|a la cocina::cometa,caja,viento,parque`];
+function parseRaw(){return RAW.map(row=>{const p=row.split('::');const qs=(p[5]||'').split('\n').map(l=>l.split('|').map(s=>s.trim())).filter(a=>a.length>=2&&a[0]);return {id:'L'+String(p[0]).padStart(2,'0'),level:Number(p[1]),category:p[2],title:p[3],text:p[4].replace(/\\n/g,'\n'),questions:qs,vocab:(p[6]||'').split(',').map(s=>s.trim()).filter(Boolean),tags:['precargada'],collection:'general',favorite:false,mode:'',pauses:'',pre:true};});}
+const PRELOAD=parseRaw();
+const Library={
+  data:[],favOnly:false,
+  init(){
+    let stored=Store.get(K.texts,null);
+    if(!Array.isArray(stored)||stored.length<60){
+      console.log('⚠️ Biblioteca corrupta o vacía. Regenerando...');
+      stored=[];
+    }
+    const map=new Map();
+    stored.forEach(t=>{if(t&&t.id&&typeof t.text==='string'&&t.text.trim())map.set(t.id,t);});
+    PRELOAD.forEach(base=>{
+      const s=map.get(base.id);
+      if(!s||!s.text||s.text.trim().length<3||!Array.isArray(s.questions)||!s.questions.length){
+        map.set(base.id,JSON.parse(JSON.stringify(base)));
+      }else{
+        map.set(base.id,Object.assign({},base,s,{pre:true,level:Number(s.level)||base.level}));
+      }
+    });
+    this.data=Array.from(map.values()).sort((a,b)=>(a.level-b.level)||String(a.id).localeCompare(String(b.id)));
+    Store.set(K.texts,this.data);
+    console.log('✅ Biblioteca cargada: '+this.data.length+' lecturas');
+  },
+  byId(id){return this.data.find(t=>t.id===id);},
+  repair(){PRELOAD.forEach(b=>{const i=this.data.findIndex(t=>t.id===b.id);const fresh=JSON.parse(JSON.stringify(b));if(i>=0)this.data[i]=fresh;else this.data.push(fresh);});this.data.sort((a,b)=>(a.level-b.level)||String(a.id).localeCompare(String(b.id)));Store.set(K.texts,this.data);this.favOnly=false;this.clearFilters();Sound.ok();toast('✅ 60 lecturas listas');},
+  clearFilters(){$('#f-q').value='';$('#f-lv').value='all';$('#f-cat').value='all';this.favOnly=false;this.render();},
+  onlyFav(){this.favOnly=!this.favOnly;$('#f-fav').classList.toggle('ok',this.favOnly);this.render();},
+  fillSelects(){
+    const cats=Array.from(new Set(this.data.map(t=>t.category))).sort();
+    $('#f-cat').innerHTML='<option value="all">Todas</option>'+cats.map(c=>'<option>'+esc(c)+'</option>').join('');
+    $('#e-cat').innerHTML=CATS.map(c=>'<option>'+esc(c)+'</option>').join('');
+    $('#e-mode').innerHTML='<option value="">— Sin preferencia —</option>'+MODES.map(m=>'<option value="'+m[0]+'">'+m[1]+'</option>').join('');
+  },
+  render(){
+    if(!this.data.length)this.init();
+    const q=norm($('#f-q').value),lv=$('#f-lv').value,cat=$('#f-cat').value;
+    const list=this.data.filter(t=>{
+      if(this.favOnly&&!t.favorite)return false;
+      if(lv!=='all'&&Number(t.level)!==Number(lv))return false;
+      if(cat!=='all'&&t.category!==cat)return false;
+      if(q){const blob=norm(t.title+' '+t.text+' '+(t.tags||[]).join(' ')+' '+(t.vocab||[]).join(' '));if(!blob.includes(q))return false;}
+      return true;
+    });
+    $('#lib-count').textContent=list.length+' de '+this.data.length;
+    const g=$('#lib-grid');
+    if(!list.length){g.innerHTML='<div class="empty"><h3>📚 No hay resultados</h3><div class="row center mt"><button class="btn" onclick="Library.clearFilters()">🧹 Quitar filtros</button><button class="btn warn" onclick="Library.repair()">🔄 Restaurar 60</button></div></div>';return;}
+    g.innerHTML=list.map(t=>{const prev=t.text.replace(/\[picto:([^\]]+)\]/g,'$1').replace(/\{error:([^|]+)\|[^}]+\}/g,'$1').replace(/\[hueco:([^\]]+)\]/g,'___');
+      return '<article class="tc-card'+(t.favorite?' fav':'')+'"><div class="row between"><h3 style="margin:0;font-size:1rem">'+esc(t.title)+'</h3><button class="star" onclick="Library.fav(\''+t.id+'\')">'+(t.favorite?'⭐':'☆')+'</button></div><div class="row"><span class="badge">Nivel '+t.level+'</span><span class="badge">'+esc(t.category)+'</span>'+(t.pre?'':'<span class="badge">✏️ propia</span>')+'<span class="badge">'+t.text.split(/\s+/).length+' pal.</span></div><p class="clip">'+esc(prev.slice(0,150))+'</p><div class="row"><button class="btn sm" onclick="Library.open(\''+t.id+'\')">📖 Leer</button><button class="btn ghost sm" onclick="Library.edit(\''+t.id+'\')">✏️ Editar</button><button class="btn ghost sm" onclick="Library.dup(\''+t.id+'\')">📑 Duplicar</button></div></article>';
+    }).join('');
+  },
+  fav(id){const t=this.byId(id);if(!t)return;t.favorite=!t.favorite;Store.set(K.texts,this.data);this.render();Sound.click();},
+  open(id){App.current=id;App.nav('leer');Reader.load(id);App.agendaStep(1);},
+  edit(id){if(!Teacher.require())return;App.nav('crear');Editor.load(id);},
+  dup(id){if(!Teacher.require())return;const t=this.byId(id);if(!t)return;const c=JSON.parse(JSON.stringify(t));c.id=uid();c.title=t.title+' (copia)';c.pre=false;c.own=true;c.favorite=false;this.data.push(c);Store.set(K.texts,this.data);this.render();toast('📑 Copia creada');}
+};
+const Reader={
+  text:null,mode:'silabico',words:[],sents:[],paras:[],syls:[],units:[],idx:0,playing:false,timer:null,t0:0,eff:0,ut0:0,readWords:0,gaps:{},errs:{},ladder:[],
+  initControls(){
+    const html='<div class="ctrls"><div class="cg"><label>Modo:</label><select class="r-mode" onchange="Reader.modeChanged(this)" style="width:auto">'+MODES.map(m=>'<option value="'+m[0]+'">'+m[1]+'</option>').join('')+'</select></div><div class="cg"><label>Velocidad:</label><select class="r-speed" onchange="Reader.speedChanged(this)" style="width:auto"><option value="super">🐌 Superlenta</option><option value="muy">🐢 Muy lenta</option><option value="lenta">🚶 Lenta</option><option value="media" selected>🏃 Media</option><option value="rapida">⚡ Rápida</option></select></div><div class="cg"><button class="btn" data-action="play">▶️ Escuchar</button><button class="btn warn" data-action="pause">⏸️ Pausar</button><button class="btn ghost" data-action="resume">▶️ Continuar</button><button class="btn bad" data-action="stop">⏹️ Detener</button></div><div class="cg"><button class="btn ghost sm" data-action="home">⏮️</button><button class="btn ghost sm" data-action="repeat">🔁</button><button class="btn ghost sm" data-action="prev">⬅️</button><button class="btn ghost sm" data-action="next">➡️</button></div><div class="cg"><label class="chk"><input type="checkbox" class="c-ruler" checked onchange="Reader.toggles()"> Regla</label><label class="chk"><input type="checkbox" class="c-sy" checked onchange="Reader.toggles()"> Colores</label><label class="chk"><input type="checkbox" class="c-follow" checked onchange="Reader.toggles()"> Seguimiento</label><label class="chk"><input type="checkbox" class="c-rein" onchange="Reader.toggles()"> Refuerzo</label><label class="chk"><input type="checkbox" class="c-pic" checked onchange="Reader.render()"> Pictos</label></div></div>';
+    const top=$('#ctrls-top'),bottom=$('#ctrls-bottom');
+    if(top)top.innerHTML=html;if(bottom)bottom.innerHTML=html;
+    document.querySelectorAll('[data-action]').forEach(btn=>{btn.addEventListener('click',()=>{const a=btn.dataset.action;if(a==='play')this.play();else if(a==='pause')this.pause();else if(a==='resume')this.resume();else if(a==='stop')this.stop();else if(a==='home')this.home();else if(a==='repeat')this.repeat();else if(a==='prev')this.prev();else if(a==='next')this.next();});});
+  },
+  load(id){
+    const t=Library.byId(id);if(!t)return;
+    this.stop();this.text=t;this.gaps={};this.errs={};
+    $('#r-title').textContent='📖 '+t.title;$('#r-info').textContent='Nivel '+t.level+' · '+t.category;
+    if(t.mode&&MODES.some(m=>m[0]===t.mode)){document.querySelectorAll('.r-mode').forEach(s=>s.value=t.mode);this.mode=t.mode;}
+    this.build();this.render();this.stats(0,0,0);$('#r-turn').classList.add('hide');
+  },
+  setMode(m){this.mode=m;document.querySelectorAll('.r-mode').forEach(s=>s.value=m);this.stop();this.build();this.render();},
+  modeChanged(select){this.setMode(select.value);},
+  speedChanged(select){document.querySelectorAll('.r-speed').forEach(s=>{if(s!==select)s.value=select.value;});this.speedChangedLogic();},
+  speedChangedLogic(){const was=this.playing;if(was)this.pause();this.build();if(was){this.playing=true;this.updateButtons();this.speakCurrent();}else{this.render();}},
+  build(){
+    this.words=[];this.sents=[];this.syls=[];this.paras=[];this.units=[];this.idx=0;if(!this.text)return;
+    let wi=0,si=0,fi=0;
+    this.text.text.split(/\n+/).filter(p=>p.trim()).forEach((p,pi)=>{
+      const pSents=p.split(/(?<=[.!?…])\s+/).filter(s=>s.trim());const pinfo={i:pi,txt:p,sents:[]};
+      pSents.forEach(s=>{
+        const f=fi++,wids=[];
+        s.trim().split(/\s+/).forEach(tok=>{
+          let w={i:wi,raw:tok,txt:tok,fi:f,pi:pi};let m;
+          if((m=tok.match(/^\[picto:([^\]]+)\]$/))){w.txt=m[1];w.picto=m[1];}
+          else if((m=tok.match(/^\[hueco:([^\]]+)\]$/))){w.txt=m[1];w.gap=true;}
+          else if((m=tok.match(/^\{error:([^|]+)\|([^}]+)\}$/))){w.txt=m[1];w.fix=m[2];w.err=true;}
+          w.plain=w.txt.replace(/[^\wáéíóúüñÁÉÍÓÚÜÑ]/g,'');
+          const parts=Syl.split(w.plain||w.txt);w.sids=[];
+          parts.forEach(sy=>{w.sids.push(si);this.syls.push({i:si,txt:sy,wi:w.i,fi:f,pi:pi});si++;});
+          this.words.push(w);wids.push(wi);wi++;
+        });
+        this.sents.push({i:f,txt:s,pi:pi,wids:wids});pinfo.sents.push(f);
+      });
+      this.paras.push(pinfo);
+    });
+    this.makeUnits();
+  },
+  voiceFor(i){const vs=(speechSynthesis.getVoices()||[]).filter(v=>/^es/i.test(v.lang));return vs.length?vs[i%vs.length]:null;},
+  makeUnits(){
+    const m=this.mode,sp=$('#ctrls-top .r-speed')?$('#ctrls-top .r-speed').value:'media';
+    const sy=this.syls.map(s=>({txt:s.txt,kind:'syl',w:s.wi,s:s.i}));
+    const wo=this.words.map(w=>({txt:w.err?w.fix:w.txt,kind:'word',w:w.i}));
+    const se=this.sents.map(s=>({txt:s.wids.map(i=>{const w=this.words[i];return w.err?w.fix:(w.gap?'…':w.txt);}).join(' '),kind:'sent',f:s.i}));
+    const pa=this.paras.map(p=>({txt:p.txt.replace(/\[picto:([^\]]+)\]/g,'$1').replace(/\[hueco:[^\]]+\]/g,'…').replace(/\{error:[^|]+\|([^}]+)\}/g,'$1'),kind:'para',p:p.i}));
+    if(sp==='super'||sp==='muy'){this.units=sy;return;}
+    if(sp==='lenta'){this.units=wo;return;}
+    switch(m){
+      case 'silabico':this.units=sy;break;case 'palabra':this.units=wo;break;
+      case 'frase':case 'eco':case 'guiada':this.units=se;break;case 'parrafo':this.units=pa;break;
+      case 'autonomo':this.units=[];break;case 'huecos':this.units=se;break;
+      case 'detectives':this.units=this.sents.map(s=>({txt:s.wids.map(i=>this.words[i].fix||this.words[i].txt).join(' '),kind:'sent',f:s.i}));break;
+      case 'dramatizada':{const lines=[],names=[];this.text.text.split(/\n+/).forEach(line=>{const mm=line.match(/^\s*([A-ZÁÉÍÓÚÑ0-9 ]{2,20}):\s*(.*)$/);if(mm){if(!names.includes(mm[1]))names.push(mm[1]);lines.push({txt:mm[2],kind:'sent',voice:names.indexOf(mm[1]),who:mm[1]});}else if(line.trim())lines.push({txt:line,kind:'sent',voice:0,who:'Narrador'});});this.units=lines.length?lines:se;break;}
+      case 'piramidal':case 'acumulativa':case 'escalera':{const st=[];this.paras.forEach(p=>{let acc=[];p.sents.forEach(f=>{const s=this.sents[f],ws=s.wids.map(i=>this.words[i].txt);ws.forEach((w,k)=>{const upto=ws.slice(0,k+1);const txt=(this.mode==='acumulativa'&&acc.length)?acc.concat(upto).join(' '):upto.join(' ');st.push({txt:txt,kind:'word',f:f,step:k+1,total:ws.length,parts:upto});});if(this.mode==='acumulativa')acc=acc.concat(ws);});});this.units=st;this.ladder=[];break;}
+      default:this.units=se;
+    }
+  },
+  render(){
+    const box=$('#rtext'),extra=$('#r-extra');extra.innerHTML='';
+    if(!this.text){box.textContent='Selecciona una lectura.';return;}
+    const showPic=$('.c-pic')&&$('.c-pic').checked&&$('#s-pic')&&$('#s-pic').checked;
+    const stepMode=['piramidal','acumulativa','escalera'].includes(this.mode);
+    if(stepMode){box.innerHTML='<div class="ladder" id="r-ladder"></div><p class="small mt">Texto:</p><div style="font-size:.7em;opacity:.65">'+esc(this.plain())+'</div>';this.paintStep(0);return;}
+    let html='',curP=-1,curF=-1;
+    this.words.forEach(w=>{
+      if(w.pi!==curP){if(curP>=0)html+='</span></span>\n';html+='<span class="par" data-p="'+w.pi+'"><span class="sent" data-f="'+w.fi+'">';curP=w.pi;curF=w.fi;}
+      else if(w.fi!==curF){html+='</span> <span class="sent" data-f="'+w.fi+'">';curF=w.fi;}
+      let inner='';
+      if(w.err&&this.mode==='detectives'&&!this.errs[w.i])inner='<span class="err" data-w="'+w.i+'" onclick="Reader.fixError('+w.i+')">'+esc(w.txt)+'</span>';
+      else if(w.err&&this.errs[w.i])inner='<span class="err fixed">'+esc(w.fix)+'</span>';
+      else if(w.gap&&this.mode==='huecos'&&!this.gaps[w.i]){const opts=shuffle([w.txt].concat(shuffle((this.text.vocab||[]).filter(v=>norm(v)!==norm(w.txt))).slice(0,2)));inner='<select class="gap" data-w="'+w.i+'" onchange="Reader.setGap('+w.i+',this.value)"><option value="">?</option>'+opts.map(o=>'<option>'+esc(o)+'</option>').join('')+'</select>';}
+      else{inner=w.sids.map(s=>'<span class="sy" data-s="'+s+'">'+esc(this.syls[s].txt)+'</span>').join('');if(w.plain.length!==w.txt.length)inner=esc(w.txt);}
+      let pic='';if(w.picto&&showPic)pic='<span class="ipic">'+PictoDB.any(w.picto)+'<b>'+esc(w.picto)+'</b></span>';
+      html+='<span class="w" data-w="'+w.i+'">'+pic+inner+'</span> ';
+    });
+    if(curP>=0)html+='</span></span>';
+    box.innerHTML=html;
+    if(this.mode==='huecos')extra.innerHTML='<div class="row center mt"><button class="btn ok" onclick="Reader.checkGaps()">✅ Comprobar</button></div><div class="fb" id="r-fb"></div>';
+    if(this.mode==='detectives')extra.innerHTML='<div class="desc">Errores corregidos: <b id="r-errs">0</b></div>';
+    this.toggles();
+  },
+  plain(){return this.text?this.text.text.replace(/\[picto:([^\]]+)\]/g,'$1').replace(/\[hueco:([^\]]+)\]/g,'$1').replace(/\{error:([^|]+)\|[^}]+\}/g,'$1'):'';},
+  paintStep(i){const box=$('#r-ladder');if(!box)return;const u=this.units[i];if(!u)return;if(this.mode==='escalera'){this.ladder.push(u.parts.join(' '));if(u.step===1)this.ladder=[u.parts.join(' ')];box.innerHTML=this.ladder.map((t,k)=>'<div class="'+(k===this.ladder.length-1?'now':'')+'">'+esc(t)+'</div>').join('');}else{const arr=[];for(let k=1;k<=u.step;k++)arr.push(u.parts.slice(0,k).join(' '));box.innerHTML=arr.map((t,k)=>'<div class="'+(k===arr.length-1?'now':'')+'">'+esc(t)+'</div>').join('');}},
+  toggles(){
+    const ruler=$('.c-ruler'),sy=$('.c-sy'),sRuler=$('#s-ruler'),sSy=$('#s-sy');
+    document.body.classList.toggle('ruler-on',ruler&&ruler.checked&&sRuler&&sRuler.checked);
+    document.body.classList.toggle('sycolor',sy&&sy.checked&&sSy&&sSy.checked);
+    const rulerEl=$('#ruler');
+    if(rulerEl)rulerEl.style.display=(ruler&&ruler.checked)?'':'none';
+  },
+  hl(u){
+    $$('.hl,.hlw,.sentline,.rein',$('#rtext')).forEach(e=>e.classList.remove('hl','hlw','sentline','rein'));if(!u)return;
+    let el=null;if(u.s!=null)el=$('.sy[data-s="'+u.s+'"]',$('#rtext'));else if(u.w!=null)el=$('.w[data-w="'+u.w+'"]',$('#rtext'));else if(u.f!=null)el=$('.sent[data-f="'+u.f+'"]',$('#rtext'));else if(u.p!=null)el=$('.par[data-p="'+u.p+'"]',$('#rtext'));
+    if(el){el.classList.add(u.s!=null?'hl':'hlw');const rein=$('.c-rein');if(rein&&rein.checked&&u.s!=null)el.classList.add('rein');if(u.f!=null){const s=$('.sent[data-f="'+u.f+'"]',$('#rtext'));if(s)s.classList.add('sentline');}
+      const r=$('#ruler'),wrap=$('#rwrap');const ruler=$('.c-ruler');if(ruler&&ruler.checked){const top=el.getBoundingClientRect().top-wrap.getBoundingClientRect().top+wrap.scrollTop;r.style.top=Math.max(0,top-6)+'px';r.style.height=(el.getBoundingClientRect().height+10)+'px';}
+      const follow=$('.c-follow');if(follow&&follow.checked)el.scrollIntoView({block:'nearest',behavior:'smooth'});}
+    if(['piramidal','acumulativa','escalera'].includes(this.mode))this.paintStep(this.idx);
+  },
+  pauseMs(u){const s=Settings.get();const sp=$('#ctrls-top .r-speed')?$('#ctrls-top .r-speed').value:'media';const mult={super:3,muy:2,lenta:1.3,media:0.7,rapida:0.4}[sp]||1;if(this.mode==='eco')return s.pe;if(this.mode==='guiada'){const list=String(this.text.pauses||'').split(',').map(x=>parseInt(x,10)).filter(n=>n>0);if(u.f!=null&&list.includes(u.f+1))return s.pe;}if(u.kind==='syl')return s.ps*mult;if(u.kind==='word')return s.pw*mult;if(u.kind==='sent')return s.pf*mult;return s.pp*mult;},
+  rate(){const sp=$('#ctrls-top .r-speed')?$('#ctrls-top .r-speed').value:'media';return sp==='super'?0.55:sp==='muy'?0.70:sp==='lenta'?0.85:sp==='rapida'?1.30:1.00;},
+  play(){if(!this.text){toast('Elige una lectura');return;}Sound.ready();this.makeUnits();if(this.mode==='autonomo'||!this.units.length){this.playing=true;this.t0=Date.now();this.eff=0;this.readWords=this.words.length;this.updateButtons();toast('👀 Lee tú. Pulsa "Terminado".');this.tick();return;}this.playing=true;this.updateButtons();if(!this.t0)this.t0=Date.now();this.speakCurrent();},
+  speakCurrent(){
+    if(!this.playing)return;if(this.idx>=this.units.length){this.end();return;}
+    const u=this.units[this.idx];this.hl(u);$('#r-turn').classList.add('hide');
+    const ut=new SpeechSynthesisUtterance(u.txt);const s=Settings.get();
+    let v=null;if(this.mode==='dramatizada'&&u.voice!=null)v=this.voiceFor(u.voice+1);
+    if(!v){const all=speechSynthesis.getVoices();v=all[s.voiceIdx]||null;}
+    if(v)ut.voice=v;ut.lang='es-ES';ut.rate=this.rate();ut.pitch=Number(s.pitch)||1;
+    ut.onstart=()=>{this.ut0=performance.now();};
+    ut.onend=()=>{this.eff+=performance.now()-this.ut0;this.readWords=this.countRead();const wait=this.pauseMs(u);
+      if(this.mode==='eco'){$('#r-turn').textContent='🎤 Tu turno';$('#r-turn').classList.remove('hide');}
+      else if(this.mode==='guiada'&&wait>=3000){$('#r-turn').textContent='🧘 Pausa docente';$('#r-turn').classList.remove('hide');}
+      if(s.beep&&wait>250)Sound.beep();this.idx++;this.stats();this.timer=setTimeout(()=>this.speakCurrent(),wait);};
+    ut.onerror=()=>{this.idx++;this.timer=setTimeout(()=>this.speakCurrent(),120);};
+    try{speechSynthesis.cancel();speechSynthesis.speak(ut);}catch(e){this.idx++;this.timer=setTimeout(()=>this.speakCurrent(),150);}
+  },
+  countRead(){let n=0;for(let i=0;i<this.idx&&i<this.units.length;i++){const u=this.units[i];if(u.kind==='syl')n+=1/Math.max(1,(this.words[u.w]?this.words[u.w].sids.length:1));else n+=u.txt.split(/\s+/).filter(Boolean).length;}return Math.round(n);},
+  updateButtons(){const state=this.playing?'🔊 Leyendo…':'▶️ Escuchar';document.querySelectorAll('[data-action="play"]').forEach(b=>b.textContent=state);},
+  pause(){if(!this.playing)return;this.playing=false;clearTimeout(this.timer);try{speechSynthesis.cancel();}catch(e){}this.updateButtons();toast('⏸️ En pausa');},
+  resume(){if(this.playing)return;this.playing=true;this.updateButtons();if(this.units.length)this.speakCurrent();else this.tick();},
+  stop(){this.playing=false;clearTimeout(this.timer);try{speechSynthesis.cancel();}catch(e){}this.idx=0;this.t0=0;this.eff=0;this.readWords=0;this.updateButtons();const t=$('#r-turn');if(t)t.classList.add('hide');$$('.hl,.hlw,.sentline,.rein').forEach(e=>e.classList.remove('hl','hlw','sentline','rein'));},
+  home(){this.stop();this.render();this.stats(0,0,0);},
+  repeat(){if(!this.units.length)return;this.idx=Math.max(0,this.idx-1);this.pause();this.playing=true;this.updateButtons();this.speakCurrent();},
+  prev(){if(!this.units.length)return;this.idx=clamp(this.idx-1,0,this.units.length-1);this.hl(this.units[this.idx]);if(this.playing){clearTimeout(this.timer);try{speechSynthesis.cancel();}catch(e){}this.speakCurrent();}},
+  next(){if(!this.units.length)return;this.idx=clamp(this.idx+1,0,this.units.length-1);this.hl(this.units[this.idx]);if(this.playing){clearTimeout(this.timer);try{speechSynthesis.cancel();}catch(e){}this.speakCurrent();}},
+  end(){this.playing=false;this.updateButtons();$('#r-turn').classList.add('hide');this.stats();Sound.win();toast('🎉 Lectura escuchada.');},
+  tick(){if(!this.playing||this.units.length)return;this.stats();setTimeout(()=>this.tick(),500);},
+  stats(){const secs=this.t0?Math.round((Date.now()-this.t0)/1000):0;const effMin=this.eff/60000;const w=this.mode==='autonomo'?this.words.length:this.readWords;const ppm=effMin>0.002?Math.round(w/effMin):(this.mode==='autonomo'&&secs>2?Math.round(this.words.length/(secs/60)):0);$('#s-time').textContent=secs+'s';$('#s-words').textContent=w;$('#s-ppm').textContent=ppm||0;return {secs,ppm:ppm||0,words:w};},
+  fluency(){if(!this.text){toast('Elige una lectura');return;}const st=this.stats();if(!st.secs){toast('Pulsa ▶️ o "Terminado"');return;}toast('📏 '+st.words+' pal · '+st.secs+' s · '+st.ppm+' PPM');Sound.ok();},
+  finish(){if(!this.text){toast('Elige una lectura');return;}if(this.mode==='autonomo'&&!this.t0)this.t0=Date.now();const st=this.stats();this.pause();Progress.add({title:this.text.title,textId:this.text.id,mode:this.mode,secs:st.secs,ppm:st.ppm,words:st.words,hits:0,kind:'lectura'});App.agendaStep(2);Sound.win();toast('⭐ ¡Muy bien! Ahora 🎯 Comprendo');Words.render();Compre.build();},
+  setGap(i,v){this.gaps[i]=v;},
+  checkGaps(){let ok=0,tot=0;this.words.filter(w=>w.gap).forEach(w=>{tot++;if(norm(this.gaps[w.i])===norm(w.txt))ok++;});const fb=$('#r-fb');if(fb){fb.textContent=ok+' de '+tot+' correctos';fb.className='fb '+(ok===tot?'ok':'bad');}ok?Sound.ok():Sound.bad();Progress.add({title:this.text.title,textId:this.text.id,mode:'huecos',secs:0,ppm:0,words:tot,hits:ok,kind:'actividad'});this.render();},
+  fixError(i){const w=this.words[i];if(!w)return;const r=prompt('¿Cómo se escribe bien?',w.fix);if(r==null)return;if(norm(r)===norm(w.fix)){this.errs[i]=true;Sound.ok();Progress.hit();toast('✅ ¡Correcto!');}else{Sound.bad();toast('Casi: '+w.fix);}this.render();const c=$('#r-errs');if(c)c.textContent=Object.keys(this.errs).length;}
+};
+const Compre={tab:'preguntas',state:{},t0:0,TABS:[['preguntas','❓ Preguntas'],['orden','🔢 Ordenar'],['vf','✅ V/F'],['relacionar','🖼️ Imagen-texto'],['huecos','🕳️ Completar'],['idea','💡 Idea principal']],
+  text(){return Library.byId(App.current);},
+  build(){const t=this.text();this.state={};this.t0=Date.now();$('#cmp-tabs').innerHTML=this.TABS.map(x=>'<button class="tab" role="tab" aria-selected="'+(x[0]===this.tab)+'" onclick="Compre.go(\''+x[0]+'\')">'+x[1]+'</button>').join('');const body=$('#cmp-body');$('#cmp-fb').textContent='';if(!t){$('#cmp-info').textContent='Selecciona una lectura.';body.innerHTML='';return;}$('#cmp-info').textContent='Actividades sobre: «'+t.title+'»';this['b_'+this.tab](t,body);},
+  go(k){this.tab=k;this.build();Sound.click();},
+  sents(t){return t.text.replace(/\[picto:([^\]]+)\]/g,'$1').replace(/\[hueco:([^\]]+)\]/g,'$1').replace(/\{error:([^|]+)\|[^}]+\}/g,'$1').split(/(?<=[.!?…])\s+|\n+/).map(s=>s.trim()).filter(s=>s.length>4);},
+  b_preguntas(t,b){if(!t.questions||!t.questions.length){b.innerHTML='<p>Sin preguntas.</p>';return;}this.state.answers=t.questions.map(q=>q[1]);b.innerHTML=t.questions.map((q,i)=>{const opts=shuffle(q.slice(1));return '<div class="act"><p><b>'+(i+1)+'. '+esc(q[0])+'</b></p><div class="g2">'+opts.map(o=>'<label class="opt"><input type="radio" name="q'+i+'" value="'+esc(o)+'"> '+esc(o)+'</label>').join('')+'</div></div>';}).join('');},
+  b_orden(t,b){const ss=this.sents(t).slice(0,4);if(ss.length<2){b.innerHTML='<p>Necesitas 2 frases.</p>';return;}this.state.order=ss;b.innerHTML='<div class="act"><p><b>Ordena la historia.</b></p><div class="slot" id="cmp-slot"></div><div class="g2 mt" id="cmp-opts">'+shuffle(ss).map((s,i)=>'<button class="chip" onclick="Compre.pick(this)">'+esc(s)+'</button>').join('')+'</div></div>';this.state.picked=[];},
+  pick(btn){this.state.picked=this.state.picked||[];this.state.picked.push(btn.textContent);btn.classList.add('used');$('#cmp-slot').innerHTML=this.state.picked.map((s,i)=>'<span class="badge">'+(i+1)+'</span> '+esc(s)).join('<br>');Sound.click();},
+  b_vf(t,b){const ss=this.sents(t);if(!ss.length){b.innerHTML='<p>Texto insuficiente.</p>';return;}const items=[];ss.slice(0,3).forEach((s,i)=>{items.push({s:s,v:true});const ws=s.split(/\s+/);const cand=(t.vocab||[]).filter(v=>!norm(s).includes(norm(v)));if(ws.length>3&&cand.length){const idx=ws.findIndex(w=>w.length>4);if(idx>=0){const fake=ws.slice();fake[idx]=cand[0];items.push({s:fake.join(' '),v:false});}}});const use=shuffle(items).slice(0,4);this.state.vf=use;b.innerHTML=use.map((it,i)=>'<div class="act"><p><b>'+(i+1)+'. '+esc(it.s)+'</b></p><div class="row"><label class="opt"><input type="radio" name="vf'+i+'" value="v"> ✅ V</label><label class="opt"><input type="radio" name="vf'+i+'" value="f"> ❌ F</label></div></div>').join('');},
+  b_relacionar(t,b){const vs=(t.vocab||[]).filter(v=>LOCAL[norm(v)]||PictoDB.html(v)).slice(0,4);if(vs.length<2){b.innerHTML='<p>Sin pictos.</p>';return;}this.state.rel=vs;const texts=shuffle(vs);b.innerHTML='<div class="act"><p><b>Une picto con palabra.</b></p><div class="g2">'+vs.map((v,i)=>'<div class="row"><span class="ipic" style="font-size:26px">'+PictoDB.any(v)+'</span><select id="rel'+i+'"><option value="">—</option>'+texts.map(x=>'<option>'+esc(x)+'</option>').join('')+'</select></div>').join('')+'</div></div>';},
+  b_huecos(t,b){const ss=this.sents(t);const vs=(t.vocab||[]).slice();const items=[];ss.forEach(s=>{const w=vs.find(v=>norm(s).includes(norm(v)));if(w&&items.length<4){const re=new RegExp(w,'i');items.push({s:s.replace(re,'______'),a:w,opts:shuffle([w].concat(shuffle(vs.filter(x=>x!==w)).slice(0,2)))});}});if(!items.length){b.innerHTML='<p>Añade vocabulario.</p>';return;}this.state.cloze=items;b.innerHTML=items.map((it,i)=>'<div class="act"><p><b>'+(i+1)+'. '+esc(it.s)+'</b></p><div class="row">'+it.opts.map(o=>'<label class="opt"><input type="radio" name="cl'+i+'" value="'+esc(o)+'"> '+esc(o)+'</label>').join('')+'</div></div>').join('');},
+  b_idea(t,b){const ss=this.sents(t).sort((a,b2)=>b2.length-a.length);const correct=ss[0]||t.title;const others=shuffle(Library.data.filter(x=>x.id!==t.id)).slice(0,2).map(x=>this.sents(x)[0]||x.title);const opts=shuffle([correct].concat(others));this.state.idea=correct;b.innerHTML='<div class="act"><p><b>¿Idea principal de «'+esc(t.title)+'»?</b></p><div class="g2">'+opts.map(o=>'<label class="opt"><input type="radio" name="idea" value="'+esc(o)+'"> '+esc(o)+'</label>').join('')+'</div></div>';},
+  check(){const t=this.text();if(!t){toast('Elige una lectura');return;}let ok=0,tot=0;
+    if(this.tab==='preguntas'){(t.questions||[]).forEach((q,i)=>{tot++;const s=$('input[name="q'+i+'"]:checked');if(s){const lab=s.closest('.opt');if(s.value===q[1]){ok++;lab.classList.add('good');}else lab.classList.add('wrong');}});}
+    else if(this.tab==='orden'){tot=1;const p=this.state.picked||[];if(p.length===this.state.order.length&&p.every((s,i)=>s===this.state.order[i]))ok=1;}
+    else if(this.tab==='vf'){(this.state.vf||[]).forEach((it,i)=>{tot++;const s=$('input[name="vf'+i+'"]:checked');if(s){const good=(s.value==='v')===it.v;const lab=s.closest('.opt');if(good){ok++;lab.classList.add('good');}else lab.classList.add('wrong');}});}
+    else if(this.tab==='relacionar'){(this.state.rel||[]).forEach((v,i)=>{tot++;const el=$('#rel'+i);if(el&&norm(el.value)===norm(v)){ok++;el.style.borderColor='var(--ok)';}else if(el)el.style.borderColor='var(--bad)';});}
+    else if(this.tab==='huecos'){(this.state.cloze||[]).forEach((it,i)=>{tot++;const s=$('input[name="cl'+i+'"]:checked');if(s){const lab=s.closest('.opt');if(norm(s.value)===norm(it.a)){ok++;lab.classList.add('good');}else lab.classList.add('wrong');}});}
+    else if(this.tab==='idea'){tot=1;const s=$('input[name="idea"]:checked');if(s){const lab=s.closest('.opt');if(s.value===this.state.idea){ok=1;lab.classList.add('good');}else lab.classList.add('wrong');}}
+    const fb=$('#cmp-fb');fb.textContent='Aciertos: '+ok+' de '+tot+(ok===tot&&tot?' ¡Muy bien! 🎉':'');fb.className='fb '+(ok===tot&&tot?'ok':'bad');
+    ok===tot&&tot?Sound.win():(ok?Sound.ok():Sound.bad());
+    Progress.add({title:t.title,textId:t.id,mode:'comprendo:'+this.tab,secs:Math.round((Date.now()-this.t0)/1000),ppm:0,words:0,hits:ok,total:tot,kind:'comprensión'});
+  },
+  hint(){const t=this.text();if(!t)return;Sound.click();toast('💡 Pista: «'+(this.sents(t)[0]||t.text).slice(0,70)+'…»',4200);}
+};
+const Words={render(){const t=Library.byId(App.current),box=$('#w-list');if(!box)return;if(!t){box.innerHTML='<p class="small">Selecciona una lectura.</p>';return;}const vs=(t.vocab&&t.vocab.length)?t.vocab:Array.from(new Set(t.text.split(/\s+/).map(w=>w.replace(/[^\wáéíóúñ]/gi,'')).filter(w=>w.length>4))).slice(0,8);box.innerHTML=vs.map(v=>'<div class="card tc" style="margin:0;padding:8px"><div style="font-size:34px">'+PictoDB.any(v)+'</div><b>'+esc(v)+'</b><div class="row center mt"><button class="btn ghost sm" onclick="Words.say(\''+esc(v)+'\')">🔊</button><button class="btn ghost sm" onclick="Words.save(\''+esc(v)+'\')">📖</button></div></div>').join('');},say(w){Speech.say(w);},save(w){Dict.add(w,'');toast('📖 «'+w+'» al diccionario');}};
+const Dict={data:[],init(){this.data=Store.get(K.dict,[]);this.render();},add(w,m){w=w||($('#d-w')?$('#d-w').value.trim():'');m=(m==null?($('#d-m')?$('#d-m').value.trim():''):m);if(!w)return;if(!this.data.some(d=>norm(d.w)===norm(w)))this.data.push({w:w,m:m||'',date:today()});Store.set(K.dict,this.data);if($('#d-w'))$('#d-w').value='';if($('#d-m'))$('#d-m').value='';this.render();Sound.ok();Progress.render();},del(w){this.data=this.data.filter(d=>d.w!==w);Store.set(K.dict,this.data);this.render();},render(){const b=$('#d-list');if(!b)return;b.innerHTML=this.data.length?this.data.map(d=>'<div class="row between" style="border-bottom:1px solid var(--line);padding:6px 0"><span class="ipic" style="font-size:22px">'+PictoDB.any(d.w)+'</span><span style="flex:1"><b>'+esc(d.w)+'</b> '+esc(d.m)+'</span><button class="btn ghost sm" onclick="Speech.say(\''+esc(d.w)+'\')">🔊</button><button class="btn bad sm" onclick="Dict.del(\''+esc(d.w)+'\')">🗑️</button></div>').join(''):'<p class="small">Sin palabras.</p>';}};
+const Speech={say(txt,rate){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);const s=Settings.get();const all=speechSynthesis.getVoices();if(all[s.voiceIdx])u.voice=all[s.voiceIdx];u.lang='es-ES';u.rate=rate||0.9;u.pitch=Number(s.pitch)||1;speechSynthesis.speak(u);}catch(e){}}};
+const Pictos={seq:[],all(){const o={};Object.keys(LOCAL).forEach(w=>o[w]=localSVG(w));Object.keys(PictoDB.cache).forEach(w=>o[w]=PictoDB.cache[w]);return o;},
+  render(){this.grid($('#p-q')?$('#p-q').value:'',$('#p-grid'),false);},
+  grid(q,box,mini){if(!box)return;const all=this.all(),n=norm(q);const keys=Object.keys(all).filter(w=>!n||norm(w).includes(n)).sort();const show=keys.slice(0,mini?120:200);box.innerHTML=show.map(w=>'<button class="pi" onclick="Pictos.pick(\''+esc(w)+'\')">'+all[w]+'<span>'+esc(w)+'</span></button>').join('')||'<p class="small" style="grid-column:1/-1;padding:12px;text-align:center">Sin resultados. Pulsa 🌐 ARASAAC.</p>';},
+  pick(w){if(App.view==='crear'||(App.view==='pictos'&&Editor.active())){Editor.insert(w);}else{this.seqAdd(w);}Sound.click();},
+  async search(word,box,msg,mini){word=(word||($('#p-q')?$('#p-q').value:'')||'').trim();box=box||$('#p-grid');msg=msg||$('#p-msg');if(!word){toast('Escribe una palabra');return;}if(msg)msg.innerHTML='🔍 Buscando «'+esc(word)+'»…';if(box)box.innerHTML='<p class="small" style="grid-column:1/-1;padding:14px;text-align:center">⏳ Conectando…</p>';
+    const urls=['https://api.arasaac.org/api/pictograms/es/search/'+encodeURIComponent(word),'https://api.arasaac.org/v1/pictograms/es/search/'+encodeURIComponent(word),'https://api.arasaac.org/api/search?locale=es&text='+encodeURIComponent(word)];
+    let items=null;for(const u of urls){try{const r=await fetch(u,{mode:'cors'});if(!r.ok)throw new Error('HTTP '+r.status);const j=await r.json();const arr=Array.isArray(j)?j:(j&&Array.isArray(j.symbol)?j.symbol:(j&&Array.isArray(j.data)?j.data:null));if(arr&&arr.length){items=arr;break;}if(arr&&arr.length===0){items=[];break;}}catch(e){}}
+    const link='https://arasaac.org/pictograms/search/'+encodeURIComponent(word);
+    if(items===null){if(msg)msg.innerHTML='⚠️ Sin conexión. <a href="'+link+'" target="_blank">🔗 Abrir ARASAAC</a>';if(box){box.innerHTML='';this.grid($('#p-q')?$('#p-q').value:'',box,mini);}Sound.bad();return;}
+    if(!items.length){if(msg)msg.innerHTML='😕 No encontrado. <a href="'+link+'" target="_blank">🔗 Ver en ARASAAC</a>';if(box){box.innerHTML='';this.grid('',box,mini);}return;}
+    if(msg)msg.innerHTML='✅ '+items.length+' pictos. Pulsa uno para guardarlo. <b>ARASAAC · CC BY-NC-SA</b>';
+    if(box){box.innerHTML=items.slice(0,18).map(p=>{const id=p._id||p.id||p.idPictogram;const url='https://static.arasaac.org/pictograms/'+id+'/'+id+'_300.png';return '<button class="pi" onclick="Pictos.take(\''+esc(word)+'\',\''+url+'\')"><img src="'+url+'" alt="'+esc(word)+'" loading="lazy" onerror="this.style.visibility=\'hidden\'"><span>'+esc(word)+'</span></button>';}).join('');}Sound.ok();},
+  async take(word,url){const key=norm(word);try{const r=await fetch(url,{mode:'cors'});const b=await r.blob();const dataUrl=await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(b);});await PictoDB.put(key,'<img src="'+dataUrl+'" alt="'+esc(word)+'">');toast('✅ «'+word+'» guardado offline.');}catch(e){await PictoDB.put(key,'<img src="'+url+'" alt="'+esc(word)+'">');toast('⚠️ Guardado como enlace.');}Sound.ok();if(App.view==='crear')Editor.insert(word);this.render();Editor.pictos();},
+  upload(input,inEditor){const f=input.files&&input.files[0];if(!f)return;const w=prompt('¿Qué palabra representa?','');if(!w||!w.trim()){input.value='';return;}const fr=new FileReader();fr.onload=async()=>{const img=new Image();img.onload=async()=>{const c=document.createElement('canvas');const M=240;const sc=Math.min(1,M/Math.max(img.width,img.height));c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);c.getContext('2d').drawImage(img,0,0,c.width,c.height);let out;try{out=c.toDataURL('image/png');}catch(e){out=fr.result;}await PictoDB.put(norm(w.trim()),'<img src="'+out+'" alt="'+esc(w.trim())+'">');toast('✅ Imagen guardada');Sound.ok();Pictos.render();Editor.pictos();if(inEditor)Editor.insert(w.trim());};img.onerror=async()=>{await PictoDB.put(norm(w.trim()),'<img src="'+fr.result+'" alt="'+esc(w)+'">');Pictos.render();Editor.pictos();};img.src=fr.result;};fr.readAsDataURL(f);input.value='';},
+  seqAdd(w){if(this.seq.length>=6){toast('Máximo 6');return;}this.seq.push(w);this.seqRender();},
+  seqClear(){this.seq=[];this.seqRender();},
+  seqRender(){const box=$('#p-seq');if(!box)return;box.innerHTML=this.seq.length?this.seq.map((w,i)=>'<div class="tc"><div class="badge">'+(i+1)+'</div><div style="font-size:38px">'+PictoDB.any(w)+'</div><b class="small">'+esc(w)+'</b></div>').join(''):'<p class="small">Pulsa pictos para crear la tira.</p>';},
+  seqSpeak(){if(!this.seq.length){toast('Añade pictos primero');return;}Speech.say(this.seq.join('. '),0.8);}
+};
+const Prompt={TEXT:'# PROMPT MAESTRO DEFINITIVO · LECTURA INCLUSIVA TEA\n\n## 1. TU ROL\nActúas como un equipo: logopeda, pedagogo TEA, neuropsicólogo infantil, maestro AL y diseñador accesible.\n\n## 2. REGLAS DE LENGUAJE\n- Frases cortas: SUJETO + VERBO + COMPLEMENTO.\n- Vocabulario concreto y literal. Un solo significado por palabra.\n- PROHIBIDO: metáforas, ironías, dobles sentidos, refranes.\n\n## 3. NIVELES\n- NIVEL 0: 3-6 líneas, 3-5 palabras/frase.\n- NIVEL 1: 4-8 frases, 5-7 palabras/frase.\n- NIVEL 2: 1 párrafo, 6-12 frases, 8-10 palabras/frase.\n- NIVEL 3: 2-3 párrafos, 10-12 palabras/frase.\n- NIVEL 4: 3-4 párrafos, hasta 15 palabras/frase.\n\n## 4. FORMATO DE SALIDA\n\n### TITULO\n(máx. 6 palabras)\n\n### TEXTO\n(una frase por línea)\n\n### PREGUNTAS\nPregunta|Correcta|Distractor1|Distractor2\n\n### VOCABULARIO\npalabra1, palabra2, palabra3\n\n### PICTOGRAMAS\npalabra1, palabra2, palabra3\n\n## 5. AHORA GENERA\nTEMA: [TEMA]\nNIVEL: [NIVEL]\nCATEGORÍA: [CATEGORÍA]',
+  open(){const box=$('#prompt-box');const modal=$('#prompt');if(box)box.textContent=this.TEXT;if(modal)modal.classList.add('on');Sound.click();},
+  close(){const modal=$('#prompt');if(modal)modal.classList.remove('on');},
+  copy(){const t=this.TEXT;const done=()=>{toast('📋 Prompt copiado.');Sound.ok();};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done).catch(()=>this.fallback(t,done));else this.fallback(t,done);},
+  fallback(t,cb){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');cb();}catch(e){toast('Selecciona y copia con Ctrl+C');}ta.remove();}
+};
+const Editor={vs:[],active(){return App.view==='crear';},
+  blank(){if(!Teacher.require())return;if($('#ed-form'))$('#ed-form').reset();if($('#e-id'))$('#e-id').value='';this.vs=[];this.vsRender();if($('#e-qs'))$('#e-qs').innerHTML='';this.addQ();this.pictos();this.preview();},
+  load(id){const t=Library.byId(id);if(!t)return;$('#e-id').value=t.id;$('#e-title').value=t.title;$('#e-lv').value=t.level;Library.fillSelects();$('#e-cat').value=t.category;$('#e-mode').value=t.mode||'';$('#e-col').value=t.collection||'general';$('#e-tags').value=(t.tags||[]).join(', ');$('#e-text').value=t.text;$('#e-pauses').value=t.pauses||'';$('#e-qs').innerHTML='';(t.questions||[]).forEach(q=>this.addQ(q));if(!(t.questions||[]).length)this.addQ();this.vs=(t.vocab||[]).slice();this.vsRender();this.pictos();this.preview();},
+  addQ(q){const wrap=$('#e-qs');if(!wrap)return;const d=document.createElement('div');d.className='act';d.innerHTML='<div class="f"><label>Pregunta</label><input type="text" class="q-t" value="'+esc(q?q[0]:'')+'"></div><div class="g3"><div class="f"><label>✅ Correcta</label><input type="text" class="q-a" value="'+esc(q?q[1]:'')+'"></div><div class="f"><label>Opción 2</label><input type="text" class="q-b" value="'+esc(q?q[2]:'')+'"></div><div class="f"><label>Opción 3</label><input type="text" class="q-c" value="'+esc(q?q[3]:'')+'"></div></div><button type="button" class="btn bad sm" onclick="this.parentNode.remove()">🗑️ Quitar</button>';wrap.appendChild(d);},
+  addV(){const input=$('#e-v');if(!input)return;const v=input.value.trim();if(!v)return;if(!this.vs.some(x=>norm(x)===norm(v)))this.vs.push(v);input.value='';this.vsRender();},
+  vsRender(){const box=$('#e-vs');if(!box)return;box.innerHTML=this.vs.map(v=>'<span class="badge">'+esc(v)+' <button type="button" class="star" style="font-size:.9rem" onclick="Editor.delV(\''+esc(v)+'\')">✖</button></span>').join('')||'<span class="small">Sin palabras.</span>';},
+  delV(v){this.vs=this.vs.filter(x=>x!==v);this.vsRender();},
+  pictos(){Pictos.grid($('#ep-q')?$('#ep-q').value:'',$('#ep-grid'),true);},
+  arasaac(){Pictos.search($('#ep-q')?$('#ep-q').value:'',$('#ep-grid'),$('#ep-msg'),true);},
+  insert(w){const ta=$('#e-text');if(!ta)return;const s=ta.selectionStart||ta.value.length,e=ta.selectionEnd||s;const mark='[picto:'+w+']';ta.value=ta.value.slice(0,s)+mark+ta.value.slice(e);ta.focus();ta.setSelectionRange(s+mark.length,s+mark.length);this.preview();Sound.click();},
+  autoPictos(){const ta=$('#e-text');if(!ta)return;let txt=ta.value,n=0;this.vs.forEach(v=>{const safe=v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');const re=new RegExp('(^|[\\s.,;:¡!¿?"])('+safe+')($|[\\s.,;:¡!¿?"])','gi');txt=txt.replace(re,(m,a,b,c)=>{n++;return a+'[picto:'+b+']'+c;});});ta.value=txt;this.preview();toast(n?'🖼️ '+n+' pictos insertados':'Añade vocabulario que aparezca en el texto');},
+  preview(){const raw=$('#e-text')?$('#e-text').value:'';const mode=$('#e-picmode')?$('#e-picmode').value:'both';const out=$('#e-prev');if(!out)return;let html=esc(raw);html=html.replace(/\[picto:([^\]]+)\]/g,(m,w)=>{const pic='<span class="ipic">'+PictoDB.any(w)+(mode==='img'?'':'<b>'+esc(w)+'</b>')+'</span>';return mode==='txt'?esc(w):pic;});html=html.replace(/\[hueco:([^\]]+)\]/g,'<span class="badge">____</span>');html=html.replace(/\{error:([^|]+)\|([^}]+)\}/g,'<span class="err">$1</span>');out.innerHTML=html.replace(/\n/g,'<br>')||'<span class="small">Aquí verás el texto.</span>';},
+  importTxt(input){const f=input.files&&input.files[0];if(!f)return;const fr=new FileReader();fr.onload=()=>{const lines=String(fr.result).split(/\r?\n/);if($('#e-title')&&!$('#e-title').value)$('#e-title').value=(lines[0]||f.name.replace(/\.txt$/,'')).slice(0,60);if($('#e-text'))$('#e-text').value=lines.slice(lines[0]&&!$('#e-id').value?1:0).join('\n').trim()||String(fr.result);this.preview();toast('📂 Texto importado');};fr.readAsText(f,'UTF-8');input.value='';},
+  collect(){const qs=$$('#e-qs .act').map(d=>{const t=$('.q-t',d).value.trim(),a=$('.q-a',d).value.trim(),b=$('.q-b',d).value.trim(),c=$('.q-c',d).value.trim();return t&&a?[t,a,b,c].filter(x=>x!==''):null;}).filter(Boolean);return {id:$('#e-id').value||uid(),title:$('#e-title').value.trim()||'Sin título',level:Number($('#e-lv').value),category:$('#e-cat').value,text:$('#e-text').value.trim(),questions:qs,vocab:this.vs.slice(),tags:$('#e-tags').value.split(',').map(s=>s.trim()).filter(Boolean),collection:$('#e-col').value.trim()||'general',mode:$('#e-mode').value,pauses:$('#e-pauses').value.trim(),favorite:false,pre:false,own:true};},
+  save(ev){if(ev)ev.preventDefault();if(!Teacher.require())return;const t=this.collect();if(!t.text){toast('Escribe el texto');return;}const i=Library.data.findIndex(x=>x.id===t.id);const wasPre=i>=0&&Library.data[i].pre;if(i>=0)Library.data[i]=Object.assign({},Library.data[i],t,{pre:wasPre});else Library.data.push(t);Store.set(K.texts,Library.data);Library.fillSelects();Library.render();Sound.ok();toast('💾 Guardada');App.current=t.id;App.nav('biblioteca');},
+  dup(){const id=$('#e-id').value;if(!id){toast('Guarda primero');return;}$('#e-id').value='';$('#e-title').value=$('#e-title').value+' (copia)';toast('📑 Listo para guardar como copia');},
+  del(){const id=$('#e-id').value;if(!id){this.cancel();return;}const t=Library.byId(id);if(t&&t.pre){toast('Las 60 originales no se borran: edítalas o duplícalas.');return;}if(!confirm('¿Eliminar esta lectura propia?'))return;Library.data=Library.data.filter(x=>x.id!==id);Store.set(K.texts,Library.data);Library.render();this.cancel();toast('🗑️ Eliminada');},
+  cancel(){if($('#ed-form'))$('#ed-form').reset();if($('#e-id'))$('#e-id').value='';this.vs=[];this.vsRender();if($('#e-qs'))$('#e-qs').innerHTML='';App.nav('biblioteca');}
+};
+const Review={sel:null,undoStack:[],init(){const t=Library.byId(App.current),box=$('#rv-text');if(!box)return;if(!t){box.innerHTML='<span class="small">Selecciona una lectura.</span>';if($('#rv-full'))$('#rv-full').value='';return;}const toks=t.text.split(/(\s+)/);box.innerHTML=toks.map(tk=>/^\s+$/.test(tk)?tk:'<span class="w" style="cursor:pointer" onclick="Review.pick(this)">'+esc(tk)+'</span>').join('');if($('#rv-full'))$('#rv-full').value=t.text;},pick(el){$$('#rv-text .w').forEach(e=>e.style.background='');el.style.background='var(--warn)';this.sel=el.textContent;if($('#rv-sel'))$('#rv-sel').textContent=this.sel;if($('#rv-new'))$('#rv-new').value=this.sel.replace(/[.,;:]/g,'');Sound.click();},save(t){const old=Library.byId(t.id);this.undoStack.push(old.text);old.text=t.text;Store.set(K.texts,Library.data);this.init();Reader.load(t.id);Sound.ok();toast('✅ Actualizado');},one(){const t=Library.byId(App.current);if(!t||!this.sel)return;const nw=$('#rv-new')?$('#rv-new').value:'';if(!nw)return;const i=t.text.indexOf(this.sel);if(i<0)return;t.text=t.text.slice(0,i)+nw+t.text.slice(i+this.sel.length);this.save(t);},all(){const t=Library.byId(App.current);if(!t||!this.sel)return;const nw=$('#rv-new')?$('#rv-new').value:'';if(!nw)return;t.text=t.text.split(this.sel).join(nw);this.save(t);},frag(){const t=Library.byId(App.current);if(!t)return;const a=$('#rv-a')?$('#rv-a').value:'';const b=$('#rv-b')?$('#rv-b').value:'';if(!a)return;if(!t.text.includes(a)){toast('No encontrado');return;}t.text=t.text.split(a).join(b);this.save(t);},global(){const t=Library.byId(App.current);if(!t)return;t.text=$('#rv-full')?$('#rv-full').value:t.text;this.save(t);},undo(){const t=Library.byId(App.current);if(!t||!this.undoStack.length){toast('Nada que deshacer');return;}t.text=this.undoStack.pop();Store.set(K.texts,Library.data);this.init();Reader.load(t.id);toast('↩️ Deshecho');}};
+const Progress={data:[],init(){this.data=Store.get(K.prog,[]);this.render();},add(s){s.date=today();s.id=uid();s.diffs=[];s.obs='';this.data.push(s);Store.set(K.prog,this.data);this.render();App.agendaStep(3);},hit(){if(!this.data.length)this.add({title:'Actividad',mode:'actividad',secs:0,ppm:0,words:0,hits:0,kind:'actividad'});const l=this.data[this.data.length-1];l.hits=(l.hits||0)+1;Store.set(K.prog,this.data);this.render();},stars(){return this.data.filter(d=>d.kind==='lectura').length+Math.floor(this.data.reduce((a,b)=>a+(b.hits||0),0)/3);},
+  render(){const lect=this.data.filter(d=>d.kind==='lectura');const hits=this.data.reduce((a,b)=>a+(b.hits||0),0);$('#pg-r').textContent=lect.length;$('#pg-h').textContent=hits;$('#pg-d').textContent=Dict.data.length;$('#pg-s').textContent=this.stars();const last=lect.filter(d=>d.ppm>0).slice(-1)[0];$('#pg-p').textContent=last?last.ppm:'—';$('#pg-tb').innerHTML=this.data.slice(-25).reverse().map(d=>'<tr><td>'+esc(d.date)+'</td><td>'+esc(d.title)+'</td><td>'+esc(d.mode)+'</td><td>'+(d.secs||0)+'</td><td>'+(d.ppm||0)+'</td><td>'+(d.hits||0)+'</td><td>'+esc(d.obs||'—')+'</td></tr>').join('')||'<tr><td colspan="7" class="small">Sin sesiones.</td></tr>';this.chart();if(Teacher.on){$('#tp-tb').innerHTML=this.data.slice(-40).reverse().map(d=>'<tr><td>'+esc(d.date)+'</td><td>'+esc(d.title)+'</td><td>'+esc(d.mode)+'</td><td>'+(d.ppm||0)+'</td><td>'+(d.hits||0)+'</td><td>'+esc((d.diffs||[]).join(', ')||'—')+'</td><td>'+esc(d.obs||'—')+'</td></tr>').join('');$('#pg-diffs').innerHTML=DIFFS.map(d=>'<label class="chk"><input type="checkbox" class="df" value="'+esc(d)+'"> '+esc(d)+'</label>').join('');}},
+  chart(){const pts=this.data.filter(d=>d.ppm>0).slice(-20);const c=$('#pg-chart');if(pts.length<2){c.innerHTML='<p class="small tc" style="padding-top:80px">Necesitas 2 sesiones con PPM.</p>';return;}const max=Math.max.apply(null,pts.map(p=>p.ppm))*1.15;const X=i=>6+(i/(pts.length-1))*88,Y=v=>94-(v/max)*84;const line=pts.map((p,i)=>X(i).toFixed(1)+','+Y(p.ppm).toFixed(1)).join(' ');c.innerHTML='<svg viewBox="0 0 100 100" preserveAspectRatio="none" style="width:100%;height:100%"><line x1="6" y1="94" x2="96" y2="94" stroke="currentColor" stroke-width=".4" opacity=".5"/><polyline points="'+line+'" fill="none" stroke="var(--pri)" stroke-width="1.6"/>'+pts.map((p,i)=>'<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(p.ppm).toFixed(1)+'" r="1.6" fill="var(--warn)"/>').join('')+'<text x="6" y="8" font-size="5" fill="currentColor">Máx '+Math.round(max)+' PPM</text></svg>';},
+  saveObs(){if(!this.data.length){toast('Sin sesiones');return;}const l=this.data[this.data.length-1];l.obs=$('#pg-obs').value.trim();l.diffs=$$('.df:checked').map(c=>c.value);Store.set(K.prog,this.data);this.render();Sound.ok();toast('💾 Guardada');},
+  csv(){const rows=[['Fecha','Texto','Modo','Seg','PPM','Pal','Aciertos','Total','Tipo','Dificultades','Obs']];this.data.forEach(d=>rows.push([d.date,d.title,d.mode,d.secs||0,d.ppm||0,d.words||0,d.hits||0,d.total||'',d.kind||'',(d.diffs||[]).join(' / '),(d.obs||'').replace(/[\r\n]+/g,' ')]));const csv='\uFEFF'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(';')).join('\r\n');download('progreso.csv',csv,'text/csv;charset=utf-8');toast('📥 CSV descargado');},
+  json(){download('progreso.json',JSON.stringify(this.data,null,2));toast('📥 JSON descargado');},
+  reset(){if(!confirm('¿Borrar historial?'))return;this.data=[];Store.set(K.prog,[]);this.render();toast('Reiniciado');}
+};
+const Teacher={on:false,pass(){return Store.get(K.pass,'profe2024');},setPass(){const v=$('#s-pass').value.trim();if(v.length<4){toast('Mínimo 4 caracteres');return;}Store.set(K.pass,v);$('#s-pass').value='';toast('🔑 Cambiada');Sound.ok();},
+  login(v,fromEditor){if(String(v)===String(this.pass())){this.on=true;$('#tp-lock').classList.add('hide');$('#tp-body').classList.remove('hide');$('#pg-teacher').classList.remove('hide');$('#ed-lock').classList.add('hide');$('#ed-form').classList.remove('hide');$('#tp-mig').textContent=Migrate.report;$('#tp-cols').innerHTML=Array.from(new Set(Library.data.map(t=>t.collection||'general'))).map(c=>'<span class="badge">'+esc(c)+': '+Library.data.filter(t=>(t.collection||'general')===c).length+'</span>').join('');Progress.render();Sound.ok();toast('👩‍🏫 Sesión abierta');if(!fromEditor)App.nav('profe');}else{Sound.bad();toast('Contraseña incorrecta');}},
+  logout(){this.on=false;$('#tp-lock').classList.remove('hide');$('#tp-body').classList.add('hide');$('#pg-teacher').classList.add('hide');$('#tp-pass').value='';toast('🔒 Sesión cerrada');},
+  require(){if(this.on)return true;$('#ed-lock').classList.remove('hide');$('#ed-form').classList.add('hide');App.nav('profe');toast('🔒 Introduce la contraseña');return false;},
+  export(){download('informe_grupo.json',JSON.stringify({generado:today(),esquema:SCHEMA,lecturas:Library.data,progreso:Progress.data,diccionario:Dict.data,ajustes:Settings.get()},null,2));toast('📥 Informe descargado');}
+};
+const Settings={def:{theme:'t-calmado',fs:30,anim:false,simple:false,dys:false,pic:true,ruler:true,sy:true,voiceIdx:0,pitch:1,beep:false,sound:true,ps:450,pw:600,pf:1000,pp:1800,pe:5000},cache:null,
+  get(){if(!this.cache)this.cache=Object.assign({},this.def,Store.get(K.set,{}));return this.cache;},
+  load(){const s=this.get();$('#s-theme').value=s.theme;$('#s-fs').value=s.fs;$('#s-anim').checked=s.anim;$('#s-simple').checked=s.simple;$('#s-dys').checked=s.dys;$('#s-pic').checked=s.pic;$('#s-ruler').checked=s.ruler;$('#s-sy').checked=s.sy;$('#s-pitch').value=s.pitch;$('#s-beep').checked=s.beep;$('#s-sound').checked=s.sound;$('#s-ps').value=s.ps;$('#s-pw').value=s.pw;$('#s-pf').value=s.pf;$('#s-pp').value=s.pp;$('#s-pe').value=s.pe;this.apply();this.voices();},
+  apply(){const s=this.get();s.theme=$('#s-theme').value;s.fs=Number($('#s-fs').value);s.anim=$('#s-anim').checked;s.simple=$('#s-simple').checked;s.dys=$('#s-dys').checked;s.pic=$('#s-pic').checked;s.ruler=$('#s-ruler').checked;s.sy=$('#s-sy').checked;s.pitch=Number($('#s-pitch').value);s.beep=$('#s-beep').checked;s.sound=$('#s-sound').checked;document.body.className=s.theme+(s.dys?' f-dys':'')+(s.anim?' no-anim':'')+(s.simple?' simple':'')+(s.sy?' sycolor':'')+(s.ruler?' ruler-on':'');document.documentElement.style.setProperty('--fs',s.fs+'px');$('#s-fsv').textContent=s.fs+'px';$('#s-pitchv').textContent=Number(s.pitch).toFixed(1);Sound.on=s.sound;Reader.toggles();},
+  save(){const s=this.get();['ps','pw','pf','pp','pe'].forEach(k=>s[k]=clamp(Number($('#s-'+k).value)||this.def[k],0,20000));const vi=$('#s-voice').value;if(vi!=='')s.voiceIdx=Number(vi);Store.set(K.set,s);this.cache=s;Reader.makeUnits();Sound.ok();toast('💾 Guardados');},
+  restore(){if(!confirm('¿Restaurar por defecto?'))return;Store.del(K.set);this.cache=null;this.load();toast('Restaurados');},
+  voices(){const sel=$('#s-voice');let vs=[];try{vs=speechSynthesis.getVoices()||[];}catch(e){}if(!vs.length){sel.innerHTML='<option value="">Voz del sistema</option>';return;}const s=this.get();sel.innerHTML=vs.map((v,i)=>'<option value="'+i+'"'+(i===s.voiceIdx?' selected':'')+'>'+esc(v.name)+' ('+esc(v.lang)+')</option>').join('');const es=vs.findIndex(v=>/^es/i.test(v.lang));if(es>=0&&!Store.get(K.set,null)){sel.value=es;s.voiceIdx=es;}},
+  testVoice(){Speech.say('Hola, vamos a leer juntos.');}
+};
+const Gym={sets:{1:['sol','pan','mar','casa','mesa','gato','luna','pato','flor','reloj'],2:['pelota','manzana','ventana','camino','zapato','mariposa','gallina','cuaderno','estrella','caballo'],3:['murciélago','biblioteca','ferrocarril','extraordinario','constelación','refrigerador','maravilloso','electricidad']},list:[],i:0,t0:0,done:0,
+  start(){this.list=shuffle(this.sets[$('#gym-lv').value]);this.i=0;this.done=0;this.t0=Date.now();$('#gym-fb').textContent='';this.show();Sound.click();},
+  show(){if(this.i>=this.list.length){this.stop();return;}$('#gym-w').textContent=this.list[this.i];},
+  next(){if(!this.list.length)this.start();else{this.i++;this.done++;this.show();Sound.click();}},
+  stop(){if(!this.done){$('#gym-w').textContent='Pulsa ▶️';return;}const secs=Math.round((Date.now()-this.t0)/1000);const useTimer=$('#gym-timer').checked;const ppm=useTimer&&secs>0?Math.round(this.done/(secs/60)):0;$('#gym-w').textContent='¡Completado! 🎉';$('#gym-fb').textContent=this.done+' palabras · '+secs+' s'+(useTimer?' · '+ppm+' PPM':' · sin cronómetro');$('#gym-fb').className='fb ok';Progress.add({title:'Gimnasio',mode:'fluidez',secs:secs,ppm:ppm,words:this.done,hits:this.done,kind:'actividad'});Sound.win();this.list=[];this.done=0;}
+};
+const Lab={c:'m',v:'a',ex:{ma:['mamá','👩'],me:['mesa','🪑'],mi:['mirar','👀'],mo:['mono','🐵'],mu:['mundo','🌍'],pa:['pan','🍞'],pe:['perro','🐶'],pi:['pintar','🖌️'],po:['pollo','🐔'],pu:['puerta','🚪'],la:['lápiz','✏️'],le:['leer','📖'],li:['libro','📚'],lo:['lobo','🐺'],lu:['luna','🌙'],sa:['sal','🧂'],se:['semilla','🌱'],si:['silla','🪑'],so:['sol','☀️'],su:['subir','⬆️'],ta:['taza','☕'],te:['tren','🚆'],ti:['tijeras','✂️'],to:['tomate','🍅'],tu:['tumba','🪦'],da:['dar','🎁'],de:['dedo','👆'],di:['dibujar','🎨'],do:['dos','2️⃣'],du:['ducha','🚿']},
+  load(){$('#lab-c').innerHTML=['m','p','l','s','t','d'].map(c=>'<button class="btn" onclick="Lab.pick(\'c\',\''+c+'\')">'+c.toUpperCase()+'</button>').join('');$('#lab-v').innerHTML=['a','e','i','o','u'].map(v=>'<button class="btn warn" onclick="Lab.pick(\'v\',\''+v+'\')">'+v.toUpperCase()+'</button>').join('');this.show();},
+  pick(k,v){this[k]=v;this.show();Sound.click();this.speak();},
+  show(){const s=this.c+this.v;$('#lab-res').textContent=s.toUpperCase();const e=this.ex[s];$('#lab-pic').innerHTML=e?'<div style="font-size:60px">'+e[1]+'</div><b>'+esc(e[0])+'</b>':'<span class="small">Prueba otra</span>';},
+  speak(){Speech.say(this.c+this.v,0.6);},
+  speakWord(){const e=this.ex[this.c+this.v];if(e)Speech.say(e[0],0.8);else toast('Sin ejemplo');}
+};
+const Build={items:[{w:'CASA',s:['CA','SA'],p:'casa'},{w:'PERRO',s:['PE','RRO'],p:'perro'},{w:'PELOTA',s:['PE','LO','TA'],p:'pelota'},{w:'MANZANA',s:['MAN','ZA','NA'],p:'manzana'},{w:'ZAPATO',s:['ZA','PA','TO'],p:'zapato'},{w:'MARIPOSA',s:['MA','RI','PO','SA'],p:'mariposa'},{w:'ELEFANTE',s:['E','LE','FAN','TE'],p:'elefante'},{w:'VENTANA',s:['VEN','TA','NA'],p:'ventana'},{w:'CUADERNO',s:['CUA','DER','NO'],p:'cuaderno'}],i:0,sel:[],
+  load(){const it=this.items[this.i];this.sel=[];$('#b-pic').innerHTML='<div style="font-size:70px">'+PictoDB.any(it.p)+'</div>';$('#b-slot').textContent='';$('#b-fb').textContent='';const extra=shuffle(['LO','MI','TU','RA','SE']).slice(0,2);$('#b-opts').innerHTML=shuffle(it.s.concat(extra)).map(s=>'<button class="chip" onclick="Build.add(this)">'+s+'</button>').join('');},
+  add(b){this.sel.push(b.textContent);b.classList.add('used');$('#b-slot').textContent=this.sel.join('');Sound.click();},
+  clear(){this.load();},next(){this.i=(this.i+1)%this.items.length;this.load();Sound.click();},speak(){Speech.say(this.items[this.i].w,0.7);},
+  check(){const it=this.items[this.i],ok=this.sel.join('')===it.w,fb=$('#b-fb');fb.textContent=ok?'¡Correcto! '+it.w+' 🎉':'Inténtalo otra vez 💪';fb.className='fb '+(ok?'ok':'bad');if(ok){Sound.ok();Progress.add({title:'Formar: '+it.w,mode:'sílabas',secs:0,ppm:0,words:1,hits:1,kind:'actividad'});}else Sound.bad();}
+};
+const Order={list:['El perro corre rápido','La niña come una manzana','El sol brilla en el cielo','Me gusta leer cuentos','El gato duerme en la cama','Mi mamá me quiere mucho','El libro está en la mesa'],i:0,sel:[],
+  load(){const p=this.list[this.i];this.sel=[];$('#o-slot').textContent='';$('#o-fb').textContent='';$('#o-opts').innerHTML=shuffle(p.split(' ')).map(w=>'<button class="chip" onclick="Order.add(this)">'+esc(w)+'</button>').join('');},
+  add(b){this.sel.push(b.textContent);b.classList.add('used');$('#o-slot').textContent=this.sel.join(' ');Sound.click();},
+  clear(){this.load();},next(){this.i=(this.i+1)%this.list.length;this.load();Sound.click();},speak(){Speech.say(this.list[this.i],0.85);},
+  check(){const p=this.list[this.i],ok=this.sel.join(' ')===p,fb=$('#o-fb');fb.textContent=ok?'¡Frase correcta! 🌟':'Revisa el orden 💪';fb.className='fb '+(ok?'ok':'bad');if(ok){Sound.ok();this.speak();Progress.add({title:'Ordenar frase',mode:'sintaxis',secs:0,ppm:0,words:p.split(' ').length,hits:1,kind:'actividad'});}else Sound.bad();}
+};
+const Detective={items:[{bad:'El pero corre por el parke.',good:['perro','parque']},{bad:'La kasa tiene una bentana.',good:['casa','ventana']},{bad:'Mi ermano lee un livro.',good:['hermano','libro']},{bad:'El sol yía mucho por el día.',good:['brilla','día']}],i:0,fixed:{},
+  load(){const it=this.items[this.i];this.fixed={};$('#dt-fb').textContent='';$('#dt-text').innerHTML=it.bad.split(/(\s+)/).map(tk=>{if(/^\s+$/.test(tk))return tk;const clean=tk.replace(/[.,;:]/g,'');const match=it.good.find(g=>this.similar(clean,g));return match?'<span class="err" data-g="'+esc(match)+'" onclick="Detective.fix(this)">'+esc(tk)+'</span>':esc(tk);}).join('');},
+  similar(a,b){a=norm(a);b=norm(b);if(a===b)return false;if(Math.abs(a.length-b.length)>2)return false;let same=0;for(const c of a)if(b.includes(c))same++;return same>=Math.max(2,b.length-2);},
+  fix(el){const g=el.dataset.g,r=prompt('¿Cómo se escribe bien?',g);if(r==null)return;if(norm(r)===norm(g)){el.textContent=g;el.classList.add('fixed');el.onclick=null;this.fixed[g]=true;Sound.ok();Progress.hit();}else{Sound.bad();toast('Casi: '+g);}},
+  check(){const it=this.items[this.i],ok=Object.keys(this.fixed).length>=it.good.length,fb=$('#dt-fb');fb.textContent=ok?'¡Todos corregidos! 🕵️🎉':'Quedan errores';fb.className='fb '+(ok?'ok':'bad');ok?Sound.win():Sound.bad();},
+  next(){this.i=(this.i+1)%this.items.length;this.load();Sound.click();}
+};
+const Ladder={sents:['El perro juega en el parque','La flor crece con el agua','Mi amigo lee un libro','El gato duerme en la silla'],i:0,step:1,
+  load(){this.i=Math.floor(Math.random()*this.sents.length);this.step=1;this.paint();},
+  paint(){const ws=this.sents[this.i].split(' '),out=[];for(let k=1;k<=this.step;k++)out.push(ws.slice(0,k).join(' '));$('#ld-box').innerHTML=out.map((t,k)=>'<div class="'+(k===out.length-1?'now':'')+'">'+esc(t)+'</div>').join('');},
+  next(){const n=this.sents[this.i].split(' ').length;this.step=this.step>=n?1:this.step+1;this.paint();Sound.click();},
+  speak(){Speech.say(this.sents[this.i].split(' ').slice(0,this.step).join(' '),0.75);}
+};
+const Retos={t:null,qs:[],ans:[],stars:0,
+  load(){const pool=Library.data.filter(t=>(t.questions||[]).length>=2);if(!pool.length){$('#rt-body').innerHTML='<p>Sin preguntas.</p>';return;}this.t=pool[Math.floor(Math.random()*pool.length)];this.qs=shuffle(this.t.questions).slice(0,3);this.ans=[];$('#rt-fb').textContent='';$('#rt-body').innerHTML='<div class="act"><b>📖 '+esc(this.t.title)+'</b><p style="white-space:pre-wrap">'+esc(this.t.text.replace(/\[picto:([^\]]+)\]/g,'$1'))+'</p></div>'+this.qs.map((q,i)=>'<div class="act"><p><b>'+(i+1)+'. '+esc(q[0])+'</b></p><div class="g2">'+shuffle(q.slice(1)).map(o=>'<label class="opt"><input type="radio" name="rt'+i+'" value="'+esc(o)+'" onchange="Retos.answer('+i+',this)"> '+esc(o)+'</label>').join('')+'</div></div>').join('');},
+  answer(i,el){const ok=el.value===this.qs[i][1];el.closest('.opt').classList.add(ok?'good':'wrong');if(ok){this.stars++;Sound.ok();}else Sound.bad();if(i===this.qs.length-1){const fb=$('#rt-fb');fb.textContent='Reto terminado. Estrellas: '+'⭐'.repeat(Math.max(1,this.stars));fb.className='fb ok';Progress.add({title:'Reto: '+this.t.title,textId:this.t.id,mode:'reto',secs:0,ppm:0,words:0,hits:this.stars,total:this.qs.length,kind:'comprensión'});Sound.win();}}
+};
+const Memory={words:[],shown:[],selected:[],pool:Object.keys(LOCAL).filter(w=>w.length>=3&&w.length<=7).slice(0,40),
+  start(){const n=Number($$('input[name="mem-lv"]:checked')[0].value)||3;const t=Number($$('input[name="mem-t"]:checked')[0].value)||4;this.words=shuffle(this.pool).slice(0,n);this.shown=this.words.slice();this.selected=[];$('#mem-fb').textContent='';$('#mem-select').classList.add('hide');$('#mem-grid').innerHTML=this.words.map(w=>'<div class="mem-card"><div class="pic">'+PictoDB.any(w)+'</div><b>'+esc(w)+'</b></div>').join('');
+    setTimeout(()=>{$('#mem-grid').innerHTML=this.words.map(w=>'<div class="mem-card flip"><div class="pic">❓</div><b>¿Recuerdas?</b></div>').join('');const distractors=shuffle(this.pool.filter(w=>!this.words.includes(w))).slice(0,Math.min(4,8-n));const all=shuffle(this.words.concat(distractors));$('#mem-opts').innerHTML=all.map(w=>'<button class="chip" onclick="Memory.toggle(this,\''+esc(w)+'\')">'+esc(w)+'</button>').join('');$('#mem-select').classList.remove('hide');},t*1000);Sound.click();},
+  toggle(btn,w){if(btn.classList.contains('used')){btn.classList.remove('used');this.selected=this.selected.filter(x=>x!==w);}else{btn.classList.add('used');this.selected.push(w);}Sound.click();},
+  check(){const ok=this.selected.length===this.words.length&&this.selected.every(w=>this.words.includes(w));const fb=$('#mem-fb');if(ok){fb.textContent='¡Perfecto! Recordaste todas 🎉';fb.className='fb ok';Sound.win();Progress.add({title:'Memoria',mode:'memoria',secs:0,ppm:0,words:this.words.length,hits:this.words.length,kind:'actividad'});$$('#mem-opts .chip.used').forEach(b=>{b.style.background='var(--ok)';b.style.color='#fff';});}else{fb.textContent='Casi. Eran: '+this.words.join(', ');fb.className='fb bad';Sound.bad();Progress.add({title:'Memoria',mode:'memoria',secs:0,ppm:0,words:this.words.length,hits:this.selected.filter(w=>this.words.includes(w)).length,kind:'actividad'});}},
+  next(){this.start();}
+};
+const Dictado={current:null,options:[],pool:Object.keys(LOCAL).filter(w=>w.length>=3&&w.length<=7).slice(0,60),
+  load(){const correct=this.pool[Math.floor(Math.random()*this.pool.length)];this.current=correct;const distractors=shuffle(this.pool.filter(w=>w!==correct)).slice(0,3);this.options=shuffle([correct].concat(distractors));$('#dic-opts').innerHTML=this.options.map(w=>'<button class="act-card" style="padding:12px" onclick="Dictado.pick(this,\''+esc(w)+'\')"><div style="font-size:48px">'+PictoDB.any(w)+'</div><b>'+esc(w)+'</b></button>').join('');$('#dic-fb').textContent='';},
+  play(){if(!this.current)this.load();Speech.say(this.current,0.8);},
+  pick(btn,w){const ok=w===this.current;if(ok){btn.style.background='var(--ok)';btn.style.color='#fff';$('#dic-fb').textContent='¡Correcto! 🎉';$('#dic-fb').className='fb ok';Sound.ok();Progress.add({title:'Dictado: '+this.current,mode:'dictado',secs:0,ppm:0,words:1,hits:1,kind:'actividad'});setTimeout(()=>this.next(),1200);}else{btn.style.background='var(--bad)';btn.style.color='#fff';$('#dic-fb').textContent='No es esa. Escucha otra vez 💪';$('#dic-fb').className='fb bad';Sound.bad();btn.disabled=true;}},
+  next(){this.load();Sound.click();}
+};
+const Cadena={pairs:[{prev:'CASA',syl:'SA',next:'SACO'},{prev:'SACO',syl:'CO',next:'COCODRILO'},{prev:'PERRO',syl:'RRO',next:'RROPA'},{prev:'MESA',syl:'SA',next:'SILLA'},{prev:'GATO',syl:'TO',next:'TOMATE'},{prev:'LUNA',syl:'NA',next:'NARIZ'},{prev:'PATO',syl:'TO',next:'TORTUGA'},{prev:'MARIPOSA',syl:'SA',next:'SANDÍA'},{prev:'COCODRILO',syl:'LO',next:'LOBO'},{prev:'PELOTA',syl:'TA',next:'TREN'}],i:0,
+  load(){const it=this.pairs[this.i];$('#cad-prev').textContent=it.prev;$('#cad-syl').textContent=it.syl;const distractors=shuffle(['CA','MI','PA','LU','TE','NO']).slice(0,2);const opts=shuffle([it.next].concat(distractors));$('#cad-opts').innerHTML=opts.map(w=>'<button class="btn" style="font-size:1.2rem" onclick="Cadena.pick(this,\''+esc(w)+'\')">'+esc(w)+'</button>').join('');$('#cad-fb').textContent='';},
+  pick(btn,w){const it=this.pairs[this.i];if(w===it.next){btn.style.background='var(--ok)';btn.style.color='#fff';$('#cad-fb').textContent='¡Correcto! '+it.prev+' → '+it.next+' 🎉';$('#cad-fb').className='fb ok';Sound.ok();Progress.add({title:'Cadena: '+it.prev+'→'+it.next,mode:'fonología',secs:0,ppm:0,words:1,hits:1,kind:'actividad'});}else{btn.style.background='var(--bad)';btn.style.color='#fff';$('#cad-fb').textContent='No es esa. La sílaba '+it.syl+' empieza '+it.next+' 💪';$('#cad-fb').className='fb bad';Sound.bad();btn.disabled=true;}},
+  next(){this.i=(this.i+1)%this.pairs.length;this.load();Sound.click();}
+};
+const Intrusa={cats:[{cat:'Animales',words:['perro','gato','pájaro','mesa'],intrusa:'mesa'},{cat:'Frutas',words:['manzana','pera','plátano','coche'],intrusa:'coche'},{cat:'Colores',words:['rojo','azul','verde','perro'],intrusa:'perro'},{cat:'Ropa',words:['camisa','pantalón','zapato','manzana'],intrusa:'manzana'},{cat:'Muebles',words:['mesa','silla','cama','perro'],intrusa:'perro'},{cat:'Transportes',words:['coche','autobús','tren','flor'],intrusa:'flor'},{cat:'Comidas',words:['pan','queso','arroz','lápiz'],intrusa:'lápiz'},{cat:'Útiles escolares',words:['lápiz','goma','regla','pelota'],intrusa:'pelota'}],i:0,
+  load(){const it=this.cats[this.i];$('#int-cat').textContent='Categoría: '+it.cat;$('#int-opts').innerHTML=shuffle(it.words).map(w=>'<button class="btn" style="font-size:1.1rem;padding:14px" onclick="Intrusa.pick(this,\''+esc(w)+'\',\''+esc(it.intrusa)+'\')">'+esc(w)+'</button>').join('');$('#int-fb').textContent='';},
+  pick(btn,w,intrusa){if(w===intrusa){btn.style.background='var(--ok)';btn.style.color='#fff';$('#int-fb').textContent='¡Correcto! «'+w+'» no es de la categoría 🎉';$('#int-fb').className='fb ok';Sound.ok();Progress.add({title:'Intrusa: '+intrusa,mode:'categorización',secs:0,ppm:0,words:1,hits:1,kind:'actividad'});}else{btn.style.background='var(--bad)';btn.style.color='#fff';$('#int-fb').textContent='No es esa. Busca la que no pertenece 💪';$('#int-fb').className='fb bad';Sound.bad();btn.disabled=true;}},
+  next(){this.i=(this.i+1)%this.cats.length;this.load();Sound.click();}
+};
+const Rimas={pairs:[{word:'gato',rhymes:['plato','rato','pato'],no:['mesa','libro','sol']},{word:'luna',rhymes:['cuna','fortuna','alguna'],no:['perro','pan','flor']},{word:'mesa',rhymes:['presa','tesa','empresa'],no:['gato','sol','luna']},{word:'sol',rhymes:['col','caracol','español'],no:['mesa','gato','luna']},{word:'pan',rhymes:['man','jamán','tán'],no:['mesa','gato','luna']},{word:'flor',rhymes:['color','amor','dolor'],no:['mesa','gato','sol']},{word:'casa',rhymes:['asa','masa','pasa'],no:['perro','luna','sol']},{word:'canción',rhymes:['razón','melón','campeón'],no:['mesa','gato','sol']}],i:0,
+  load(){const it=this.pairs[this.i];$('#rim-word').textContent=it.word;const opts=shuffle([it.rhymes[0]].concat(shuffle(it.no).slice(0,2)));$('#rim-opts').innerHTML=opts.map(w=>'<button class="btn" style="font-size:1.1rem;padding:14px" onclick="Rimas.pick(this,\''+esc(w)+'\',\''+esc(it.rhymes[0])+'\')">'+esc(w)+'</button>').join('');$('#rim-fb').textContent='';},
+  play(){if(!this.pairs[this.i])return;Speech.say(this.pairs[this.i].word,0.8);},
+  pick(btn,w,correct){if(w===correct){btn.style.background='var(--ok)';btn.style.color='#fff';$('#rim-fb').textContent='¡Correcto! '+w+' rima con '+correct+' 🎉';$('#rim-fb').className='fb ok';Sound.ok();Progress.add({title:'Rima: '+correct,mode:'fonología',secs:0,ppm:0,words:1,hits:1,kind:'actividad'});}else{btn.style.background='var(--bad)';btn.style.color='#fff';$('#rim-fb').textContent='No rima. Escucha otra vez 💪';$('#rim-fb').className='fb bad';Sound.bad();btn.disabled=true;}},
+  next(){this.i=(this.i+1)%this.pairs.length;this.load();Sound.click();}
+};
+const App={view:'inicio',current:null,emo:null,steps:[false,false,false,false],
+  async init(){
+    Migrate.run();
+    await PictoDB.load();
+    Sound.init();
+    Settings.load();
+    Library.init();
+    Library.fillSelects();
+    Library.render();
+    Dict.init();
+    Progress.init();
+    Pictos.render();
+    Pictos.seqRender();
+    Lab.load();
+    Build.load();
+    Order.load();
+    Detective.load();
+    Ladder.load();
+    Memory.start();
+    Dictado.load();
+    Cadena.load();
+    Intrusa.load();
+    Rimas.load();
+    const verEl=$('#ver');if(verEl)verEl.textContent=SCHEMA;
+    const edForm=$('#ed-form');if(edForm)edForm.classList.add('hide');
+    const edLock=$('#ed-lock');if(edLock)edLock.classList.remove('hide');
+    this.emo=Store.get(K.emo,null);
+    this.agenda();
+    this.nav('inicio');
+    Reader.initControls();
+    try{speechSynthesis.onvoiceschanged=()=>Settings.voices();}catch(e){}
+    setTimeout(()=>Settings.voices(),700);
+    setTimeout(()=>Settings.voices(),2000);
+    document.addEventListener('click',()=>Sound.ready(),{once:true});
+    console.log('✅ Karaoke Lector v7 · '+Library.data.length+' lecturas · 12 actividades · controles dobles');
+  },
+  nav(v){
+    this.view=v;
+    $$('.view').forEach(s=>s.classList.remove('on'));
+    const el=$('#v-'+v);if(el)el.classList.add('on');
+    $$('.nb').forEach(b=>b.setAttribute('aria-current',String((b.getAttribute('onclick')||'').includes("'"+v+"'"))));
+    window.scrollTo({top:0,behavior:'smooth'});
+    if(v==='biblioteca')Library.render();
+    if(v==='comprendo')Compre.build();
+    if(v==='palabras'){Words.render();Dict.render();}
+    if(v==='pictos'){Pictos.render();Pictos.seqRender();}
+    if(v==='crear'){Library.fillSelects();Editor.pictos();Editor.preview();if(Teacher.on){$('#ed-lock').classList.add('hide');$('#ed-form').classList.remove('hide');}}
+    if(v==='revisar')Review.init();
+    if(v==='progreso')Progress.render();
+    if(v==='retos')Retos.load();
+    if(v==='build')Build.load();
+    if(v==='order')Order.load();
+    if(v==='detective')Detective.load();
+    if(v==='ladder')Ladder.load();
+    if(v==='memory')Memory.start();
+    if(v==='dictado')Dictado.load();
+    if(v==='cadena')Cadena.load();
+    if(v==='intrusa')Intrusa.load();
+    if(v==='rimas')Rimas.load();
+    if(v==='leer'&&this.current){Reader.load(this.current);Reader.initControls();}
+    if(v!=='leer')Reader.pause();
+  },
+  agenda(){const items=[['👋','Saludo y check-in','Toca la cara que mejor te describa.'],['📖','Lectura','Elige una lectura y escúchala o léela.'],['🎯','Comprensión','Responde las actividades del texto.'],['⭐','Progreso','Mira tus estrellas y tu esfuerzo.']];$('#agenda').innerHTML=items.map((it,i)=>'<div class="ag'+(this.steps[i]?' done':'')+'"><span class="ic">'+it[0]+'</span><div><b>'+(i+1)+'. '+it[1]+'</b><p class="small">'+it[2]+'</p></div><span style="font-size:1.4rem">'+(this.steps[i]?'✅':'⬜')+'</span></div>').join('');let first=this.steps.findIndex(s=>!s);if(first<0)first=3;const next=Math.min(3,first+1);$('#primero-luego').innerHTML='<div class="box"><div style="font-size:1.8rem">'+items[first][0]+'</div>Primero<br>'+items[first][1]+'</div><span class="ar">➡️</span><div class="box"><div style="font-size:1.8rem">'+items[next][0]+'</div>Luego<br>'+items[next][1]+'</div>';},
+  agendaStep(i){this.steps[i]=true;this.agenda();},
+  emotion(e,btn){this.emo=e;Store.set(K.emo,e);$$('#emo button').forEach(b=>b.setAttribute('aria-pressed','false'));btn.setAttribute('aria-pressed','true');this.agendaStep(0);Sound.tone(520,.12);const msgs={'muy bien':'¡Me alegro mucho! Vamos a tener un buen día.','bien':'¡Genial! Estamos listos para aprender.','regular':'Está bien sentirse así. Vamos paso a paso.','triste':'Gracias por contarlo. Tómate tu tiempo.','enfadado':'Es válido enfadarse. Podemos respirar juntos.','cansado':'Si estás cansado, hacemos una pausa corta y seguimos.'};const need=['regular','triste','enfadado','cansado'].includes(e);$('#emo-msg').innerHTML='<p style="font-weight:bold">'+esc(msgs[e]||'')+'</p>'+(need?'<button class="btn warn mt" onclick="App.calm(true)">🫧 Ir al rincón de calma</button>':'<button class="btn ok mt" onclick="App.start()">▶️ Empezar a leer</button>');},
+  calm(on){const m=$('#calm');if(on){Reader.pause();m.classList.add('on');Sound.tone(330,.5,'sine',.1);const txt=['Hincha la tripa como un globo…','Aguanta el aire un momento…','Suelta el aire despacio…','Muy bien. Otra vez.'];let i=0;$('#calm-txt').textContent=txt[0];clearInterval(this._calm);this._calm=setInterval(()=>{i=(i+1)%txt.length;$('#calm-txt').textContent=txt[i];},3000);}else{m.classList.remove('on');clearInterval(this._calm);toast('🙂 Seguimos cuando quieras');}},
+  start(){if(!this.current){this.nav('biblioteca');toast('Elige una lectura 📚');return;}const m=$('#count');m.classList.add('on');let n=3;$('#count-n').textContent=n;const t=setInterval(()=>{n--;$('#count-n').textContent=n>0?n:'¡Vamos!';if(n<=0){clearInterval(t);setTimeout(()=>{m.classList.remove('on');this.nav('leer');Reader.load(this.current);},600);}},800);},
+  exportAll(){download('kli_copia_seguridad.json',JSON.stringify({version:SCHEMA,fecha:today(),lecturas:Library.data,progreso:Progress.data,diccionario:Dict.data,ajustes:Settings.get(),pictogramasPropios:PictoDB.cache},null,2));toast('📤 Copia descargada');},
+  importAll(input){const f=input.files&&input.files[0];if(!f)return;const fr=new FileReader();fr.onload=async()=>{try{const d=JSON.parse(fr.result);if(Array.isArray(d.lecturas)){Store.set(K.texts,d.lecturas);Library.init();}if(Array.isArray(d.progreso)){Store.set(K.prog,d.progreso);Progress.init();}if(Array.isArray(d.diccionario)){Store.set(K.dict,d.diccionario);Dict.init();}if(d.ajustes){Store.set(K.set,d.ajustes);Settings.cache=null;Settings.load();}if(d.pictogramasPropios){for(const w in d.pictogramasPropios)await PictoDB.put(w,d.pictogramasPropios[w]);}Library.fillSelects();Library.render();Pictos.render();Sound.ok();toast('📥 Datos importados');}catch(e){Sound.bad();toast('⚠️ Archivo no válido');}};fr.readAsText(f);input.value='';},
+  hardReset(){if(!confirm('Se borrarán TODOS los datos. ¿Continuar?'))return;try{localStorage.clear();}catch(e){}try{indexedDB.deleteDatabase('kli_pictos');}catch(e){}location.reload();}
+};
+window.addEventListener('keydown',e=>{if(e.key==='Escape'){$('#calm').classList.remove('on');$('#prompt').classList.remove('on');$('#count').classList.remove('on');Reader.pause();clearInterval(App._calm);}const typing=/^(INPUT|TEXTAREA|SELECT)$/.test((e.target.tagName||''));if(typing)return;if(App.view==='leer'){if(e.code==='Space'){e.preventDefault();Reader.playing?Reader.pause():Reader.play();}if(e.key==='ArrowRight'){e.preventDefault();Reader.next();}if(e.key==='ArrowLeft'){e.preventDefault();Reader.prev();}}});
+window.addEventListener('beforeunload',()=>{try{speechSynthesis.cancel();}catch(e){}});
+document.addEventListener('DOMContentLoaded',()=>App.init());
+</script>
+</body>
+</html>

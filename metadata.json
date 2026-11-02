@@ -1,0 +1,6 @@
+{
+  "name": "Karaoke Lector Inclusivo · TEA & DUA",
+  "description": "Aplicación interactiva y accesible de lectoescritura inclusiva, karaoke lector silábico, comprensión y biblioteca multinivel adaptada a Educación Primaria, TEA y DUA.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
